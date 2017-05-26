@@ -4,17 +4,16 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Bienvenidos a </span> Una Gauchada</h1>
+                <h1><span>Resultado de la búsqueda </span></h1>
             </div>
 
-    <form action="{{ path('favor_new') }}" method="POST" class="imput-group">
-    {# <form action="#" method="POST"> #}
-        <button type="submit" class="btn btn-block btn-primary center">Pedir un favor</button>
-    </form>
-    <a href="{{ path('favor_index') }}" class="btn btn-block btn btn-default"> Lista de favores </a>
-    <a href="{{ path('favor_newBuscar') }}" class="btn btn-block btn btn-default"> Busqueda de favores </a>
-            
+
+        <li>
+            <a href="{{ path('homepage') }}">Volver al menú</a>
+        </li>
+    </ul>
 {% endblock %}
+
 
 {% block stylesheets %}
 <style>
@@ -43,4 +42,4 @@
         .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
     }
 </style>
-{% endblock %}
+{% endblock %}  

@@ -31,6 +31,43 @@ class FavorController extends Controller
         ));
     }
 
+
+    /**
+     *
+     * @Route("/newBuscar", name="favor_newBuscar")
+     * @Method({"GET", "POST"})
+     */
+    public function newBuscarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+
+        return $this->render('favor/newBuscar.html.twig', array(
+            'favors' => $favors,
+        ));
+    }
+
+
+
+    /**
+     *
+     * @Route("/buscar/{id}", name="favor_buscar")
+     * @Method({"GET", "POST"})
+     */
+    public function buscarAction($id)
+    {
+        var_dump('adasdasd');die;
+        $em = $this->getDoctrine()->getManager();
+
+        $favors = $em->getRepository('AppBundle:Favor')->findOneBy($id);
+
+        return $this->render('favor/buscar.html.twig', array(
+            'favors' => $favors,
+        ));
+    }
+
+
     /**
      * Creates a new favor entity.
      *
