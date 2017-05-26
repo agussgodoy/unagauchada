@@ -94,6 +94,25 @@ class Usuario implements AdvancedUserInterface, \Serializable
 
 
     /**
+     * Un usuario tiene muchas calificaciones dadas
+     * @ORM\OneToMany(targetEntity="Calificacion", mappedBy="usuarioAutor")
+     */
+    private $calificacionesDadas;
+
+    /**
+     * Un usuario tiene muchas calificaciones recibidas
+     * @ORM\OneToMany(targetEntity="Calificacion", mappedBy="usuarioCalificado")
+     */
+    private $calificacionesRecibidas;
+
+    /**
+     * muchos usuarios pueden postularse al mismo favor 
+     * @ORM\ManyToOne(targetEntity="Favor", inversedBy="candidatos")
+     * @ORM\JoinColumn(name="favor_postulado_id", referencedColumnName="id")
+     */
+    private $postulaciones;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -387,5 +406,107 @@ class Usuario implements AdvancedUserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
+    }
+
+    public function getUserName()
+    {
+        return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->calificacionesDadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calificacionesRecibidas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add calificacionesDadas
+     *
+     * @param \AppBundle\Entity\Calificacion $calificacionesDadas
+     * @return Usuario
+     */
+    public function addCalificacionesDada(\AppBundle\Entity\Calificacion $calificacionesDadas)
+    {
+        $this->calificacionesDadas[] = $calificacionesDadas;
+
+        return $this;
+    }
+
+    /**
+     * Remove calificacionesDadas
+     *
+     * @param \AppBundle\Entity\Calificacion $calificacionesDadas
+     */
+    public function removeCalificacionesDada(\AppBundle\Entity\Calificacion $calificacionesDadas)
+    {
+        $this->calificacionesDadas->removeElement($calificacionesDadas);
+    }
+
+    /**
+     * Get calificacionesDadas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCalificacionesDadas()
+    {
+        return $this->calificacionesDadas;
+    }
+
+    /**
+     * Add calificacionesRecibidas
+     *
+     * @param \AppBundle\Entity\Calificacion $calificacionesRecibidas
+     * @return Usuario
+     */
+    public function addCalificacionesRecibida(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
+    {
+        $this->calificacionesRecibidas[] = $calificacionesRecibidas;
+
+        return $this;
+    }
+
+    /**
+     * Remove calificacionesRecibidas
+     *
+     * @param \AppBundle\Entity\Calificacion $calificacionesRecibidas
+     */
+    public function removeCalificacionesRecibida(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
+    {
+        $this->calificacionesRecibidas->removeElement($calificacionesRecibidas);
+    }
+
+    /**
+     * Get calificacionesRecibidas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCalificacionesRecibidas()
+    {
+        return $this->calificacionesRecibidas;
+    }
+
+    /**
+     * Set postulaciones
+     *
+     * @param \AppBundle\Entity\Favor $postulaciones
+     * @return Usuario
+     */
+    public function setPostulaciones(\AppBundle\Entity\Favor $postulaciones = null)
+    {
+        $this->postulaciones = $postulaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get postulaciones
+     *
+     * @return \AppBundle\Entity\Favor 
+     */
+    public function getPostulaciones()
+    {
+        return $this->postulaciones;
     }
 }
