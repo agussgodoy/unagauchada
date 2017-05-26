@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Favor</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ favor.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulo</th>
+                <td>{{ favor.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Detalle</th>
+                <td>{{ favor.detalle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('favor_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('favor_edit', { 'id': favor.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

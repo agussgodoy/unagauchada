@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Favors list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Detalle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for favor in favors %}
+            <tr>
+                <td><a href="{{ path('favor_show', { 'id': favor.id }) }}">{{ favor.id }}</a></td>
+                <td>{{ favor.titulo }}</td>
+                <td>{{ favor.detalle }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('favor_show', { 'id': favor.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('favor_edit', { 'id': favor.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('favor_new') }}">Create a new favor</a>
+        </li>
+    </ul>
+{% endblock %}
