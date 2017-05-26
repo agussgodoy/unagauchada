@@ -419,6 +419,11 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
         $this->calificacionesDadas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calificacionesRecibidas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setIsActive(true);
+        $this->setRol('ROLE_USER');
+        $this->setCreatedAt(new \DateTime);
+        $this->setCreditos(0);
+
     }
 
     /**
