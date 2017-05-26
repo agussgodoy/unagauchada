@@ -13,7 +13,13 @@ class FavorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titulo')->add('detalle')->add('categoria')->add('localidad')->add('partido')->add('elegido')->add('autor');
+        $builder->add('titulo')
+        ->add('detalle')
+        ->add('categoria')
+        ->add('localidad')
+        ->add('partido');
+        //->add('elegido')
+        //->add('autor');
     }
     
     /**

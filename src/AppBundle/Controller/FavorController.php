@@ -42,6 +42,8 @@ class FavorController extends Controller
         $favor = new Favor();
         $form = $this->createForm('AppBundle\Form\FavorType', $favor);
         $form->handleRequest($request);
+        $favor->setAutor($this->getUser());
+        $favor->setElegido(null);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -88,7 +90,7 @@ class FavorController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('favor_edit', array('id' => $favor->getId()));
+            return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
         }
 
         return $this->render('favor/edit.html.twig', array(
