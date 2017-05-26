@@ -13,7 +13,29 @@ class UsuarioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email')->add('isActive')->add('password')->add('rol')->add('createdAt')->add('nombre')->add('apellido')->add('documento')->add('creditos')->add('puntaje')->add('postulaciones');
+        $builder
+            ->add('email', 'text', array(
+                'label' => 'Mail',
+                'required' => true))
+            // ->add('isActive')
+            ->add('password', 'text', array(
+                'label' => 'Contraseña',
+                'required'=> true))
+            /*->add('rol')
+            ->add('createdAt')*/
+            ->add('nombre', 'text', array(
+                'label'=> 'Nombre',
+                'required'=>true))
+            ->add('apellido', 'text', array(
+                'label'=>'Apellido' ,
+                'required'=>true))
+            ->add('documento', 'text', array(
+                'label'=>'Documento' ,
+                'required'=>true))
+/*            ->add('creditos')
+            ->add('puntaje')
+            ->add('postulaciones')*/
+            ;
     }
     
     /**

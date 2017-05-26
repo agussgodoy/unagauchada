@@ -1,16 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuario creation</h1>
-
+    <a href="{{ path('login')}}"class="btn btn-lg btn-success"><i class="fa fa-home" aria-hidden="true"></i> HOME </a>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-5">
+            <h1>Registrarse</h1>
+        </div>
+    </div>
+    <br>
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('usuario_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="row col-md-4 col-md-offset-4 input-group">
+            {# <label>Email:</label> #}
+            {{ form_row(form.email, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <br>
+        <div class="row col-md-4 col-md-offset-4 input-group">
+            {# <label>Email:</label> #}
+            {{ form_row(form.password, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <br>
+        <div class="row col-md-4 col-md-offset-4 input-group">
+            {# <label>Email:</label> #}
+            {{ form_row(form.nombre, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <br>
+        <div class="row col-md-4 col-md-offset-4 input-group">
+            {# <label>Email:</label> #}
+            {{ form_row(form.apellido, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <br>
+        <div class="row col-md-4 col-md-offset-4 input-group">
+            {# <label>Email:</label> #}
+            {{ form_row(form.documento, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <br>
+        
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <input type="submit" class="btn btn-block btn-success"value="Registrarse " />
+        </div>
+    </div>
+        {{ form_end(form) }}    
+    </div>
+    
 {% endblock %}
