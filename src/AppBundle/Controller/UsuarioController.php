@@ -44,11 +44,15 @@ class UsuarioController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $session = $this->getRequest()->getSession();
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+            $session->getFlashBag()->add('aviso_exito', 'El usuario fue creado correctamente. Ahora puede iniciar sesión.');
+
+
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('usuario/new.html.twig', array(

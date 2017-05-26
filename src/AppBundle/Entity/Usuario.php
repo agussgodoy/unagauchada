@@ -422,7 +422,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
         $this->setIsActive(true);
         $this->setRol('ROLE_USER');
         $this->setCreatedAt(new \DateTime);
-        $this->setCreditos(0);
+        $this->setCreditos(1);
 
     }
 

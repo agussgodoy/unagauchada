@@ -7,6 +7,25 @@
                 <h1><span>Bienvenidos a </span> Una Gauchada</h1>
             </div>
 
+
+    {% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+
+        <div class=" col-md-12 input-group bg-success">
+            <p>{{ flashMessage }}</p>
+        </div>
+
+    {% endfor %}
+    
+    
+    
+
+    {% for flashMessage in app.session.flashbag.get('aviso_error') %}
+        <div class=" col-md-12 input-group bg-danger">        
+            <p>{{ flashMessage }}</p>
+        </div>
+
+    {% endfor %}
+
     <form action="{{ path('login') }}" method="POST" class="imput-group">
     {# <form action="#" method="POST"> #}
         <label for="username">Email:</label>
