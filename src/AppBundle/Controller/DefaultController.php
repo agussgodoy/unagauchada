@@ -40,7 +40,6 @@ class DefaultController extends Controller
      */
     public function homepageAction()
     {
-        die('holaaaaaaa');
-        return $this->render('.html.twig');
+        return $this->render('homepage.html.twig');
     }
 }
