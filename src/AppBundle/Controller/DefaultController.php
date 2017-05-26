@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/login", name="login")
      */
     public function loginAction(Request $request)
     {
@@ -33,5 +33,14 @@ class DefaultController extends Controller
                 'error'         => $error,
             )
         );
+    }
+
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function homepageAction()
+    {
+        die('holaaaaaaa');
+        return $this->render('.html.twig');
     }
 }

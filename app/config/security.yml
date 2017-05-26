@@ -7,6 +7,9 @@ security:
         usuario:
             entity: { class: AppBundle\Entity\Usuario, property: email }
 
+    encoders:
+        AppBundle\Entity\Usuario: plaintext
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -14,7 +17,18 @@ security:
             security: false
 
         main:
+            pattern: ^/
             anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: usuario_logout
+                target: homepage
+            remember_me:
+                secret: wam1551n6pl4y3rsd
+                lifetime: 604800
+                always_remember_me: true
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
