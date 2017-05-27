@@ -71,7 +71,7 @@ class Favor
 
     /**
      * Muchos Favores corresponden a un Usuario
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="favores")
      * @ORM\JoinColumn(name="usuario_autor_id", referencedColumnName="id")
      */
     private $autor;
@@ -82,6 +82,15 @@ class Favor
      */
     private $candidatos;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->candidatos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -102,7 +111,7 @@ class Favor
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-
+    
         return $this;
     }
 
@@ -125,7 +134,7 @@ class Favor
     public function setDetalle($detalle)
     {
         $this->detalle = $detalle;
-
+    
         return $this;
     }
 
@@ -140,22 +149,32 @@ class Favor
     }
 
     /**
-     * Set comentarios
+     * Add comentarios
      *
-     * @param string $comentarios
+     * @param \AppBundle\Entity\Comentario $comentarios
      * @return Favor
      */
-    public function setComentarios($comentarios)
+    public function addComentario(\AppBundle\Entity\Comentario $comentarios)
     {
-        $this->comentarios = $comentarios;
-
+        $this->comentarios[] = $comentarios;
+    
         return $this;
+    }
+
+    /**
+     * Remove comentarios
+     *
+     * @param \AppBundle\Entity\Comentario $comentarios
+     */
+    public function removeComentario(\AppBundle\Entity\Comentario $comentarios)
+    {
+        $this->comentarios->removeElement($comentarios);
     }
 
     /**
      * Get comentarios
      *
-     * @return string 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getComentarios()
     {
@@ -165,20 +184,20 @@ class Favor
     /**
      * Set categoria
      *
-     * @param string $categoria
+     * @param \AppBundle\Entity\Categoria $categoria
      * @return Favor
      */
-    public function setCategoria($categoria)
+    public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
-
+    
         return $this;
     }
 
     /**
      * Get categoria
      *
-     * @return string 
+     * @return \AppBundle\Entity\Categoria 
      */
     public function getCategoria()
     {
@@ -188,20 +207,20 @@ class Favor
     /**
      * Set localidad
      *
-     * @param string $localidad
+     * @param \AppBundle\Entity\Localidad $localidad
      * @return Favor
      */
-    public function setLocalidad($localidad)
+    public function setLocalidad(\AppBundle\Entity\Localidad $localidad = null)
     {
         $this->localidad = $localidad;
-
+    
         return $this;
     }
 
     /**
      * Get localidad
      *
-     * @return string 
+     * @return \AppBundle\Entity\Localidad 
      */
     public function getLocalidad()
     {
@@ -211,20 +230,20 @@ class Favor
     /**
      * Set partido
      *
-     * @param string $partido
+     * @param \AppBundle\Entity\Partido $partido
      * @return Favor
      */
-    public function setPartido($partido)
+    public function setPartido(\AppBundle\Entity\Partido $partido = null)
     {
         $this->partido = $partido;
-
+    
         return $this;
     }
 
     /**
      * Get partido
      *
-     * @return string 
+     * @return \AppBundle\Entity\Partido 
      */
     public function getPartido()
     {
@@ -234,20 +253,20 @@ class Favor
     /**
      * Set elegido
      *
-     * @param string $elegido
+     * @param \AppBundle\Entity\Usuario $elegido
      * @return Favor
      */
-    public function setElegido($elegido)
+    public function setElegido(\AppBundle\Entity\Usuario $elegido = null)
     {
         $this->elegido = $elegido;
-
+    
         return $this;
     }
 
     /**
      * Get elegido
      *
-     * @return string 
+     * @return \AppBundle\Entity\Usuario 
      */
     public function getElegido()
     {
@@ -257,54 +276,24 @@ class Favor
     /**
      * Set autor
      *
-     * @param string $autor
+     * @param \AppBundle\Entity\Usuario $autor
      * @return Favor
      */
-    public function setAutor($autor)
+    public function setAutor(\AppBundle\Entity\Usuario $autor = null)
     {
         $this->autor = $autor;
-
+    
         return $this;
     }
 
     /**
      * Get autor
      *
-     * @return string 
+     * @return \AppBundle\Entity\Usuario 
      */
     public function getAutor()
     {
         return $this->autor;
-    }
-
-    /**
-     * Set candidatos
-     *
-     * @param string $candidatos
-     * @return Favor
-     */
-    public function setCandidatos($candidatos)
-    {
-        $this->candidatos = $candidatos;
-
-        return $this;
-    }
-
-    /**
-     * Get candidatos
-     *
-     * @return string 
-     */
-    public function getCandidatos()
-    {
-        return $this->candidatos;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->candidatos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -316,7 +305,7 @@ class Favor
     public function addCandidato(\AppBundle\Entity\Usuario $candidatos)
     {
         $this->candidatos[] = $candidatos;
-
+    
         return $this;
     }
 
@@ -331,25 +320,12 @@ class Favor
     }
 
     /**
-     * Add comentarios
+     * Get candidatos
      *
-     * @param \AppBundle\Entity\Comentario $comentarios
-     * @return Favor
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function addComentario(\AppBundle\Entity\Comentario $comentarios)
+    public function getCandidatos()
     {
-        $this->comentarios[] = $comentarios;
-
-        return $this;
-    }
-
-    /**
-     * Remove comentarios
-     *
-     * @param \AppBundle\Entity\Comentario $comentarios
-     */
-    public function removeComentario(\AppBundle\Entity\Comentario $comentarios)
-    {
-        $this->comentarios->removeElement($comentarios);
+        return $this->candidatos;
     }
 }

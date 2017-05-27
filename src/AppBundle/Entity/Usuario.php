@@ -113,6 +113,12 @@ class Usuario implements AdvancedUserInterface, \Serializable
     private $postulaciones;
 
     /**
+     * Un Usuario tiene muchos Favores
+     * @ORM\OneToMany(targetEntity="Favor", mappedBy="autor")
+     */
+    private $favores;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -412,19 +418,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
         return $this->email;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->calificacionesDadas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->calificacionesRecibidas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->setIsActive(true);
-        $this->setRol('ROLE_USER');
-        $this->setCreatedAt(new \DateTime);
-        $this->setCreditos(1);
 
-    }
 
     /**
      * Add calificacionesDadas
@@ -518,4 +512,51 @@ class Usuario implements AdvancedUserInterface, \Serializable
     public function __toString(){
         return $this->getNombre();
     }
+
+    /**
+     * Add favores
+     *
+     * @param \AppBundle\Entity\Favor $favores
+     * @return Usuario
+     */
+    public function addFavore(\AppBundle\Entity\Favor $favores)
+    {
+        $this->favores[] = $favores;
+    
+        return $this;
+    }
+
+    /**
+     * Remove favores
+     *
+     * @param \AppBundle\Entity\Favor $favores
+     */
+    public function removeFavore(\AppBundle\Entity\Favor $favores)
+    {
+        $this->favores->removeElement($favores);
+    }
+
+    /**
+     * Get favores
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFavores()
+    {
+        return $this->favores;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->calificacionesDadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calificacionesRecibidas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->favores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setIsActive(true);
+        $this->setRol('ROLE_USER');
+        $this->setCreatedAt(new \DateTime);
+        $this->setCreditos(1);
+    }
+
 }
