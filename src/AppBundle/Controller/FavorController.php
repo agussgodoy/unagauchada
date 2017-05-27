@@ -57,13 +57,11 @@ class FavorController extends Controller
      */
     public function buscarAction($id)
     {
-        var_dump('adasdasd');die;
         $em = $this->getDoctrine()->getManager();
+        $favor = $em->getRepository('AppBundle:Favor')->findOneBy((array('id' => $id)));
 
-        $favors = $em->getRepository('AppBundle:Favor')->findOneBy($id);
-
-        return $this->render('favor/buscar.html.twig', array(
-            'favors' => $favors,
+        return $this->render('favor/show.html.twig', array(
+            'favor' => $favor,
         ));
     }
 

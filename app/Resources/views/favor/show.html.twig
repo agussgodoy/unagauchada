@@ -4,21 +4,21 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Su favor ha sido pedido con exito </span></h1>
+                <h1><span>Favor: </span></h1>
             </div>
 
 <table>
         <tbody>
             <tr>
-                <th>Código de favor: </th>
+                <th>Código: </th>
                 <td>{{ favor.id }}</td>
             </tr>
             <tr>
-                <th>Titulo de favor: </th>
+                <th>Titulo: </th>
                 <td>{{ favor.titulo }}</td>
             </tr>
             <tr>
-                <th>Detalle de favor:</th>
+                <th>Detalle:</th>
                 <td>{{ favor.detalle }}</td>
             </tr>
         </tbody>
@@ -29,6 +29,7 @@
             <a href="{{ path('homepage', { 'id': favor.id }) }}">Volver al menú</a>
         </li>
 
+        {% if "method" == "get" %}
         <li>
             <a href="{{ path('favor_edit', { 'id': favor.id }) }}">Editar favor</a>
         </li>
@@ -37,6 +38,7 @@
                 <input type="submit" value="Eliminar favor">
             {{ form_end(delete_form) }}
         </li>
+        {% endif %}
     </ul>
 {% endblock %}
 

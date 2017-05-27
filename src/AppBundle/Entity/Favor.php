@@ -70,8 +70,8 @@ class Favor
     private $elegido;
 
     /**
-     * Un Favor corresponde a un Usuario
-     * @ORM\OneToOne(targetEntity="Usuario")
+     * Muchos Favores corresponden a un Usuario
+     * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumn(name="usuario_autor_id", referencedColumnName="id")
      */
     private $autor;
