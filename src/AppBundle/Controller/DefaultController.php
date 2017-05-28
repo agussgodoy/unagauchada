@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
@@ -35,8 +36,10 @@ class DefaultController extends Controller
         );
     }
 
+// * @Security("has_role('ROLE_ADMIN')")
     /**
      * @Route("/", name="homepage")
+     *
      */
     public function homepageAction()
     {
