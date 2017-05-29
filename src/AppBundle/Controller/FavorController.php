@@ -28,8 +28,57 @@ class FavorController extends Controller
 
         return $this->render('favor/index.html.twig', array(
             'favors' => $favors,
+            'user' => $this->getUser()
+
         ));
     }
+
+
+    /**
+     *
+     * @Route("/{id}/postularse", name="favor_postularse")
+     * @Method({"GET", "POST"})
+     */
+    public function postularseAction(Request $request, Favor $favor)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+
+        $favor->addCandidato($this->getUser());
+        $em->persist($favor);
+        $em->flush();
+
+    
+        return $this->render('favor/postularse.html.twig', array(
+            'favors' => $favors,
+            'user' => $this->getUser(),
+            'favor' => $favor
+            ));
+    }
+
+
+
+    /**
+     *
+     * @Route("/{id}/despostularse", name="favor_despostularse")
+     * @Method({"GET", "POST"})
+     */
+    public function despostularseAction(Request $request, Favor $favor)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+
+        $favor->removeCandidato($this->getUser());
+        $em->persist($favor);
+        $em->flush();
+    
+        return $this->render('favor/despostularse.html.twig', array(
+            'favors' => $favors,
+            'user' => $this->getUser(),
+            'favor' => $favor
+            ));
+    }
+
 
 
     /**

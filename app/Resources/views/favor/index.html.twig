@@ -22,7 +22,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% endif %}
                 {% for favor in favors %}
                     <tr>
                         <td><a href="{{ path('favor_show', { 'id': favor.id }) }}">{{ favor.id }}</a></td>
@@ -34,14 +33,15 @@
                                     <a href="{{ path('favor_show', { 'id': favor.id }) }}">Ver</a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('favor_edit', { 'id': favor.id }) }}">Postularse</a>
+                                    <a href="{{ path('favor_postularse', { 'id': favor.id }) }}">Postularse</a>
                                 </li>
                             </ul>
                         </td>
                     </tr>
+                {% endfor %}
                 {% else %}
                     No se encontraron resultados.
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
