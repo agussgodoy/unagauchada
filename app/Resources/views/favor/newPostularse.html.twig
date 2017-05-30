@@ -1,22 +1,42 @@
 {% extends 'base_logueado.html.twig' %}
 
-{% block contenido %}
+{% block body %}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Bienvenidos a </span> Una Gauchada</h1>
-            </div>
+                <h1><span>Postulate al favor! </span></h1>
+                </div>
 
-    <form action="{{ path('favor_new') }}" method="POST" class="imput-group">
-    {# <form action="#" method="POST"> #}
-        <button type="submit" class="btn btn-block btn-primary center">Pedir un favor</button>
-    </form>
-    <a href="{{ path('favor_index') }}" class="btn btn-block btn btn-default"> Lista de favores </a>
-    <a href="{{ path('favor_newBuscar') }}" class="btn btn-block btn btn-default"> Busqueda de favores </a>
-    <a href="{{ path('usuario_newComprar') }}" class="btn btn-block btn btn-default"> Comprar creditos!</a>
+<table>
+        <tbody>
+            <tr>
+                <th>Código: </th>
+                <td>{{ favor.id }}</td>
+            </tr>
+            <tr>
+                <th>Titulo: </th>
+                <td>{{ favor.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Detalle:</th>
+                <td>{{ favor.detalle }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-            
+        Comentario: <input type="text" name="comentario" id="comentario"><br>
+
+
+    <ul>
+        <li>
+            <a href="{{ path('favor_postularse', { 'id': favor.id }) }}">Confirmar postulación!</a>
+        </li>
+        <li>
+            <a href="{{ path('homepage', { 'id': favor.id }) }}">Volver al menú</a>
+        </li>
+    </ul>
 {% endblock %}
+
 
 {% block stylesheets %}
 <style>
