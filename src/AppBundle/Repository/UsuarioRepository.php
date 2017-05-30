@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuarioRepository extends EntityRepository
 {
+	public function existeUsuario($mail, $apellido, $nombre)
+	{
+		$query = $this->createQueryBuilder('u')
+			->select('COUNT(u)')
+		    ->where('u.email = :mail')
+		    ->orWhere('u.apellido = :ape and u.nombre = :nom')
+		    ->setParameter('mail', $mail)
+		    ->setParameter('ape', $apellido)
+		    ->setParameter('nom', $nombre);
+	    
+	    return $query->getQuery()->getSingleScalarResult();
+	}
 }

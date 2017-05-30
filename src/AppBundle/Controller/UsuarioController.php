@@ -48,11 +48,17 @@ class UsuarioController extends Controller
         
         $form = $this->createFormBuilder()
             ->add('cantidad','integer', array(
-                'label'=>'Cantidad'))
+                'label'=>'Cantidad',
+                'attr'=>array(
+                    'min'=>1)))
             ->add('tarjeta','integer', array(
-                'label'=>'Tarjeta'))
+                'label'=>'Tarjeta',
+                'attr'=>array(
+                    'min'=>1)))
             ->add('codigo','integer', array(
-                'label'=>'Código de Seguridad'))
+                'label'=>'Código de Seguridad',
+                'attr'=>array(
+                    'min'=>1)))
             ->add('submit', SubmitType::class, array('label' => 'Comprar'))
             ->getForm();
         $form->handleRequest($request);
@@ -96,10 +102,16 @@ class UsuarioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $session = $this->getRequest()->getSession();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
 
-            $session->getFlashBag()->add('aviso_exito', 'El usuario fue creado correctamente. Ahora puede iniciar sesión.');
+            if($em->getRepository('AppBundle:Usuario')->existeUsuario($form->get('email')->getData(),$form->get('apellido')->getData(),$form->get('nombre')->getData() > 0 )){
+                $session->getFlashBag()->add('aviso_error', 'Ya existe un usuario con el mismo mail o con el mismo nombre y apellido.');
+                return $this->redirectToRoute('usuario_new');
+            }else{
+                $em->persist($usuario);
+                $em->flush();
+
+                $session->getFlashBag()->add('aviso_exito', 'El usuario fue creado correctamente. Ahora puede iniciar sesión.');
+            }
 
 
             return $this->redirectToRoute('login');
