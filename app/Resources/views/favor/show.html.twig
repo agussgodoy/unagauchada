@@ -37,8 +37,12 @@
     <br>
     <hr>
     <h3>Postulaciones</h3>
-    {% if app.getUser.getId != favor.autor.id %}
+    {% if app.getUser.getId != favor.autor.id and favor.elegido is empty%}
         <a href="{{ path('favor_postularse', { 'id': favor.id }) }}" class="btn btn-xs btn-success">Postularse</a>
+    {% endif %}
+
+    {% if favor.elegido is not empty %}
+        <p class="alert alert-warning">No se puede postular a este favor porque ya hay alguien que lo va a cumplir.</p>
     {% endif %}
     <br><br>
     {% for comentario in favor.comentarios %}
