@@ -31,6 +31,31 @@ class UsuarioController extends Controller
         ));
     }
 
+
+
+    /**
+     * Lists all usuario entities.
+     *
+     * @Route("/newComprar", name="usuario_newComprar")
+     * @Method("GET")
+     */
+    public function newComprarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $usuario = $this;
+        var_dump($usuario->getNombre());die;
+
+        return $this->render('usuario/newComprar.html.twig', array(
+            'usuario' => $usuario,
+        ));
+    }
+
+
+
+
+
+
     /**
      * Creates a new usuario entity.
      *

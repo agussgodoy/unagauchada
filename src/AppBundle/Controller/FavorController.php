@@ -38,6 +38,25 @@ class FavorController extends Controller
 
     /**
      *
+     * @Route("/{id}/newPostularse", name="favor_newPostularse")
+     * @Method({"GET", "POST"})
+     */
+    public function newPostularseAction(Request $request, Favor $favor)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+
+    
+        return $this->render('favor/newPostularse.html.twig', array(
+            'favors' => $favors,
+            'user' => $this->getUser(),
+            'favor' => $favor
+            ));
+    }
+
+
+    /**
+     *
      * @Route("/{id}/postularse", name="favor_postularse")
      * @Method({"GET", "POST"})
      */
