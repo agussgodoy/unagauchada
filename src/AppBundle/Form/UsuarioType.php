@@ -18,7 +18,7 @@ class UsuarioType extends AbstractType
                 'label' => 'Mail',
                 'required' => true))
             // ->add('isActive')
-            ->add('password', 'text', array(
+            ->add('password', 'password', array(
                 'label' => 'Contraseña',
                 'required'=> true))
             /*->add('rol')
