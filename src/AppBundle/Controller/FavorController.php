@@ -156,6 +156,8 @@ class FavorController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->getUser()->setCreditos($this->getUser()->getCreditos()-1);
+            $em->persist($this->getUser());
             $em->persist($favor);
             $em->flush();
 
