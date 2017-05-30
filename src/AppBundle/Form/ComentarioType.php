@@ -13,7 +13,13 @@ class ComentarioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('detalle')->add('autor')->add('respondeA')->add('favor');
+        $builder
+        ->add('detalle', 'textarea', array(
+            'label'=>'Comentario'))
+        // ->add('autor')
+        // ->add('respondeA')
+        // ->add('favor')
+        ;
     }
     
     /**

@@ -66,7 +66,7 @@ class FavorController extends Controller
         $favor = $em->getRepository('AppBundle:Favor')->find($id);
 
         $comentario = new Comentario();
-        // $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
+        $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         
         /*$favor->addCandidato($this->getUser());
         $em->persist($favor);
@@ -76,7 +76,8 @@ class FavorController extends Controller
         return $this->render('favor/postularse.html.twig', array(
             // 'favors' => $favors,
             // 'user' => $this->getUser(),
-            'favor' => $favor
+            'favor' => $favor,
+            'formComentario'=>$formComentario->createView(),
             ));
     }
 
