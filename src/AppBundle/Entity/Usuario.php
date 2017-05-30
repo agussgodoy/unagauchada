@@ -107,8 +107,8 @@ class Usuario implements AdvancedUserInterface, \Serializable
 
     /**
      * muchos usuarios pueden postularse al mismo favor 
-     * @ORM\ManyToOne(targetEntity="Favor", inversedBy="candidatos")
-     * @ORM\JoinColumn(name="favor_postulado_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Favor", inversedBy="candidatos")
+     * @ORM\JoinTable(name="candidatos_favor")
      */
     private $postulaciones;
 
@@ -486,28 +486,6 @@ class Usuario implements AdvancedUserInterface, \Serializable
         return $this->calificacionesRecibidas;
     }
 
-    /**
-     * Set postulaciones
-     *
-     * @param \AppBundle\Entity\Favor $postulaciones
-     * @return Usuario
-     */
-    public function setPostulaciones(\AppBundle\Entity\Favor $postulaciones = null)
-    {
-        $this->postulaciones = $postulaciones;
-
-        return $this;
-    }
-
-    /**
-     * Get postulaciones
-     *
-     * @return \AppBundle\Entity\Favor 
-     */
-    public function getPostulaciones()
-    {
-        return $this->postulaciones;
-    }
 
     public function __toString(){
         return $this->getNombre();
@@ -553,10 +531,44 @@ class Usuario implements AdvancedUserInterface, \Serializable
         $this->calificacionesDadas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calificacionesRecibidas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->favores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->postulaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setIsActive(true);
         $this->setRol('ROLE_USER');
         $this->setCreatedAt(new \DateTime);
         $this->setCreditos(1);
     }
 
+
+    /**
+     * Add postulaciones
+     *
+     * @param \AppBundle\Entity\Favor $postulaciones
+     * @return Usuario
+     */
+    public function addPostulacione(\AppBundle\Entity\Favor $postulaciones)
+    {
+        $this->postulaciones[] = $postulaciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove postulaciones
+     *
+     * @param \AppBundle\Entity\Favor $postulaciones
+     */
+    public function removePostulacione(\AppBundle\Entity\Favor $postulaciones)
+    {
+        $this->postulaciones->removeElement($postulaciones);
+    }
+
+    /**
+     * Get postulaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostulaciones()
+    {
+        return $this->postulaciones;
+    }
 }

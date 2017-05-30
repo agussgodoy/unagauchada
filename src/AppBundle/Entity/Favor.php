@@ -43,28 +43,28 @@ class Favor
 
     /**
      * Un favor corresponde a una Categoria
-     * @ORM\OneToOne(targetEntity="Categoria")
+     * @ORM\ManyToOne(targetEntity="Categoria")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      */
     private $categoria;
 
     /**
      * Un favor corresponde a una Localidad
-     * @ORM\OneToOne(targetEntity="Localidad")
+     * @ORM\ManyToOne(targetEntity="Localidad")
      * @ORM\JoinColumn(name="localidad_id", referencedColumnName="id")
      */
     private $localidad;
 
     /**
      * Un Favor corresponde a un Partido
-     * @ORM\OneToOne(targetEntity="Partido")
+     * @ORM\ManyToOne(targetEntity="Partido")
      * @ORM\JoinColumn(name="partido_id", referencedColumnName="id")
      */
     private $partido;
 
     /**
      * Un Favor corresponde a un Usuario, el que lo va a cumplir
-     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumn(name="usuario_elegido_id", referencedColumnName="id")
      */
     private $elegido;
@@ -78,7 +78,7 @@ class Favor
 
     /**
      * Un Favor tiene muchos Usuarios 
-     * @ORM\OneToMany(targetEntity="Usuario", mappedBy="postulaciones")
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="postulaciones")
      */
     private $candidatos;
 
@@ -111,7 +111,7 @@ class Favor
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
@@ -134,7 +134,7 @@ class Favor
     public function setDetalle($detalle)
     {
         $this->detalle = $detalle;
-    
+
         return $this;
     }
 
@@ -157,7 +157,7 @@ class Favor
     public function addComentario(\AppBundle\Entity\Comentario $comentarios)
     {
         $this->comentarios[] = $comentarios;
-    
+
         return $this;
     }
 
@@ -190,7 +190,7 @@ class Favor
     public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
-    
+
         return $this;
     }
 
@@ -213,7 +213,7 @@ class Favor
     public function setLocalidad(\AppBundle\Entity\Localidad $localidad = null)
     {
         $this->localidad = $localidad;
-    
+
         return $this;
     }
 
@@ -236,7 +236,7 @@ class Favor
     public function setPartido(\AppBundle\Entity\Partido $partido = null)
     {
         $this->partido = $partido;
-    
+
         return $this;
     }
 
@@ -259,7 +259,7 @@ class Favor
     public function setElegido(\AppBundle\Entity\Usuario $elegido = null)
     {
         $this->elegido = $elegido;
-    
+
         return $this;
     }
 
@@ -282,7 +282,7 @@ class Favor
     public function setAutor(\AppBundle\Entity\Usuario $autor = null)
     {
         $this->autor = $autor;
-    
+
         return $this;
     }
 
@@ -305,7 +305,7 @@ class Favor
     public function addCandidato(\AppBundle\Entity\Usuario $candidatos)
     {
         $this->candidatos[] = $candidatos;
-    
+
         return $this;
     }
 

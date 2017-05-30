@@ -30,7 +30,7 @@ class Comentario
 
     /**
      * Un comentario corresponde a un Usuario
-     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumn(name="usuario_autor_id", referencedColumnName="id")
      */
     private $autor;
