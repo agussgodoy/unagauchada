@@ -18,6 +18,7 @@
                     <tr>
                         <th><center>Titulo</center></th>
                         <th><center>Autor</center></th>
+                        <th><center>Categoria</center></th>
                         <th><center>Cant. Postulantes</center></th>
                         <th><center>Estado</center></th>
                         <th><center>Acciones</center></th>
@@ -28,6 +29,7 @@
                     <tr>
                         <td><center> {{ favor.titulo }}</center></td>
                         <td><center> {{favor.autor.apellido}}, {{favor.autor.nombre}}</center></td>
+                        <td><center>{{favor.categoria.descripcion}}</center></td>
                         <td><center>{{favor.candidatos|length}}</center></td>
                         <td>
                             {% if favor.elegido is empty %}
