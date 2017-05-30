@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Usuario controller.
@@ -36,18 +38,41 @@ class UsuarioController extends Controller
     /**
      * Lists all usuario entities.
      *
-     * @Route("/newComprar", name="usuario_newComprar")
-     * @Method("GET")
+     * @Route("/{id}/newComprar", name="usuario_newComprar")
+     * @Method({"GET", "POST"})
      */
-    public function newComprarAction()
+    public function newComprarAction(Request $request, Usuario $usuario)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuario = $this;
-        var_dump($usuario->getNombre());die;
+        
+        $form = $this->createFormBuilder()
+            ->add('cantidad','integer', array(
+                'label'=>'Cantidad'))
+            ->add('tarjeta','integer', array(
+                'label'=>'Tarjeta'))
+            ->add('codigo','integer', array(
+                'label'=>'Código de Seguridad'))
+            ->add('submit', SubmitType::class, array('label' => 'Comprar'))
+            ->getForm();
+        $form->handleRequest($request);
 
+         if ($form->isSubmitted() && $form->isValid()) {
+            $session = $this->getRequest()->getSession();
+            $em = $this->getDoctrine()->getManager();
+            
+            $usuario->setCreditos($usuario->getCreditos() + $form->get('cantidad')->getData());
+            $em->persist($usuario);
+            $em->flush();
+
+            $session->getFlashBag()->add('aviso_exito', 'La compra se realizó con éxito');
+
+
+            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+        }
         return $this->render('usuario/newComprar.html.twig', array(
-            'usuario' => $usuario,
+            'usuario' => $this->getUser(),
+            'form'=>$form->createView()
         ));
     }
 

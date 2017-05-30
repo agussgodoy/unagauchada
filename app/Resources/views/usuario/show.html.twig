@@ -1,9 +1,19 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-
-    <div id="wrapper">
-        <div id="container">
+{% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
     <div class="row">
         <h1><i class="fa fa-user-o" aria-hidden="true"></i> Ver Perfil</h1>    
     </div>
@@ -27,7 +37,7 @@
             <label>Creditos</label>
             <p>
                 {{usuario.creditos}} 
-                <a href="#" class="btn btn-xs btn-success"> Comprar Créditos</a>
+                <a href="{{path('usuario_newComprar', {'id':usuario.id})}}" class="btn btn-xs btn-success"> Comprar Créditos</a>
 
             </p>
         </div>
@@ -38,8 +48,7 @@
             <p>{{usuario.puntaje ? usuario.puntaje : 'Todavía no tienes reputación'}}</p>
         </div>
     </div>
-</div> {# container #}
-</div> {# wrapper #}
+
 {% endblock %}
 {% block stylesheets %}
 
