@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Favor;
+use AppBundle\Entity\Comentario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Favor controller.
@@ -39,19 +41,22 @@ class FavorController extends Controller
      * @Route("/{id}/postularse", name="favor_postularse")
      * @Method({"GET", "POST"})
      */
-    public function postularseAction(Request $request, Favor $favor)
+    public function postularseAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+        $favor = $em->getRepository('AppBundle:Favor')->find($id);
 
-        $favor->addCandidato($this->getUser());
+        $comentario = new Comentario();
+        // $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
+        
+        /*$favor->addCandidato($this->getUser());
         $em->persist($favor);
         $em->flush();
-
+*/
     
         return $this->render('favor/postularse.html.twig', array(
-            'favors' => $favors,
-            'user' => $this->getUser(),
+            // 'favors' => $favors,
+            // 'user' => $this->getUser(),
             'favor' => $favor
             ));
     }

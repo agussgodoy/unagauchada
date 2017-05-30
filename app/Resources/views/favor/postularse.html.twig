@@ -1,37 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
-{% block body %}
+{% block contenido %}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Te postulaste con exito al Favor: </span></h1>
+                <h1><span><i class="fa fa-check-square-o" aria-hidden="true"></i> Postularse al favor </span></h1>
                 </div>
 
-<table>
-        <tbody>
-            <tr>
-                <th>Código: </th>
-                <td>{{ favor.id }}</td>
-            </tr>
-            <tr>
-                <th>Titulo: </th>
-                <td>{{ favor.titulo }}</td>
-            </tr>
-            <tr>
-                <th>Detalle:</th>
-                <td>{{ favor.detalle }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('favor_despostularse', { 'id': favor.id }) }}">Despostularme al favor</a>
-        </li>
-        <li>
-            <a href="{{ path('homepage', { 'id': favor.id }) }}">Volver al menú</a>
-        </li>
-    </ul>
+    <div class="row">
+        <h3><center><i class="fa fa-angle-right" aria-hidden="true"></i> {{favor.titulo}} <i class="fa fa-angle-left" aria-hidden="true"></i></center></h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Autor</label>
+            <p>{{favor.autor.apellido}}, {{favor.autor.nombre}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Categoría</label>
+            <p>{{favor.categoria.descripcion}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Detalle</label>
+            <p>{{favor.detalle}}</p>
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -45,7 +41,7 @@
     a { color: #0000F0; }
     a:hover { text-decoration: none; }
     code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+    #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }
     #container { padding: 2em; }
     #welcome, #status { margin-bottom: 2em; }
     #welcome h1 span { display: block; font-size: 75%; }
