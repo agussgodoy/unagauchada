@@ -1,68 +1,72 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <h1>Usuario</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ usuario.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ usuario.email }}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if usuario.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ usuario.password }}</td>
-            </tr>
-            <tr>
-                <th>Rol</th>
-                <td>{{ usuario.rol }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ usuario.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td>{{ usuario.apellido }}</td>
-            </tr>
-            <tr>
-                <th>Documento</th>
-                <td>{{ usuario.documento }}</td>
-            </tr>
-            <tr>
-                <th>Creditos</th>
-                <td>{{ usuario.creditos }}</td>
-            </tr>
-            <tr>
-                <th>Puntaje</th>
-                <td>{{ usuario.puntaje }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="wrapper">
+        <div id="container">
+    <div class="row">
+        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Ver Perfil</h1>    
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label>Apellido y Nombre</label>
+            <p> {{usuario.apellido}}, {{usuario.nombre}}</p>
+        </div>
+        <div class="col-md-6">
+            <label>Mail</label>
+            <p> {{usuario.email}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Documento</label>
+            <p>{{usuario.documento}}</p>
+        </div>
+        <div class="col-md-6">
+            <label>Creditos</label>
+            <p>
+                {{usuario.creditos}} 
+                <a href="#" class="btn btn-xs btn-success"> Comprar Créditos</a>
 
-    <ul>
-        <li>
-            <a href="{{ path('usuario_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Reputacion</label>
+            <p>{{usuario.puntaje ? usuario.puntaje : 'Todavía no tienes reputación'}}</p>
+        </div>
+    </div>
+</div> {# container #}
+</div> {# wrapper #}
+{% endblock %}
+{% block stylesheets %}
+
+<style>
+    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
+    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 21px; margin-bottom: 1em; }
+    p { margin: 0 0 1em 0; }
+    a { color: #0000F0; }
+    a:hover { text-decoration: none; }
+    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+    #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }
+    #container { padding: 2em; }
+    #welcome, #status { margin-bottom: 2em; }
+    #welcome h1 span { display: block; font-size: 75%; }
+    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
+    #icon-book { display: none; }
+
+    @media (min-width: 768px) {
+        #wrapper { width: 80%; margin: 2em auto; }
+        #icon-book { display: inline-block; }
+        #status a, #next a { display: block; }
+
+        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
+    }
+</style>
 {% endblock %}

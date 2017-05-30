@@ -89,7 +89,7 @@ class UsuarioController extends Controller
     /**
      * Finds and displays a usuario entity.
      *
-     * @Route("/{id}", name="usuario_show")
+     * @Route("/{id}/show", name="usuario_show")
      * @Method("GET")
      */
     public function showAction(Usuario $usuario)
