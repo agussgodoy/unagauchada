@@ -1,8 +1,16 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <div id="wrapper">
-        <div id="container">
+
+    {% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
             <div id="welcome">
                 <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de favores </span></h1>
             </div>
@@ -46,7 +54,6 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('favor_show', { 'id': favor.id }) }}">Ver detalle</a></li>
-                                    <li><a href="{{ path('favor_newPostularse', { 'id': favor.id }) }}">Postularme</a></li>
                                 </ul>
                             </div>
 
@@ -66,8 +73,7 @@
                 {% endif %}
                 </tbody>
             </table>
-        </div>
-    </div>
+
 {% endblock %}
 
 

@@ -261,4 +261,26 @@ class FavorController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Displays a form to edit an existing favor entity.
+     *
+     * @Route("/{id}/{idusuario}/elegir", name="favor_elegir")
+     * @Method({"GET"})
+     */
+    public function elegirAction(Favor $favor, $idusuario)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository('AppBundle:Usuario')->find($idusuario);
+        $session = $this->getRequest()->getSession();
+        
+        $favor->setElegido($usuario);
+        $em->persist($favor);
+        $em->flush();
+
+        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito');
+        return $this->redirectToRoute('favor_index');
+
+    }
 }

@@ -46,6 +46,9 @@
             <label><i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.autor.apellido}}, {{comentario.autor.nombre}}</label>
             <div class="col-md-12">
                 <p><i class="fa fa-comment-o" aria-hidden="true"></i> {{comentario.detalle}}</p>
+                {% if favor.autor.id == app.getUser.getId and favor.elegido is empty %}
+                    <a href="{{path('favor_elegir',{'id':favor.id, 'idusuario':comentario.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
+                {% endif %}
             </div>
         </div>
         <hr>
