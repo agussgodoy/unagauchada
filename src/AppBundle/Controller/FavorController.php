@@ -60,10 +60,10 @@ class FavorController extends Controller
      * @Route("/{id}/postularse", name="favor_postularse")
      * @Method({"GET", "POST"})
      */
-    public function postularseAction(Request $request, $id)
+    public function postularseAction(Request $request, Favor $favor)
     {
         $em = $this->getDoctrine()->getManager();
-        $favor = $em->getRepository('AppBundle:Favor')->find($id);
+        // $favor = $em->getRepository('AppBundle:Favor')->find($id);
 
         $comentario = new Comentario();
         $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
