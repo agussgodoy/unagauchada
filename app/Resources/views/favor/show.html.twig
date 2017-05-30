@@ -1,45 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
-{% block body %}
+{% block contenido %}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Favor: </span></h1>
+                <h1><span><i class="fa fa-handshake-o" aria-hidden="true"></i> Favor </span></h1>
             </div>
 
-<table>
-        <tbody>
-            <tr>
-                <th>Código: </th>
-                <td>{{ favor.id }}</td>
-            </tr>
-            <tr>
-                <th>Titulo: </th>
-                <td>{{ favor.titulo }}</td>
-            </tr>
-            <tr>
-                <th>Detalle:</th>
-                <td>{{ favor.detalle }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('homepage', { 'id': favor.id }) }}">Volver al menú</a>
-        </li>
-
-        {% if "method" == "get" %}
-        <li>
-            <a href="{{ path('favor_edit', { 'id': favor.id }) }}">Editar favor</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Eliminar favor">
-            {{ form_end(delete_form) }}
-        </li>
+    <div class="row">
+        <h3><center><i class="fa fa-angle-right" aria-hidden="true"></i> {{favor.titulo}} <i class="fa fa-angle-left" aria-hidden="true"></i></center></h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Autor</label>
+            <p>{{favor.autor.apellido}}, {{favor.autor.nombre}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Detalle</label>
+            <p>{{favor.detalle}}</p>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <h3>Postulaciones</h3>
+    {% if app.getUser.getId != favor.autor.id %}
+        <a href="#" class="btn btn-xs btn-success">Postularse</a>
+    {% endif %}
+    <br><br>
+    {% for candidato in favor.candidatos %}
+    {% else %}
+        {% if app.getUser.getId != favor.autor.id %}
+            ¡Todavía no hay postulantes! Podés ser el primero.
+        {% else %}
+            ¡Todavía no hay postulantes!
         {% endif %}
-    </ul>
+    {% endfor %}
+
 {% endblock %}
 
 
@@ -53,7 +51,7 @@
     a { color: #0000F0; }
     a:hover { text-decoration: none; }
     code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+    #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }
     #container { padding: 2em; }
     #welcome, #status { margin-bottom: 2em; }
     #welcome h1 span { display: block; font-size: 75%; }

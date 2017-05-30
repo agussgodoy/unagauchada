@@ -9,33 +9,53 @@
     <div class="row">
         <a href="{{ path('favor_new') }}" class="btn btn-lg btn-primary"> Crear Favor</a>
     </div>
+    <br>
     <div class="row">
-        <div class="col-md-6 col-md-offset-4">
-            <table>
+        <div class="col-md-12">
+            <table class="table table-hover">
                 {% if favors is not empty %}
                 <thead>
                     <tr>
-                        <th>Código:</th>
-                        <th>Titulo:</th>
-                        <th>Detalle:</th>
-                        <th>Acciones:</th>
+                        <th><center>Titulo</center></th>
+                        <th><center>Autor</center></th>
+                        <th><center>Cant. Postulantes</center></th>
+                        <th><center>Estado</center></th>
+                        <th><center>Acciones</center></th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for favor in favors %}
                     <tr>
-                        <td><a href="{{ path('favor_show', { 'id': favor.id }) }}">{{ favor.id }}</a></td>
-                        <td>{{ favor.titulo }}</td>
-                        <td>{{ favor.detalle }}</td>
+                        <td><center> {{ favor.titulo }}</center></td>
+                        <td><center> {{favor.autor.apellido}}, {{favor.autor.nombre}}</center></td>
+                        <td><center>{{favor.candidatos|length}}</center></td>
                         <td>
-                            <ul>
+                            {% if favor.elegido is empty %}
+                               <label class="btn btn-xs btn-success"><center> Abierto</center></label>
+                            {% else %}
+                                <label class="btn btn-xs btn-warning"><center> Con candidato</center></label>
+                            {% endif %}
+                        </td>
+                        <td>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Acciones<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('favor_show', { 'id': favor.id }) }}">Ver detalle</a></li>
+                                    {# <li><a href="#">Another action</a></li> #}
+                                </ul>
+                            </div>
+
+                            {# <ul>
                                 <li>
-                                    <a href="{{ path('favor_show', { 'id': favor.id }) }}">Ver</a>
+                                    <a href="">Ver</a>
                                 </li>
                                 <li>
                                     <a href="{{ path('favor_postularse', { 'id': favor.id }) }}">Postularse</a>
                                 </li>
-                            </ul>
+                            </ul> #}
                         </td>
                     </tr>
                 {% endfor %}

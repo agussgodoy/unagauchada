@@ -146,16 +146,14 @@ class FavorController extends Controller
     /**
      * Finds and displays a favor entity.
      *
-     * @Route("/{id}", name="favor_show")
+     * @Route("/{id}/show", name="favor_show")
      * @Method("GET")
      */
     public function showAction(Favor $favor)
     {
-        $deleteForm = $this->createDeleteForm($favor);
 
         return $this->render('favor/show.html.twig', array(
             'favor' => $favor,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
