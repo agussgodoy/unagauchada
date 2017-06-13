@@ -74,9 +74,9 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="documento", type="string", length=10)
+     * @ORM\Column(name="telefono", type="string", length=10)
      */
-    private $documento;
+    private $telefono;
 
     /**
      * @var int
@@ -290,26 +290,26 @@ class Usuario implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set documento
+     * Set telefono
      *
-     * @param string $documento
+     * @param string $telefono
      * @return Usuario
      */
-    public function setDocumento($documento)
+    public function setTelefono($telefono)
     {
-        $this->documento = $documento;
+        $this->telefono = $telefono;
 
         return $this;
     }
 
     /**
-     * Get documento
+     * Get telefono
      *
      * @return string 
      */
-    public function getDocumento()
+    public function getTelefono()
     {
-        return $this->documento;
+        return $this->telefono;
     }
 
     /**

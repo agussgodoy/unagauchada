@@ -14,7 +14,7 @@
                 <th>Createdat</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Documento</th>
+                <th>Telefono</th>
                 <th>Creditos</th>
                 <th>Puntaje</th>
                 <th>Actions</th>
@@ -31,7 +31,7 @@
                 <td>{% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.apellido }}</td>
-                <td>{{ usuario.documento }}</td>
+                <td>{{ usuario.telefono }}</td>
                 <td>{{ usuario.creditos }}</td>
                 <td>{{ usuario.puntaje }}</td>
                 <td>
