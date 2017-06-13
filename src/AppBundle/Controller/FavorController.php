@@ -41,16 +41,33 @@ class FavorController extends Controller
      * @Route("/{id}/newPostularse", name="favor_newPostularse")
      * @Method({"GET", "POST"})
      */
-    public function newPostularseAction(Request $request, Favor $favor)
+    public function newPostulacionAction(Request $request, Favor $favor)
     {
         $em = $this->getDoctrine()->getManager();
-        $favors = $em->getRepository('AppBundle:Favor')->findAll();
 
-    
-        return $this->render('favor/newPostularse.html.twig', array(
-            'favors' => $favors,
-            'user' => $this->getUser(),
-            'favor' => $favor
+        $comentario = new Comentario();
+        $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
+        $formComentario->handleRequest($request);
+
+        if($formComentario->isValid()){
+            $comentario->setAutor($this->getUser());
+            $comentario->setFavor($favor);
+
+            $favor->addCandidato($this->getUser());
+            $this->getUser()->addPostulaciones($favor);
+
+            $em->persist($comentario);
+            $em->persist($favor);
+            $em->persist($this->getUser());
+            $em->flush();
+
+            return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
+        }
+
+        
+        return $this->render('favor/postularse.html.twig', array(
+            'favor' => $favor,
+            'formComentario'=>$formComentario->createView(),
             ));
     }
 
@@ -60,13 +77,13 @@ class FavorController extends Controller
      * @Route("/{id}/postularse", name="favor_postularse")
      * @Method({"GET", "POST"})
      */
-    public function postularseAction(Request $request, $id)
+    public function postularseAction(Request $request, Favor $favor)
     {
         $em = $this->getDoctrine()->getManager();
-        $favor = $em->getRepository('AppBundle:Favor')->find($id);
+        // $favor = $em->getRepository('AppBundle:Favor')->find($id);
 
         $comentario = new Comentario();
-        // $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
+        $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         
         /*$favor->addCandidato($this->getUser());
         $em->persist($favor);
@@ -76,7 +93,8 @@ class FavorController extends Controller
         return $this->render('favor/postularse.html.twig', array(
             // 'favors' => $favors,
             // 'user' => $this->getUser(),
-            'favor' => $favor
+            'favor' => $favor,
+            'formComentario'=>$formComentario->createView(),
             ));
     }
 
@@ -155,6 +173,8 @@ class FavorController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->getUser()->setCreditos($this->getUser()->getCreditos()-1);
+            $em->persist($this->getUser());
             $em->persist($favor);
             $em->flush();
 
@@ -175,7 +195,7 @@ class FavorController extends Controller
      */
     public function showAction(Favor $favor)
     {
-
+        // dump($favor->getCandidatos());die;
         return $this->render('favor/show.html.twig', array(
             'favor' => $favor,
         ));
@@ -240,5 +260,27 @@ class FavorController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+
+    /**
+     * Displays a form to edit an existing favor entity.
+     *
+     * @Route("/{id}/{idusuario}/elegir", name="favor_elegir")
+     * @Method({"GET"})
+     */
+    public function elegirAction(Favor $favor, $idusuario)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository('AppBundle:Usuario')->find($idusuario);
+        $session = $this->getRequest()->getSession();
+        
+        $favor->setElegido($usuario);
+        $em->persist($favor);
+        $em->flush();
+
+        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito');
+        return $this->redirectToRoute('favor_index');
+
     }
 }

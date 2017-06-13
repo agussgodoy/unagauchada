@@ -28,6 +28,18 @@
             <p>{{favor.detalle}}</p>
         </div>
     </div>
+    <hr>
+    <h3>Contame porqué querés postularte</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{path('favor_newPostularse', {'id':favor.id}) }}" method="POST" class="imput-group">
+            {{form_row(formComentario.detalle, {'attr':{'class':'form-control'}})}}
+            <br>
+            <input type="submit" class="btn btn-block btn-success" value="Postularse" />
+            {{ form_end(formComentario) }}
+        </div>
+    </div>
 {% endblock %}
 
 

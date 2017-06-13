@@ -20,12 +20,8 @@ class FavorType extends AbstractType
         ->add('categoria', null, array(
             'label'=>'Categoría',
             'empty_value'=>'Seleccione'))
-        ->add('localidad', null, array(
-            'label'=>'',
-            'empty_value'=>'Seleccione'))
-        ->add('partido', null, array(
-            'label'=>'',
-            'empty_value'=>'Seleccione'));
+        ->add('localidad', 'text', array(
+            'label'=>'Localidad'));
         //->add('elegido')
         //->add('autor');
     }

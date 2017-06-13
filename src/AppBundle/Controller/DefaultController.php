@@ -18,12 +18,15 @@ class DefaultController extends Controller
         /*return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));*/
-
+        $session = $this->getRequest()->getSession();
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
+        if($error){
+            $session->getFlashBag()->add('aviso_error', 'Se produjo un error. Verifique que su usuario y contraseña sea correcta.');
+        }
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

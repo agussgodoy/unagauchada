@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Usuario controller.
@@ -36,17 +38,46 @@ class UsuarioController extends Controller
     /**
      * Lists all usuario entities.
      *
-     * @Route("/{id}/newComprar", name="usuario_newComprar")
-     * @Method("GET")
+     * @Route("/newComprar", name="usuario_newComprar")
+     * @Method({"GET", "POST"})
      */
-    public function newComprarAction(Usuario $usuario)
+    public function newComprarAction(Request $request, Usuario $usuario)
     {
         $em = $this->getDoctrine()->getManager();
+        
+        $form = $this->createFormBuilder()
+            ->add('cantidad','integer', array(
+                'label'=>'Cantidad',
+                'attr'=>array(
+                    'min'=>1)))
+            ->add('tarjeta','integer', array(
+                'label'=>'Tarjeta',
+                'attr'=>array(
+                    'min'=>1)))
+            ->add('codigo','integer', array(
+                'label'=>'Código de Seguridad',
+                'attr'=>array(
+                    'min'=>1)))
+            ->add('submit', SubmitType::class, array('label' => 'Comprar'))
+            ->getForm();
+        $form->handleRequest($request);
 
-        var_dump($usuario->getNombre());die;
+         if ($form->isSubmitted() && $form->isValid()) {
+            $session = $this->getRequest()->getSession();
+            $em = $this->getDoctrine()->getManager();
+            
+            $usuario->setCreditos($usuario->getCreditos() + $form->get('cantidad')->getData());
+            $em->persist($usuario);
+            $em->flush();
 
+            $session->getFlashBag()->add('aviso_exito', 'La compra se realizó con éxito');
+
+
+            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+        }
         return $this->render('usuario/newComprar.html.twig', array(
-            'usuario' => $usuario,
+            'usuario' => $this->getUser(),
+            'form'=>$form->createView()
         ));
     }
 
@@ -70,10 +101,16 @@ class UsuarioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $session = $this->getRequest()->getSession();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
 
-            $session->getFlashBag()->add('aviso_exito', 'El usuario fue creado correctamente. Ahora puede iniciar sesión.');
+            if($em->getRepository('AppBundle:Usuario')->existeUsuario($form->get('email')->getData(),$form->get('apellido')->getData(),$form->get('nombre')->getData() > 0 )){
+                $session->getFlashBag()->add('aviso_error', 'Ya existe un usuario con el mismo mail o con el mismo nombre y apellido.');
+                return $this->redirectToRoute('usuario_new');
+            }else{
+                $em->persist($usuario);
+                $em->flush();
+
+                $session->getFlashBag()->add('aviso_exito', 'El usuario fue creado correctamente. Ahora puede iniciar sesión.');
+            }
 
 
             return $this->redirectToRoute('login');
@@ -88,7 +125,7 @@ class UsuarioController extends Controller
     /**
      * Finds and displays a usuario entity.
      *
-     * @Route("/{id}", name="usuario_show")
+     * @Route("/{id}/show", name="usuario_show")
      * @Method("GET")
      */
     public function showAction(Usuario $usuario)

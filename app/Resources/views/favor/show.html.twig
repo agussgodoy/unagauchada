@@ -18,6 +18,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <label>Localidad</label>
+            <p>{{favor.localidad}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <label>Categoría</label>
             <p>{{favor.categoria.descripcion}}</p>
         </div>
@@ -31,11 +37,25 @@
     <br>
     <hr>
     <h3>Postulaciones</h3>
-    {% if app.getUser.getId != favor.autor.id %}
+    {% if app.getUser.getId != favor.autor.id and favor.elegido is empty%}
         <a href="{{ path('favor_postularse', { 'id': favor.id }) }}" class="btn btn-xs btn-success">Postularse</a>
     {% endif %}
+
+    {% if favor.elegido is not empty %}
+        <p class="alert alert-warning">No se puede postular a este favor porque ya hay alguien que lo va a cumplir.</p>
+    {% endif %}
     <br><br>
-    {% for candidato in favor.candidatos %}
+    {% for comentario in favor.comentarios %}
+        <div class="row">
+            <label><i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.autor.apellido}}, {{comentario.autor.nombre}}</label>
+            <div class="col-md-12">
+                <p><i class="fa fa-comment-o" aria-hidden="true"></i> {{comentario.detalle}}</p>
+                {% if favor.autor.id == app.getUser.getId and favor.elegido is empty %}
+                    <a href="{{path('favor_elegir',{'id':favor.id, 'idusuario':comentario.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
     {% else %}
         {% if app.getUser.getId != favor.autor.id %}
             ¡Todavía no hay postulantes! Podés ser el primero.

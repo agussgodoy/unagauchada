@@ -8,12 +8,12 @@
             </div>
 
     <form action="{{ path('favor_new') }}" method="POST" class="imput-group">
-    {# <form action="#" method="POST"> #}
-        <button type="submit" class="btn btn-block btn-primary center">Pedir un favor</button>
+    <form action="#" method="POST">
+    <button type="submit" class="btn btn-block btn-primary center">Pedir un favor</button>
     </form>
     <a href="{{ path('favor_index') }}" class="btn btn-block btn btn-default"> Lista de favores </a>
     <a href="{{ path('favor_newBuscar') }}" class="btn btn-block btn btn-default"> Busqueda de favores </a>
-    <a href="{{ path('usuario_newComprar', { 'id': user.id }) }}" class="btn btn-block btn btn-default"> Comprar creditos!</a>
+    <a href="{{ path('usuario_newComprar') }}" class="btn btn-block btn btn-default"> Comprar creditos!</a>
 
             
 {% endblock %}

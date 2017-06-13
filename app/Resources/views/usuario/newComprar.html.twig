@@ -1,14 +1,36 @@
 {% extends 'base_logueado.html.twig' %}
 
-{% block body %}
+{% block contenido %}
 
-    <h1>Bienvenido a la compra de creditos  </h1>
+    <h1><i class="fa fa-usd" aria-hidden="true"></i> Comprar créditos</h1>
 
+    <div class="row">
+    	<p>Usted posee {{usuario.creditos}} créditos.</p>
+    	<p>Seleccione a continuación la cantidad de créditos que desea comprar.</p>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('usuario_index') }}">Back to the list</a>
-        </li>
+    <div class="row">
+    	{{form_start(form)}}
+    	<div class="col-md-6">
+    		{{form_row(form.tarjeta, {'attr':{'class':'form-control'}})}}	
+    	</div>
+    	
+    	<div class="col-md-6">
+    		{{form_row(form.codigo, {'attr':{'class':'form-control'}})}}
+    	</div>
 
-    </ul>
+    	<div class="col-md-6">
+    		{{form_row(form.cantidad, {'attr':{'class':'form-control'}})}}
+    	</div>
+    	
+    </div>
+    <div class="row">
+    	<br>
+    		{{form_row(form.submit, {'attr':{'class':'btn btn-success'}})}}
+    		<br>
+    		<a href="{{path('usuario_show', {'id': usuario.id})}}" class=" btn btn-danger"> Cancelar</a>
+    	
+    </div>
+    {{form_end(form)}}
+    
 {% endblock %}
