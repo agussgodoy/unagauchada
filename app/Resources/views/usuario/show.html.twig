@@ -38,57 +38,6 @@
             <p>
                 {{usuario.creditos}} 
                 <a href="{{path('usuario_newComprar', {'id':usuario.id})}}" class="btn btn-xs btn-success"> Comprar Créditos</a>
-
-<<<<<<< HEAD
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ usuario.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ usuario.email }}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if usuario.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ usuario.password }}</td>
-            </tr>
-            <tr>
-                <th>Rol</th>
-                <td>{{ usuario.rol }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ usuario.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td>{{ usuario.apellido }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{{ usuario.telefono }}</td>
-            </tr>
-            <tr>
-                <th>Creditos</th>
-                <td>{{ usuario.creditos }}</td>
-            </tr>
-            <tr>
-                <th>Puntaje</th>
-                <td>{{ usuario.puntaje }}</td>
-            </tr>
-        </tbody>
-    </table>
-=======
             </p>
         </div>
     </div>
@@ -98,7 +47,7 @@
             <p>{{usuario.puntaje ? usuario.puntaje : 'Todavía no tienes reputación'}}</p>
         </div>
     </div>
->>>>>>> ea43de214330b30bb759bce7961004502ce0b8c0
+
 
 {% endblock %}
 {% block stylesheets %}

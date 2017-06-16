@@ -29,8 +29,8 @@ class UsuarioType extends AbstractType
             ->add('apellido', 'text', array(
                 'label'=>'Apellido' ,
                 'required'=>true))
-            ->add('telefono', 'text', array(
-                'label'=>'Telefono' ,
+            ->add('documento', 'text', array(
+                'label'=>'Documento' ,
                 'required'=>true))
 /*            ->add('creditos')
             ->add('puntaje')
