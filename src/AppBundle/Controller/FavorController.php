@@ -26,7 +26,7 @@ class FavorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+        $favors = $em->getRepository('AppBundle:Favor')->findBy(array('elegido'=>null));
 
         return $this->render('favor/index.html.twig', array(
             'favors' => $favors,
