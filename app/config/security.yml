@@ -24,7 +24,7 @@ security:
                 check_path: login
             logout:
                 path: usuario_logout
-                target: /favor
+                target: /favor/
             remember_me:
                 secret: wam1551n6pl4y3rsd
                 lifetime: 604800
