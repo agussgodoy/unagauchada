@@ -8,22 +8,44 @@
     	<p>Usted posee {{usuario.creditos}} créditos.</p>
     	<p>Seleccione a continuación la cantidad de créditos que desea comprar.</p>
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label>Precio por crédito</label>
+            <p>$10</p>
+        </div>
+    </div>
+	
+    {{form_start(form)}}
 
     <div class="row">
-    	{{form_start(form)}}
+        <div class="col-md-6">
+            {{form_row(form.titular, {'attr':{'class':'form-control'}})}}       
+        </div>
     	<div class="col-md-6">
     		{{form_row(form.tarjeta, {'attr':{'class':'form-control'}})}}	
     	</div>
-    	
+    </div>
+    <br>
+    <div class="row">
+    	<div class="col-md-6">
+            {{form_label(form.mesVencimiento)}}
+            <div class="input-group">
+                {{form_widget(form.mesVencimiento, {'attr':{'class':'form-control'}})}}
+                <span class="input-group-addon">/</span>
+                {{form_widget(form.anioVencimiento, {'attr':{'class':'form-control'}})}}
+            </div>
+        </div>
     	<div class="col-md-6">
     		{{form_row(form.codigo, {'attr':{'class':'form-control'}})}}
     	</div>
-
-    	<div class="col-md-6">
-    		{{form_row(form.cantidad, {'attr':{'class':'form-control'}})}}
-    	</div>
-    	
     </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            {{form_row(form.cantidad, {'attr':{'class':'form-control'}})}}
+        </div>
+    </div>
+    
     <div class="row">
     	<br>
     		{{form_row(form.submit, {'attr':{'class':'btn btn-success'}})}}

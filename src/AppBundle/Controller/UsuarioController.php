@@ -38,7 +38,7 @@ class UsuarioController extends Controller
     /**
      * Lists all usuario entities.
      *
-     * @Route("/newComprar", name="usuario_newComprar")
+     * @Route("/{id}/newComprar", name="usuario_newComprar")
      * @Method({"GET", "POST"})
      */
     public function newComprarAction(Request $request, Usuario $usuario)
@@ -57,7 +57,22 @@ class UsuarioController extends Controller
             ->add('codigo','integer', array(
                 'label'=>'Código de Seguridad',
                 'attr'=>array(
-                    'min'=>1)))
+                    'min'=>1, 
+                    )))
+            ->add('titular','text', array(
+                'label'=>'Titular'))
+            ->add('mesVencimiento','integer', array(
+                'label'=>'Vencimiento',
+                'attr'=>array(
+                    'min'=>1,
+                    'max'=>12, 
+                    'placeholder'=>'Mes')))
+            ->add('anioVencimiento','integer', array(
+                'label'=>'',
+                'attr'=>array(
+                    'min'=>2017,
+                    'max'=>2050,
+                    'placeholder'=>'Año')))
             ->add('submit', SubmitType::class, array('label' => 'Comprar'))
             ->getForm();
         $form->handleRequest($request);
