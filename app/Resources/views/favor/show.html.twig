@@ -9,6 +9,9 @@
 
     <div class="row">
         <h3><center><i class="fa fa-angle-right" aria-hidden="true"></i> {{favor.titulo}} <i class="fa fa-angle-left" aria-hidden="true"></i></center></h3>
+        <center>{% if app.getUser.getId != favor.autor.id and favor.elegido is empty%}
+        <a href="{{ path('favor_postularse', { 'id': favor.id }) }}" class="btn btn btn-success">Postularse</a>
+    {% endif %}</center>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -36,15 +39,17 @@
     </div>
     <br>
     <hr>
-    <h3>Postulaciones</h3>
-    {% if app.getUser.getId != favor.autor.id and favor.elegido is empty%}
-        <a href="{{ path('favor_postularse', { 'id': favor.id }) }}" class="btn btn-xs btn-success">Postularse</a>
-    {% endif %}
+    
+    
 
-    {% if favor.elegido is not empty %}
+    {# {% if favor.elegido is not empty %}
         <p class="alert alert-warning">No se puede postular a este favor porque ya hay alguien que lo va a cumplir.</p>
-    {% endif %}
-    <br><br>
+    {% endif %} #}
+    {# <br><br> #}
+    <h3>
+        Comentarios <a href="#" class="btn btn-xs btn-warning">Comentar</a>
+    </h3>
+    
     {% for comentario in favor.comentarios %}
         <div class="row">
             <label><i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.autor.apellido}}, {{comentario.autor.nombre}}</label>
@@ -56,12 +61,12 @@
             </div>
         </div>
         <hr>
-    {% else %}
+    {# {% else %}
         {% if app.getUser.getId != favor.autor.id %}
             ¡Todavía no hay postulantes! Podés ser el primero.
         {% else %}
             ¡Todavía no hay postulantes!
-        {% endif %}
+        {% endif %} #}
     {% endfor %}
 
 {% endblock %}
