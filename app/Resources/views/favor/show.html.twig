@@ -47,7 +47,7 @@
     {% endif %} #}
     {# <br><br> #}
     <h3>
-        Comentarios <a href="{{path('comentario_new',{'id':favor.id})}}" class="btn btn-xs btn-warning">Comentar</a>
+        Comentarios <a href="{{path('comentario_new',{'id':favor.id, 'id_comentario':null})}}" class="btn btn-xs btn-warning">Comentar</a>
     </h3>
     
     {% for comentario in favor.comentarios %}
@@ -58,6 +58,7 @@
                 {% if favor.autor.id == app.getUser.getId and favor.elegido is empty %}
                     <a href="{{path('favor_elegir',{'id':favor.id, 'idusuario':comentario.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
                 {% endif %}
+                <a href="{{path('comentario_new', {'id':favor.id, 'id_comentario':comentario.id})}}">Responder</a>
             </div>
         </div>
         <hr>
@@ -79,7 +80,7 @@
     h1 { font-size: 36px; }
     h2 { font-size: 21px; margin-bottom: 1em; }
     p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
+    a { color: green; }
     a:hover { text-decoration: none; }
     code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
     #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }

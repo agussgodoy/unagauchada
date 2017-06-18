@@ -35,17 +35,22 @@ class ComentarioController extends Controller
     /**
      * Creates a new comentario entity.
      *
-     * @Route("/{id}/new", name="comentario_new")
+     * @Route("/{id}/{id_comentario}/new", name="comentario_new", defaults={"id_comentario" = null})
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, Favor $favor)
+    public function newAction(Request $request, Favor $favor, $id_comentario = null)
     {
         $comentario = new Comentario();
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        dump($id_comentario);die;
+        $comentario = $em->getRepository('AppBundle:Comentario')->find($id_comentario);
+        dump($comentario);die;
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
 
             $comentario->setAutor($this->getUser());
             $comentario->setFavor($favor);
