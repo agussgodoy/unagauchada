@@ -47,7 +47,7 @@
     {% endif %} #}
     {# <br><br> #}
     <h3>
-        Comentarios <a href="#" class="btn btn-xs btn-warning">Comentar</a>
+        Comentarios <a href="{{path('comentario_new',{'id':favor.id})}}" class="btn btn-xs btn-warning">Comentar</a>
     </h3>
     
     {% for comentario in favor.comentarios %}

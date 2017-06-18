@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comentario;
+use AppBundle\Entity\Favor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +35,10 @@ class ComentarioController extends Controller
     /**
      * Creates a new comentario entity.
      *
-     * @Route("/new", name="comentario_new")
+     * @Route("/{id}/new", name="comentario_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Favor $favor)
     {
         $comentario = new Comentario();
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
@@ -45,15 +46,20 @@ class ComentarioController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $comentario->setAutor($this->getUser());
+            $comentario->setFavor($favor);
+
             $em->persist($comentario);
             $em->flush();
 
-            return $this->redirectToRoute('comentario_show', array('id' => $comentario->getId()));
+            return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
         }
 
         return $this->render('comentario/new.html.twig', array(
             'comentario' => $comentario,
             'form' => $form->createView(),
+            'favor'=>$favor
         ));
     }
 

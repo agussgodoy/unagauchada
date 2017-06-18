@@ -15,7 +15,7 @@ class ComentarioType extends AbstractType
     {
         $builder
         ->add('detalle', 'textarea', array(
-            'label'=>'Comentario'))
+            'label'=>'Dejanos tu comentario '))
         // ->add('autor')
         // ->add('respondeA')
         // ->add('favor')

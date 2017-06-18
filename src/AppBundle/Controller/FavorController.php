@@ -195,7 +195,6 @@ class FavorController extends Controller
      */
     public function showAction(Favor $favor)
     {
-        // dump($favor->getCandidatos());die;
         return $this->render('favor/show.html.twig', array(
             'favor' => $favor,
         ));
