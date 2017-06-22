@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Postulacion;
 
 /**
  * Usuario controller.
@@ -213,4 +214,43 @@ class UsuarioController extends Controller
             ->getForm()
         ;
     }
+
+
+
+    /**
+     *
+     * @Route("/{id}/misPostulaciones", name="usuario_misPostulaciones")
+     * @Method("GET")
+     */
+    public function misPostulacionesAction(Usuario $usuario)
+    {
+        $postulaciones = $usuario->getPostulaciones();
+
+        return $this->render('usuario/misPostulaciones.html.twig', array(
+            'usuario' => $usuario,
+            'postulaciones' => $postulaciones,
+        ));
+    }
+
+
+    /**
+     *
+     * @Route("/{id}/eliminarPostulacion", name="usuario_eliminarPostulacion")
+     * @Method("GET")
+     */
+    public function eliminarPostulacionAction(Postulacion $postulacion)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($postulacion);
+        $em->flush();
+
+        $usuario = $postulacion->getAutor();
+        $postulaciones = $usuario->getPostulaciones();
+
+        return $this->render('usuario/misPostulaciones.html.twig', array(
+            'usuario' => $usuario,
+            'postulaciones' => $postulaciones,
+        ));
+    }
+
 }

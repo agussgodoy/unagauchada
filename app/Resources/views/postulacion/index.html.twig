@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Postulacions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Comentario</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for postulacion in postulacions %}
+            <tr>
+                <td><a href="{{ path('postulacion_show', { 'id': postulacion.id }) }}">{{ postulacion.id }}</a></td>
+                <td>{{ postulacion.comentario }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('postulacion_show', { 'id': postulacion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('postulacion_edit', { 'id': postulacion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('postulacion_new') }}">Create a new postulacion</a>
+        </li>
+    </ul>
+{% endblock %}

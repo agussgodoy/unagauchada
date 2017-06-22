@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ComentarioType extends AbstractType
+class PostulacionType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -14,11 +14,8 @@ class ComentarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('detalle', 'textarea', array(
-            'label'=>'Dejanos tu comentario '))
-        // ->add('autor')
-        // ->add('respondeA')
-        // ->add('favor')
+        ->add('comentario', 'textarea', array(
+            'label'=>'Dejanos tu comentario de postulación'))
         ;
     }
     
@@ -28,7 +25,7 @@ class ComentarioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Comentario'
+            'data_class' => 'AppBundle\Entity\Postulacion'
         ));
     }
 
@@ -37,7 +34,7 @@ class ComentarioType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_comentario';
+        return 'appbundle_postulacion';
     }
 
 

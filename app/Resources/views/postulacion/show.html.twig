@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Comentario</h1>
+    <h1>Postulacion</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ comentario.id }}</td>
+                <td>{{ postulacion.id }}</td>
             </tr>
             <tr>
-                <th>Detalle</th>
-                <td>{{ comentario.detalle }}</td>
+                <th>Comentario</th>
+                <td>{{ postulacion.comentario }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('comentario_index') }}">Back to the list</a>
+            <a href="{{ path('postulacion_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('comentario_edit', { 'id': comentario.id }) }}">Edit</a>
+            <a href="{{ path('postulacion_edit', { 'id': postulacion.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

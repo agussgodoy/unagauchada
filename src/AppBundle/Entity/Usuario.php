@@ -107,8 +107,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
 
     /**
      * muchos usuarios pueden postularse al mismo favor 
-     * @ORM\ManyToMany(targetEntity="Favor", inversedBy="candidatos")
-     * @ORM\JoinTable(name="candidatos_favor")
+     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="autor")
      */
     private $postulaciones;
 
@@ -539,13 +538,15 @@ class Usuario implements AdvancedUserInterface, \Serializable
     }
 
 
+    
+
     /**
      * Add postulaciones
      *
-     * @param \AppBundle\Entity\Favor $postulaciones
+     * @param \AppBundle\Entity\Postulacion $postulaciones
      * @return Usuario
      */
-    public function addPostulaciones(\AppBundle\Entity\Favor $postulaciones)
+    public function addPostulacione(\AppBundle\Entity\Postulacion $postulaciones)
     {
         $this->postulaciones[] = $postulaciones;
 
@@ -555,9 +556,9 @@ class Usuario implements AdvancedUserInterface, \Serializable
     /**
      * Remove postulaciones
      *
-     * @param \AppBundle\Entity\Favor $postulaciones
+     * @param \AppBundle\Entity\Postulacion $postulaciones
      */
-    public function removePostulacione(\AppBundle\Entity\Favor $postulaciones)
+    public function removePostulacione(\AppBundle\Entity\Postulacion $postulaciones)
     {
         $this->postulaciones->removeElement($postulaciones);
     }

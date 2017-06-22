@@ -69,10 +69,10 @@ class Favor
     private $autor;
 
     /**
-     * Un Favor tiene muchos Usuarios 
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="postulaciones")
+     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor")
      */
     private $candidatos;
+
 
 
     /**
@@ -243,39 +243,6 @@ class Favor
     }
 
     /**
-     * Add candidatos
-     *
-     * @param \AppBundle\Entity\Usuario $candidatos
-     * @return Favor
-     */
-    public function addCandidato(\AppBundle\Entity\Usuario $candidatos)
-    {
-        $this->candidatos[] = $candidatos;
-
-        return $this;
-    }
-
-    /**
-     * Remove candidatos
-     *
-     * @param \AppBundle\Entity\Usuario $candidatos
-     */
-    public function removeCandidato(\AppBundle\Entity\Usuario $candidatos)
-    {
-        $this->candidatos->removeElement($candidatos);
-    }
-
-    /**
-     * Get candidatos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCandidatos()
-    {
-        return $this->candidatos;
-    }
-
-    /**
      * Set localidad
      *
      * @param string $localidad
@@ -297,4 +264,42 @@ class Favor
     {
         return $this->localidad;
     }
+
+    /**
+     * Add candidatos
+     *
+     * @param \AppBundle\Entity\Postulacion $candidatos
+     * @return Favor
+     */
+    public function addCandidato(\AppBundle\Entity\Postulacion $candidatos)
+    {
+        $this->candidatos[] = $candidatos;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidatos
+     *
+     * @param \AppBundle\Entity\Postulacion $candidatos
+     */
+    public function removeCandidato(\AppBundle\Entity\Postulacion $candidatos)
+    {
+        $this->candidatos->removeElement($candidatos);
+    }
+
+    /**
+     * Get candidatos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCandidatos()
+    {
+        return $this->candidatos;
+    }
+
+    public function __toString(){
+        return $this->getDetalle();
+    }
+    
 }

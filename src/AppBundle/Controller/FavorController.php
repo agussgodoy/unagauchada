@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Postulacion;
+
 
 /**
  * Favor controller.
@@ -45,20 +47,15 @@ class FavorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comentario = new Comentario();
-        $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
-        $formComentario->handleRequest($request);
+        $postulacion = new Postulacion();
+        $form = $this->createForm('AppBundle\Form\PostulacionType', $postulacion);
+        $form->handleRequest($request);
 
-        if($formComentario->isValid()){
-            $comentario->setAutor($this->getUser());
-            $comentario->setFavor($favor);
+        if($form->isValid()){
+            $postulacion->setAutor($this->getUser());
+            $postulacion->setFavor($favor);
 
-            $favor->addCandidato($this->getUser());
-            $this->getUser()->addPostulaciones($favor);
-
-            $em->persist($comentario);
-            $em->persist($favor);
-            $em->persist($this->getUser());
+            $em->persist($postulacion);
             $em->flush();
 
             return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
@@ -67,7 +64,7 @@ class FavorController extends Controller
         
         return $this->render('favor/postularse.html.twig', array(
             'favor' => $favor,
-            'formComentario'=>$formComentario->createView(),
+            'form'=>$form->createView(),
             ));
     }
 
@@ -80,21 +77,12 @@ class FavorController extends Controller
     public function postularseAction(Request $request, Favor $favor)
     {
         $em = $this->getDoctrine()->getManager();
-        // $favor = $em->getRepository('AppBundle:Favor')->find($id);
-
-        $comentario = new Comentario();
-        $formComentario = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
-        
-        /*$favor->addCandidato($this->getUser());
-        $em->persist($favor);
-        $em->flush();
-*/
+        $postulacion = new Postulacion();
+        $form = $this->createForm('AppBundle\Form\PostulacionType', $postulacion);  
     
         return $this->render('favor/postularse.html.twig', array(
-            // 'favors' => $favors,
-            // 'user' => $this->getUser(),
             'favor' => $favor,
-            'formComentario'=>$formComentario->createView(),
+            'form' =>$form->createView(),
             ));
     }
 

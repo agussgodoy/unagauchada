@@ -35,7 +35,7 @@ class ComentarioController extends Controller
     /**
      * Creates a new comentario entity.
      *
-     * @Route("/{id}/{id_comentario}/new", name="comentario_new", defaults={"id_comentario" = null})
+     * @Route("/{id}/new/{id_comentario}", name="comentario_new", defaults={"id_comentario" = null})
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, Favor $favor, $id_comentario = null)
@@ -45,13 +45,12 @@ class ComentarioController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        dump($id_comentario);die;
-        $comentario = $em->getRepository('AppBundle:Comentario')->find($id_comentario);
-        dump($comentario);die;
+        if($id_comentario){
+            $respondeA = $em->getRepository('AppBundle:Comentario')->find($id_comentario);
+            $comentario->setRespondeA($respondeA);
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-
+        if ($form->isSubmitted() && $form->isValid()) {            
             $comentario->setAutor($this->getUser());
             $comentario->setFavor($favor);
 
@@ -64,7 +63,8 @@ class ComentarioController extends Controller
         return $this->render('comentario/new.html.twig', array(
             'comentario' => $comentario,
             'form' => $form->createView(),
-            'favor'=>$favor
+            'favor'=>$favor,
+            'id_comentario' => $id_comentario
         ));
     }
 
