@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Postulacion;
+use AppBundle\Entity\Favor;
 
 /**
  * Usuario controller.
@@ -77,7 +78,7 @@ class UsuarioController extends Controller
             ->add('submit', SubmitType::class, array('label' => 'Comprar'))
             ->getForm();
         $form->handleRequest($request);
-
+        
          if ($form->isSubmitted() && $form->isValid()) {
             $session = $this->getRequest()->getSession();
             $em = $this->getDoctrine()->getManager();
@@ -168,6 +169,8 @@ class UsuarioController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $session = $this->getRequest()->getSession();
+            $session->getFlashBag()->add('aviso_exito', 'Se han modificado tus datos.');
 
             return $this->redirectToRoute('usuario_edit', array('id' => $usuario->getId()));
         }
@@ -246,11 +249,53 @@ class UsuarioController extends Controller
 
         $usuario = $postulacion->getAutor();
         $postulaciones = $usuario->getPostulaciones();
+        $session = $this->getRequest()->getSession();
+
+        $session->getFlashBag()->add('aviso_exito', 'Te despostulaste con éxito del favor.');
 
         return $this->render('usuario/misPostulaciones.html.twig', array(
             'usuario' => $usuario,
             'postulaciones' => $postulaciones,
         ));
+    }
+
+
+    /**
+     *
+     * @Route("/{id}/misFavores", name="usuario_misFavores")
+     * @Method("GET")
+     */
+    public function misfavoresAction(Usuario $usuario)
+    {
+        $favores = $usuario->getFavores();
+
+        return $this->render('usuario/misFavores.html.twig', array(
+            'usuario' => $usuario,
+            'favores' => $favores,
+        ));
+    }
+
+    /**
+     * Deletes a favor entity.
+     *
+     * @Route("/{id}", name="usuario_eliminarFavor")
+     * @Method("GET")
+     */
+    public function eliminarFavorAction(Favor $favor)
+    {
+        $session = $this->getRequest()->getSession();
+
+        if($favor->getElegido() == null){
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($favor);
+            $em->flush();
+            $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado el favor con éxito');
+        }
+        else{
+            $session->getFlashBag()->add('aviso_error', 'El favor ya tiene un elegido! No se puede eliminar.');
+        }
+
+        return $this->redirectToRoute('usuario_misFavores', array('id' => $this->getUser()->getId() ));
     }
 
 }

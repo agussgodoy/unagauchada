@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-    	<a class="navbar-brand" href="#">Una gauchada</a>
+    	<a class="navbar-brand" href="{{path('homepage')}}">Una gauchada</a>
 
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   		<ul class="nav navbar-nav">
@@ -37,6 +37,7 @@
           <ul class="dropdown-menu">
             <li><a href="{{path('usuario_show', {'id':app.getUser.getId})}}">Ver Perfil</a></li>
             <li><a href="{{path('usuario_misPostulaciones', {'id':app.getUser.getId})}}">Mis postulaciones</a></li>
+            <li><a href="{{path('usuario_misFavores', {'id':app.getUser.getId})}}">Mis favores</a></li>
 
             {# <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li> #}

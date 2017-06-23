@@ -548,7 +548,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      */
     public function addPostulacione(\AppBundle\Entity\Postulacion $postulaciones)
     {
-        $this->postulaciones[] = $postulaciones;
+        $this->postulacione[] = $postulaciones;
 
         return $this;
     }

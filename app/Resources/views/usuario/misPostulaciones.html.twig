@@ -24,11 +24,11 @@
         {% for postulacion in postulaciones %}
             <div class="row">
                 Favor:
-                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{postulacion.favor}}</label>
+                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{postulacion.favor.titulo}}</label>
                 Tu postulacion:
                 <label><i class="fa fa-user-o" aria-hidden="true"></i> {{postulacion.comentario}}</label>
                 <div class="col-md-12">
-                    <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success">Eliminar postulación</a>
+                    <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success" >Despostularme</a>
             </div>
         <br>
         </div>

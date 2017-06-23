@@ -14,16 +14,40 @@
 {% endfor %}
 </div>
 {% endif %}
+{% if app.session.flashbag.has('aviso_error') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+{% for flashMessage in app.session.flashbag.get('aviso_error') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
+
     
 
     <div class="row">
-        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Editar mis datos</h1>
+        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis Favores</h1>    
     </div>
 
-        {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" />
-    {{ form_end(edit_form) }}
+
+        {% for favor in favores %}
+            <div class="row">
+                Favor:
+                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.titulo}}</label>
+                Descripciom:
+                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.detalle}}</label>
+                <div class="col-md-12">
+                    <a href="{{path('usuario_eliminarFavor',{ 'id': favor.id})}}" class="btn btn-xs btn-success">Eliminar</a>
+            </div>
+        <br>
+        </div>
+        <hr>
+        {% endfor %}
 
 
 {% endblock %}
