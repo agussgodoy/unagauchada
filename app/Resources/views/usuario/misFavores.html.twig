@@ -41,8 +41,11 @@
                 <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.titulo}}</label>
                 Descripciom:
                 <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.detalle}}</label>
-                <div class="col-md-12">
+                <div class="col-md">
                     <a href="{{path('usuario_eliminarFavor',{ 'id': favor.id})}}" class="btn btn-xs btn-success">Eliminar</a>
+            </div>
+            <div class="col-md">
+                    <a href="{{path('favor_edit',{ 'id': favor.id})}}" class="btn btn-xs btn-success">Editar</a>
             </div>
         <br>
         </div>
