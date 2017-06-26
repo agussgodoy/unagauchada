@@ -43,6 +43,7 @@ class ComentarioController extends Controller
         $comentario = new Comentario();
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
+        $respondeA = null;
 
         $em = $this->getDoctrine()->getManager();
         if($id_comentario){
@@ -53,8 +54,14 @@ class ComentarioController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {            
             $comentario->setAutor($this->getUser());
             $comentario->setFavor($favor);
+            
+            // si respondeA no es nulo, quiere decir que es un comentario de respuesta de otro comentario.
+            if($respondeA != null ){
+                $respondeA->addRespuesta($comentario);
+            }
 
             $em->persist($comentario);
+            $em->persist($respondeA);
             $em->flush();
 
             return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
