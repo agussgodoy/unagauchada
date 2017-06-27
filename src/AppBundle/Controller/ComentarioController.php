@@ -58,10 +58,9 @@ class ComentarioController extends Controller
             // si respondeA no es nulo, quiere decir que es un comentario de respuesta de otro comentario.
             if($respondeA != null ){
                 $respondeA->addRespuesta($comentario);
+                $em->persist($respondeA);
             }
-
             $em->persist($comentario);
-            $em->persist($respondeA);
             $em->flush();
 
             return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
