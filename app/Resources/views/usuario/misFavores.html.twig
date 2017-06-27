@@ -31,24 +31,26 @@
     
 
     <div class="row">
-        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis Favores</h1>    
+        <h1><i class="fa fa-handshake-o" aria-hidden="true"></i> Mis Favores</h1>    
     </div>
 
 
         {% for favor in favores %}
             <div class="row">
-                Favor:
-                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.titulo}}</label>
-                Descripciom:
-                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{favor.detalle}}</label>
-                <div class="col-md">
-                    <a href="{{path('usuario_eliminarFavor',{ 'id': favor.id})}}" class="btn btn-xs btn-success">Eliminar</a>
+                
+                <label>{{favor.titulo}}</label><br>
+                <label>Descripción</label>
+                <p> {{favor.detalle}}</p>
+                <br>
             </div>
-            <div class="col-md">
-                    <a href="{{path('favor_edit',{ 'id': favor.id})}}" class="btn btn-xs btn-success">Editar</a>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="{{path('favor_edit',{ 'id': favor.id})}}" class="btn btn-warning">Editar</a>
+                    <a href="{{path('usuario_eliminarFavor',{ 'id': favor.id})}}" class="btn  btn-danger">Eliminar</a>
+                </div>
+                
             </div>
-        <br>
-        </div>
         <hr>
         {% endfor %}
 
