@@ -48,20 +48,25 @@
     {# <br><br> #}
 
 
-    <h3>
-        Postulados:
-    </h3>
+    
     
     {% if app.user == favor.autor %}
+        <h3>
+            Postulantes:
+        </h3>
         {% for postulacion in favor.candidatos %}
             <div class="row">
-                {{ postulacion.autor }}:
-                <br>
-                {{postulacion.comentario}}
+                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{ postulacion.autor.apellido }}, {{postulacion.autor.nombre}}:</label>
+                <div class="col-md-12">
+                    <p>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> {{postulacion.comentario}}
+                    </p>
+                </div>
                 <a href="{{path('favor_elegir',{'id': favor.id, 'idusuario': postulacion.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
 
             </div>
         {% endfor %}
+        <hr>
     {% endif %}
 
     <h3>
@@ -80,9 +85,9 @@
                 <a href="{{path('comentario_new', {'id':favor.id, 'id_comentario':comentario.id})}}">Responder</a>
             </div>
         </div>
-        <hr>
+        {# <hr> #}
         {% for respuesta in comentario.respuestas %}
-            <div class="row" style="margin-left: 25px;">
+            <div class="row" style="margin-left: 45px;">
             <label><i class="fa fa-user-o" aria-hidden="true"></i> {{respuesta.autor.apellido}}, {{respuesta.autor.nombre}}</label>
             <div class="col-md-12">
                 <p><i class="fa fa-comment-o" aria-hidden="true"></i> {{respuesta.detalle}}</p>
