@@ -1,7 +1,7 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <h1><span>Edición de Categorías </span></h1>
+    <h1><span>Edición de reputaciones </span></h1>
 
 {% if app.session.flashbag.has('aviso_exito') %}
 <div class="alert alert-success alert-dismissible" role="alert">
@@ -23,17 +23,17 @@
 </div>
 {% endif %}
 
-            <div id="welcome">
-                <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de Categorias </span></h1>
-            </div>
     <div class="row">
-        <a href="{{ path('categoria_new') }}" class="btn btn-lg btn-primary"> Crear Categoría</a>
+        <a href="{{ path('calificacion_new') }}" class="btn btn-lg btn-primary"> Crear reputación</a>
     </div>
     <br>
+    <div id="welcome">
+        <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de reputaciones </span></h1>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-hover">
-                {% if categorias is not empty %}
+                {% if calificaciones is not empty %}
                 <thead>
                     <tr>
                         <th><center>Id</center></th>
@@ -42,10 +42,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for categoria in categorias %}
+                {% for calificacion in calificaciones %}
                     <tr>
-                        <td><center> {{ categoria.id }}</center></td>
-                        <td><center> {{categoria.descripcion}}</center></td>
+                        <td><center> {{ calificacion.id }}</center></td>
+                        <td><center> {{calificacion.descripcion}}</center></td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

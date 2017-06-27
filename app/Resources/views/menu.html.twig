@@ -41,6 +41,8 @@
             
             {% if app.getUser.getRol == 'ROLE_ADMIN' %}
               <li><a href="{{path('categoria_index')}}">Administrar categoria</a></li>
+              <li><a href="{{path('calificacion_index')}}">Administrar reputación</a></li>
+
             {% endif %}
 
             <li role="separator" class="divider"></li>

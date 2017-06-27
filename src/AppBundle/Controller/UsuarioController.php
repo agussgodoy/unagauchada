@@ -172,7 +172,7 @@ class UsuarioController extends Controller
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('aviso_exito', 'Se han modificado tus datos.');
 
-            return $this->redirectToRoute('usuario_edit', array('id' => $usuario->getId()));
+            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
         }
 
         return $this->render('usuario/edit.html.twig', array(
