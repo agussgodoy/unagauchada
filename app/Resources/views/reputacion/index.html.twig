@@ -27,7 +27,7 @@
                 <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de reputación </span></h1>
             </div>
     <div class="row">
-        <a href="{{ path('categoria_new') }}" class="btn btn-lg btn-primary"> Crear reputación</a>
+        <a href="{{ path('reputacion_new') }}" class="btn btn-lg btn-primary"> Crear reputación</a>
     </div>
     <br>
     <div class="row">
@@ -36,7 +36,6 @@
                 {% if reputaciones is not empty %}
                 <thead>
                     <tr>
-                        <th><center>Id</center></th>
                         <th><center>Descripcion</center></th>
                         <th><center>Mínimo</center></th>
                         <th><center>Máximo</center></th>
@@ -46,7 +45,6 @@
                 <tbody>
                 {% for reputacion in reputaciones %}
                     <tr>
-                        <td><center> {{ reputacion.id }}</center></td>
                         <td><center> {{reputacion.descripcion}}</center></td>
                         <td><center> {{ reputacion.minimo }}</center></td>
                         <td><center> {{reputacion.maximo}}</center></td>
