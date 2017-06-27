@@ -61,7 +61,7 @@ class CategoriaController extends Controller
     /**
      * Finds and displays a categorium entity.
      *
-     * @Route("/{id}", name="categoria_show")
+     * @Route("/{id}/show", name="categoria_show")
      * @Method("GET")
      */
     public function showAction(Categoria $categorium)
@@ -102,7 +102,7 @@ class CategoriaController extends Controller
     /**
      * Deletes a categorium entity.
      *
-     * @Route("/{id}", name="categoria_delete")
+     * @Route("/{id}/delete", name="categoria_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Categoria $categorium)
