@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Calificaciones list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Puntaje</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calificacion in calificaciones %}
+            <tr>
+                <td><a href="{{ path('calificacion_show', { 'id': calificacion.id }) }}">{{ calificacion.id }}</a></td>
+                <td>{{ calificacion.puntaje }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('calificacion_show', { 'id': calificacion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('calificacion_edit', { 'id': calificacion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('calificacion_new') }}">Create a new calificacion</a>
+        </li>
+    </ul>
+{% endblock %}

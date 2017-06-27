@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reputacion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reputacion.id }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ reputacion.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Minimo</th>
+                <td>{{ reputacion.minimo }}</td>
+            </tr>
+            <tr>
+                <th>Maximo</th>
+                <td>{{ reputacion.maximo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reputacion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reputacion_edit', { 'id': reputacion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
