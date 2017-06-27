@@ -103,19 +103,29 @@ class CategoriaController extends Controller
      * Deletes a categorium entity.
      *
      * @Route("/{id}/delete", name="categoria_delete")
-     * @Method("DELETE")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Categoria $categorium)
     {
-        $form = $this->createDeleteForm($categorium);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($categorium);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $existe=false;
+        $favores = $em->getRepository('AppBundle:Favor')->findAll();
+        foreach ($favores as $favor) {
+            if ($favor->getCategoria()->getId() == $categorium->getId() ){
+                $existe = true;
+            }
         }
 
+        if(! $existe){
+            $em->remove($categorium);
+            $em->flush();
+            $session = $this->getRequest()->getSession();
+            $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado la categoría');
+        }
+        else{
+            $session = $this->getRequest()->getSession();
+            $session->getFlashBag()->add('aviso_error', 'No puedes eliminar esta categoria por que tiene favores asociados');
+        }
         return $this->redirectToRoute('categoria_index');
     }
 
