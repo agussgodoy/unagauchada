@@ -24,10 +24,10 @@ class ReputacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $reputacions = $em->getRepository('AppBundle:Reputacion')->findAll();
+        $reputaciones = $em->getRepository('AppBundle:Reputacion')->findAll();
 
         return $this->render('reputacion/index.html.twig', array(
-            'reputacions' => $reputacions,
+            'reputaciones' => $reputaciones,
         ));
     }
 
