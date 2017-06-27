@@ -1,39 +1,88 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
-{% block body %}
-    <h1>Categorias list</h1>
+{% block contenido %}
+    <h1><span>Edición de Categorías </span></h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descripcion</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorium in categorias %}
-            <tr>
-                <td><a href="{{ path('categoria_show', { 'id': categorium.id }) }}">{{ categorium.id }}</a></td>
-                <td>{{ categorium.descripcion }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('categoria_show', { 'id': categorium.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('categoria_edit', { 'id': categorium.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
 
-    <ul>
-        <li>
-            <a href="{{ path('categoria_new') }}">Create a new categorium</a>
-        </li>
-    </ul>
+            <div id="welcome">
+                <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de Categorias </span></h1>
+            </div>
+    <div class="row">
+        <a href="{{ path('categoria_new') }}" class="btn btn-lg btn-primary"> Crear Categoría</a>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                {% if categorias is not empty %}
+                <thead>
+                    <tr>
+                        <th><center>Id</center></th>
+                        <th><center>Descripcion</center></th>
+                        <th><center>Acciones</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for categoria in categorias %}
+                    <tr>
+                        <td><center> {{ categoria.id }}</center></td>
+                        <td><center> {{categoria.descripcion}}</center></td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Acciones<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('categoria_edit', { 'id': categoria.id }) }}">Editar</a></li>
+                                    <li> <a href="{{ path('categoria_delete', { 'id': categoria.id  }) }}">Eliminar</a></li>
+                                </ul>|
+                                </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                    No se encontraron resultados.
+                {% endif %}
+                </tbody>
+            </table>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+<style>
+    body { background: #FFF; font: 18px/1.5 sans-serif; }
+    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 21px; margin-bottom: 1em; }
+    p { margin: 0 0 1em 0; }
+    a { color: #0000F0; }
+    a:hover { text-decoration: none; }
+    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+    #wrapper {margin: 1em auto; max-width: 800px; width: 95%; }
+    #container { padding: 2em; }
+    #welcome, #status { margin-bottom: 2em; }
+    #welcome h1 span { display: block; font-size: 75%; }
+    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
+    #icon-book { display: none; }
+
+    @media (min-width: 768px) {
+        #wrapper { width: 80%; margin: 2em auto; }
+        #icon-book { display: inline-block; }
+        #status a, #next a { display: block; }
+
+        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
+    }
+</style>
 {% endblock %}

@@ -1,7 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
 {% block body %}
-    <h1>Categorium</h1>
+    <h1>Categoria</h1>
 
     <table>
         <tbody>
@@ -10,7 +10,7 @@
                 <td>{{ categorium.id }}</td>
             </tr>
             <tr>
-                <th>Descripcion</th>
+                <th>Descripción: </th>
                 <td>{{ categorium.descripcion }}</td>
             </tr>
         </tbody>
@@ -18,15 +18,11 @@
 
     <ul>
         <li>
-            <a href="{{ path('categoria_index') }}">Back to the list</a>
+            <a href="{{ path('categoria_index') }}">Volver</a>
         </li>
         <li>
-            <a href="{{ path('categoria_edit', { 'id': categorium.id }) }}">Edit</a>
+            <a href="{{ path('categoria_edit', { 'id': categorium.id }) }}">Editar</a>
         </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+
     </ul>
 {% endblock %}

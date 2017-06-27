@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Categoria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Categorium controller.
@@ -39,20 +40,20 @@ class CategoriaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $categorium = new Categorium();
-        $form = $this->createForm('AppBundle\Form\CategoriaType', $categorium);
+        $categoria = new Categoria();
+        $form = $this->createForm('AppBundle\Form\CategoriaType', $categoria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($categorium);
+            $em->persist($categoria);
             $em->flush();
 
-            return $this->redirectToRoute('categoria_show', array('id' => $categorium->getId()));
+            return $this->redirectToRoute('categoria_index');
         }
 
         return $this->render('categoria/new.html.twig', array(
-            'categorium' => $categorium,
+            'categoria' => $categoria,
             'form' => $form->createView(),
         ));
     }
@@ -88,7 +89,7 @@ class CategoriaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('categoria_edit', array('id' => $categorium->getId()));
+            return $this->redirectToRoute('categoria_index');
         }
 
         return $this->render('categoria/edit.html.twig', array(
@@ -106,48 +107,12 @@ class CategoriaController extends Controller
      */
     public function deleteAction(Request $request, Categoria $categorium)
     {
-        $form = $this->createDeleteForm($categorium);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($categorium);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($categorium);
+        $em->flush();
 
         return $this->redirectToRoute('categoria_index');
     }
 
-    /**
-     * Creates a form to delete a categorium entity.
-     *
-     * @param Categoria $categorium The categorium entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Categoria $categorium)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('categoria_delete', array('id' => $categorium->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
-
-
-    /**
-     *
-     * @Route("/administrar", name="categoria_administrar")
-     * @Method({"GET", "POST"})
-     */
-    public function administrarAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $categorias = $em->getRepository('AppBundle:Categoria')->findAll();
-        var_dump($categorias);
-        return array(
-            'categorias' => $categorias,
-        );
-    }
 
 }

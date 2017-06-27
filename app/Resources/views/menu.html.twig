@@ -40,7 +40,7 @@
             <li><a href="{{path('usuario_misFavores', {'id':app.getUser.getId})}}">Mis favores</a></li>
             
             {% if app.getUser.getRol == 'ROLE_ADMIN' %}
-              <li><a href="{{path('categoria_administrar')}}">Administrar categoria</a></li>
+              <li><a href="{{path('categoria_index')}}">Administrar categoria</a></li>
             {% endif %}
 
             <li role="separator" class="divider"></li>
