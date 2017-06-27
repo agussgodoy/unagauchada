@@ -102,17 +102,37 @@ class CategoriaController extends Controller
     /**
      * Deletes a categorium entity.
      *
-     * @Route("/{id}", name="categoria_delete")
+     * @Route("/{id}/delete", name="categoria_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Categoria $categorium)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($categorium);
-        $em->flush();
+        $form = $this->createDeleteForm($categorium);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($categorium);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('categoria_index');
     }
 
+    /**
+     * Creates a form to delete a categorium entity.
+     *
+     * @param Categoria $categorium The categorium entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Categoria $categorium)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('categoria_delete', array('id' => $categorium->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 
 }
