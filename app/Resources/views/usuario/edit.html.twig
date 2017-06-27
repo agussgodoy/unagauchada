@@ -21,8 +21,28 @@
     </div>
 
         {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" />
+        <div class="row">
+            <div class="col-xs-6">
+                {{form_row(edit_form.email, {'attr':{'class':'form-control'}})}}
+            </div>
+            <div class="col-xs-6">
+                {{form_row(edit_form.password, {'attr':{'class':'form-control'}})}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-4">
+                {{form_row(edit_form.nombre, {'attr':{'class':'form-control'}})}}
+            </div>
+            <div class="col-xs-4">
+                {{form_row(edit_form.apellido, {'attr':{'class':'form-control'}})}}
+            </div>
+            <div class="col-xs-4">
+                {{form_row(edit_form.documento, {'attr':{'class':'form-control'}})}}
+            </div>
+        </div>        
+        <br>
+        <input type="submit" value="Guardar" class="btn btn-block btn-success" />
     {{ form_end(edit_form) }}
 
 

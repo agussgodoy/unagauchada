@@ -15,12 +15,15 @@
 </div>
 {% endif %}
     <div class="row">
-        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Ver Perfil </h1> 
-        <a href="{{ path('usuario_edit', { 'id': app.user.id }) }}" class="btn btn-primary"> 
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Editar datos
-        </a>
+        <h1>
+            <i class="fa fa-user-o" aria-hidden="true"></i> Ver Perfil  
+
+            <a href="{{ path('usuario_edit', { 'id': app.user.id }) }}" class="btn btn-warning"> 
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Editar datos
+            </a>
+        </h1> 
     </div>
-        
+    <br>
     <div class="row">
         <div class="col-xs-6">
             <label>Apellido y Nombre</label>
