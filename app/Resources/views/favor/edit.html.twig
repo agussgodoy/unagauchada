@@ -1,17 +1,37 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <h1><span>Edición de favor </span></h1>
+    <h1><span><i class="fa fa-handshake-o" aria-hidden="true"></i> Modificar favor </span></h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
+    <div class="row">
+        <div class="col-xs-12">
+            {{form_row(edit_form.titulo, {'attr':{'class':'form-control'}})}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            {{form_row(edit_form.detalle, {'attr':{'class':'form-control'}})}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-6">
+            {{form_row(edit_form.categoria, {'attr':{'class':'form-control'}})}}
+        </div>
+        <div class="col-xs-6">
+            {{form_row(edit_form.localidad, {'attr':{'class':'form-control'}})}}
+        </div>
+    </div>
+        {# {{ form_widget(edit_form) }} #}
         <br>
-        <input type="submit" value="Guardar" /> <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        <input type="submit" value="Guardar" class="btn btn-block btn-success" />
     {{ form_end(edit_form) }}
 
     <br>
 
-    <button href="{{ path('favor_index') }}">Volver a la lista de favores</button>
+    <button class="btn btn-default" href="{{ path('favor_index') }}">Volver</button>
 
 {% endblock %}
 
