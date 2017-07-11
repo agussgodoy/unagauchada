@@ -24,6 +24,7 @@
                 {% if favors is not empty %}
                 <thead>
                     <tr>
+                        <th><center></center></th>
                         <th><center>Titulo</center></th>
                         <th><center>Autor</center></th>
                         <th><center>Categoria</center></th>
@@ -35,6 +36,10 @@
                 <tbody>
                 {% for favor in favors %}
                     <tr>
+                        <td class="row">
+                            <img src="{{ asset('uploads/favor-fotos/' ~ favor.rutaFoto) }}" alt="" width="100">
+                        </td>
+
                         <td><center> {{ favor.titulo }}</center></td>
                         <td><center> {{favor.autor.apellido}}, {{favor.autor.nombre}}</center></td>
                         <td><center>{{favor.categoria.descripcion}}</center></td>
@@ -87,7 +92,7 @@
     a { color: #0000F0; }
     a:hover { text-decoration: none; }
     code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }
+    #wrapper { margin-top: 3em; width: 95%; }
     #container { padding: 2em; }
     #welcome, #status { margin-bottom: 2em; }
     #welcome h1 span { display: block; font-size: 75%; }

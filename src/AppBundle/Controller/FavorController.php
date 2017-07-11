@@ -161,6 +161,7 @@ class FavorController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $favor->uploadFoto($this->container->getParameter('dir.favor.fotos'));
             $this->getUser()->setCreditos($this->getUser()->getCreditos()-1);
             $em->persist($this->getUser());
             $em->persist($favor);
@@ -266,8 +267,62 @@ class FavorController extends Controller
         $em->persist($favor);
         $em->flush();
 
-        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito');
+        $titulo = $favor->getTitulo();
+        $mailElegido = $favor->getElegido()->getEmail();
+        $nombreElegido= $favor->getElegido()->getNombre();
+
+        $mailAutor = $favor->getAutor()->getEmail();
+        $nombreAutor = $favor->getAutor()->getNombre();
+
+        $this->enviarMail($titulo, $mailElegido, $nombreElegido, $mailAutor, $nombreAutor);
+
+        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito, te llegará un correo a tu casilla con los datos de contacto del elegido!');
         return $this->redirectToRoute('favor_index');
 
     }
+
+
+    public function enviarMail($titulo, $mailElegido, $nombreElegido, $mailAutor, $nombreAutor)
+    {
+        // $template = 'unagauchada:resources:notificacion.html.twig';
+        // $template2 = 'AppBundle:Favor:notificacion2.html.twig';
+        // $args = array(
+        //     'titulo' => $titulo,
+        //     'mailElegido' => $mailElegido,
+        //     'nombreElegido' => $nombreElegido,
+        //     'mailAutor' => $mailAutor,
+        //     'nombreAutor' => $nombreAutor
+        //     );
+        // $message = \Swift_Message::newInstance()
+        //     ->setSubject("Has sido elegido para un favor!")
+        //     ->setFrom(array('unagauchadaadm@gmail.com' => 'unagauchada'))
+        //     ->setTo(array($mailElegido))
+        //     ->setBody(
+        //         $this->renderView(
+        //             $template,
+        //             $args
+        //         ),
+        //         'text/html'
+        //     );
+        // $message2 = \Swift_Message::newInstance()
+        //     ->setSubject("Has elegido a alguien para cumplir tu favor!")
+        //     ->setFrom(array('unagauchadaadm@gmail.com' => 'unagauchada'))
+        //     ->setTo(array($mailAutor))
+        //     ->setBody(
+        //         $this->renderView(
+        //             $template2,
+        //             $args
+        //         ),
+        //         'text/html'
+        //     );
+        // try {
+        //     $this->get('mailer')->send($message);
+        //     $this->getRequest()->getSession()->getFlashBag()->add('aviso_exito',
+        //             'Notificación enviada.');
+        // } catch (\Exception $e) {
+        //      $this->getRequest()->getSession()->getFlashBag()->add('aviso_error',
+        //             'No se pudo enviar el mail.');
+        // }
+    }
+
 }

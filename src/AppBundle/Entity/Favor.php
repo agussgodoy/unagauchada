@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +73,14 @@ class Favor
      * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor")
      */
     private $candidatos;
+
+    /**
+     * @ORM\Column(name="ruta_foto", type="string", length=255)
+     */
+    private $rutaFoto;
+
+    
+    private $foto;
 
 
 
@@ -298,8 +307,66 @@ class Favor
         return $this->candidatos;
     }
 
+    /**
+     * Set rutaFoto
+     *
+     * @param string $rutaFoto
+     *
+     * @return Favor
+     */
+    public function setRutaFoto($rutaFoto)
+    {
+        $this->rutaFoto = $rutaFoto;
+
+        return $this;
+    }
+
+    /**
+     * Get rutaFoto
+     *
+     * @return string
+     */
+    public function getRutaFoto()
+    {
+        return $this->rutaFoto;
+    }
+
+    /**
+     * Set foto.
+     *
+     * @param UploadedFile $foto
+     */
+    public function setFoto(UploadedFile $foto = null)
+    {
+        $this->foto = $foto;
+    }
+    /**
+     * Get foto.
+     *
+     * @return UploadedFile
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
     public function __toString(){
         return $this->getDetalle();
+    }
+
+    /**
+     * Uploads the profile photo
+     *
+     * @param string $dir
+     */
+    public function uploadFoto($dir)
+    {
+        if (null === $this->getFoto()) {
+            return;
+        }
+        $photoFileName = uniqid('favor').'.'.$this->getFoto()->guessExtension();
+        $this->getFoto()->move($dir, $photoFileName);
+        $this->setRutaFoto($photoFileName);
     }
     
 }

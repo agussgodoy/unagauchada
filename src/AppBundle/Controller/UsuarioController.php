@@ -89,7 +89,6 @@ class UsuarioController extends Controller
 
             $session->getFlashBag()->add('aviso_exito', 'La compra se realizó con éxito');
 
-
             return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
         }
         return $this->render('usuario/newComprar.html.twig', array(
