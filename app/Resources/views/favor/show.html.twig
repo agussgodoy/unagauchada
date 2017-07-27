@@ -87,7 +87,9 @@
                 {# {% if favor.autor.id == app.getUser.getId and favor.elegido is empty %}
                     <a href="{{path('favor_elegir',{'id':favor.id, 'idusuario':comentario.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
                 {% endif %} #}
+                {% if app.user == favor.autor %}
                 <a href="{{path('comentario_new', {'id':favor.id, 'id_comentario':comentario.id})}}">Responder</a>
+                {% endif %}
             </div>
         </div>
         {# <hr> #}
