@@ -40,16 +40,24 @@ class CategoriaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
         $categoria = new Categoria();
         $form = $this->createForm('AppBundle\Form\CategoriaType', $categoria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($categoria);
-            $em->flush();
+            $entity = $em->getRepository('AppBundle:Categoria')->findBy(array('descripcion'=>$categoria->getDescripcion()));
+            if(!$entity){
+                $em->persist($categoria);
+                $em->flush();
+                $session->getFlashBag()->add('aviso_exito', 'La categoría ha sido dada de alta correctamente.');
+                return $this->redirectToRoute('categoria_index');
+            }else{
+                $session->getFlashBag()->add('aviso_error', 'La categoría que intenta dar de alta ya existe.');
+            }
 
-            return $this->redirectToRoute('categoria_index');
+
         }
 
         return $this->render('categoria/new.html.twig', array(

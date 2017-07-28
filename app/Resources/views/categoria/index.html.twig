@@ -1,33 +1,11 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <h1><span>Edición de Categorías </span></h1>
-
-{% if app.session.flashbag.has('aviso_exito') %}
-<div class="alert alert-success alert-dismissible" role="alert">
-{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
-    <p>
-        {{ flashMessage }}
-    </p>
-{% endfor %}
-</div>
-{% endif %}
-
-{% if app.session.flashbag.has('aviso_error') %}
-<div class="alert alert-danger alert-dismissible" role="alert">
-{% for flashMessage in app.session.flashbag.get('aviso_error') %}
-    <p>
-        {{ flashMessage }}
-    </p>
-{% endfor %}
-</div>
-{% endif %}
-
-            <div id="welcome">
-                <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de Categorias </span></h1>
-            </div>
+    <div id="welcome">
+        <h1><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de Categorias</h1>
+    </div>
     <div class="row">
-        <a href="{{ path('categoria_new') }}" class="btn btn-lg btn-primary"> Crear Categoría</a>
+        <a href="{{ path('categoria_new') }}" class="btn  btn-primary"> Crear Categoría</a>
     </div>
     <br>
     <div class="row">
@@ -47,15 +25,17 @@
                         <td><center> {{ categoria.id }}</center></td>
                         <td><center> {{categoria.descripcion}}</center></td>
                         <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 Acciones<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('categoria_edit', { 'id': categoria.id }) }}">Editar</a></li>
-                                    <li> <a  href="{{ path('categoria_delete', { 'id': categoria.id }) }}">Eliminar</a></li>
-                                </ul>
-                                </div>
+                            <center>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Acciones<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('categoria_edit', { 'id': categoria.id }) }}">Editar</a></li>
+                                        <li> <a  href="{{ path('categoria_delete', { 'id': categoria.id }) }}">Eliminar</a></li>
+                                    </ul>
+                                    </div>
+                            </center>
                         </td>
                     </tr>
                 {% endfor %}

@@ -34,9 +34,29 @@
         {% include 'menu.html.twig' %}
 	<div id="wrapper">
 		<div id="container">
-        {% block contenido %} 
+			{% if app.session.flashbag.has('aviso_exito') %}
+				<div class="alert alert-success alert-dismissible" role="alert">
+				{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+				    <p>
+				        {{ flashMessage }}
+				    </p>
+				{% endfor %}
+				</div>
+			{% endif %}
 
-        {% endblock contenido %}
+			{% if app.session.flashbag.has('aviso_error') %}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+				{% for flashMessage in app.session.flashbag.get('aviso_error') %}
+				    <p>
+				        {{ flashMessage }}
+				    </p>
+				{% endfor %}
+				</div>
+			{% endif %}
+			
+	        {% block contenido %} 
+
+	        {% endblock contenido %}
 		</div>
 	</div>
     {% endblock body %}
