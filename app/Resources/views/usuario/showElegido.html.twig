@@ -1,4 +1,4 @@
-{% extends 'base_logueado.html.twig' %}
+    {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
 {% if app.session.flashbag.has('aviso_exito') %}
@@ -14,51 +14,29 @@
 {% endfor %}
 </div>
 {% endif %}
-{% if app.session.flashbag.has('aviso_error') %}
-<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-    </button>
-{% for flashMessage in app.session.flashbag.get('aviso_error') %}
-    <p>
-        {{ flashMessage }}
-    </p>
-{% endfor %}
-</div>
-{% endif %}
 
-    
+    <h1><span><i class="fa fa-user-o" aria-hidden="true"></i> Elegido </span></h1>
 
     <div class="row">
-        <h1><i class="fa fa-handshake-o" aria-hidden="true"></i> Mis Favores</h1>    
+        <div class="col-xs-6">
+            <label>Apellido y Nombre</label>
+            <p> {{usuario.apellido}}, {{usuario.nombre}}</p>
+        </div>
+        <div class="col-xs-6">
+            <label>Mail</label>
+            <p> {{usuario.email}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Telefono</label>
+            <p>{{usuario.telefono}}</p>
+        </div>
     </div>
 
-
-        {% for favor in favores %}
-            <div class="row"> 
-                <label>{{favor.titulo}}</label><br>
-                <label>Descripción</label>
-                <p> {{favor.detalle}}</p>
-                <br>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    {% if app.user == favor.autor and favor.elegido %}
-                    <a href="{{ path('usuario_showElegido', { 'id': favor.elegido.id }) }}" class="btn btn-primary">Ver Elegido</a>
-                    {% endif %}
-                    <a href="{{path('favor_edit',{ 'id': favor.id})}}" class="btn btn-warning">Editar</a>
-                    <a href="{{path('usuario_eliminarFavor',{ 'id': favor.id})}}" class="btn  btn-danger">Eliminar</a>
-                </div>
-            </div>
-        <hr>
-        {% endfor %}
-
+    <a href="{{path('usuario_misFavores',{'id':app.user.id})}}" class="btn btn-default"> Volver</a>
 
 {% endblock %}
-
-
 {% block stylesheets %}
 
 <style>

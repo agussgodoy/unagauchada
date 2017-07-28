@@ -297,4 +297,18 @@ class UsuarioController extends Controller
         return $this->redirectToRoute('usuario_misFavores', array('id' => $this->getUser()->getId() ));
     }
 
+    /**
+     *
+     * @Route("/{id}/showElegido", name="usuario_showElegido")
+     * @Method("GET")
+     */
+    public function showElegidoAction(Usuario $usuario)
+    {
+        return $this->render('usuario/showElegido.html.twig', array(
+                    'usuario' => $usuario,
+                ));
+    }
+
+    
+
 }

@@ -267,19 +267,22 @@ class FavorController extends Controller
         $em->persist($favor);
         $em->flush();
 
-        $titulo = $favor->getTitulo();
+        /*$titulo = $favor->getTitulo();
         $mailElegido = $favor->getElegido()->getEmail();
         $nombreElegido= $favor->getElegido()->getNombre();
 
         $mailAutor = $favor->getAutor()->getEmail();
         $nombreAutor = $favor->getAutor()->getNombre();
 
-        $this->enviarMail($titulo, $mailElegido, $nombreElegido, $mailAutor, $nombreAutor);
+        $this->enviarMail($titulo, $mailElegido, $nombreElegido, $mailAutor, $nombreAutor);*/
 
-        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito, te llegará un correo a tu casilla con los datos de contacto del elegido!');
-        return $this->redirectToRoute('favor_index');
+        $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito.');
+        // return $this->redirectToRoute('favor_index');
+        return $this->redirectToRoute('usuario_showElegido', array('id' => $favor->getElegido()->getId()));
 
     }
+
+
 
 
     public function enviarMail($titulo, $mailElegido, $nombreElegido, $mailAutor, $nombreAutor)
