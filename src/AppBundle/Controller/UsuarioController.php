@@ -234,6 +234,23 @@ class UsuarioController extends Controller
         ));
     }
 
+    /**
+     *
+     * @Route("/{id}/misCandidaturas", name="usuario_misCandidaturas")
+     * @Method("GET")
+     */
+    public function miscandidaturasAction(Usuario $usuario)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $candidaturas = $em->getRepository('AppBundle:Favor')->findCandidaturas($usuario->getId());
+
+        return $this->render('usuario/misCandidaturas.html.twig', array(
+            'usuario' => $usuario,
+            'candidaturas' => $candidaturas,
+        ));
+    }
+
 
     /**
      *

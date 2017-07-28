@@ -116,14 +116,21 @@ class FavorController extends Controller
      * @Route("/newBuscar", name="favor_newBuscar")
      * @Method({"GET", "POST"})
      */
-    public function newBuscarAction()
+    public function newBuscarAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $favors = $em->getRepository('AppBundle:Favor')->findAll();
+        $favor = new Favor();
+        $form = $this->createForm('AppBundle\Form\buscarFavorType', $favor);  
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $favor = $em->getRepository('AppBundle:Favor')->find($favor->getId());
+            return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
+        }
 
         return $this->render('favor/newBuscar.html.twig', array(
-            'favors' => $favors,
+            'form' => $form,
         ));
     }
 

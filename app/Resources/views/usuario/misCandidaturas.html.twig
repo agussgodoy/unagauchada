@@ -1,31 +1,50 @@
 {% extends 'base_logueado.html.twig' %}
 
-{% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Búsqueda de favores </span></h1>
+{% block contenido %}
+{% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
+    
+
+    <div class="row">
+        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis candidaturas</h1>    
+    </div>
+
+
+        {% for candidatura in candidaturas %}
+            <div class="row">
+                Favor:
+                <label>{{candidatura.titulo}}</label>
+                <br>
+                Tu candidatura:
+                <label>
+                {% for candidato in candidatura.candidatos %}
+                    {% if candidato.autor == usuario %}
+                        {{candidato.comentario}}
+                    {% endif %}
+                {% endfor %}
+                </label>
             </div>
-
-
-<form action="{{ path('favor_buscar',  { 'id':  1}) }}" method="POST" class="imput-group">
-
-
-
-
-
-
-
-
-
-
-</form>
+        <br>
+        <hr>
+        {% endfor %}
 
 
 {% endblock %}
 
 
 {% block stylesheets %}
+
 <style>
     body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
     h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
@@ -35,7 +54,7 @@
     a { color: #0000F0; }
     a:hover { text-decoration: none; }
     code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+    #wrapper { margin: 1em auto; max-width: 800px; width: 95%; }
     #container { padding: 2em; }
     #welcome, #status { margin-bottom: 2em; }
     #welcome h1 span { display: block; font-size: 75%; }
@@ -52,4 +71,4 @@
         .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
     }
 </style>
-{% endblock %}  
+{% endblock %}

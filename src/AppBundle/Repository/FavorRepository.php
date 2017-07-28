@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class FavorRepository extends EntityRepository
 {
+	public function findCandidaturas($usuarioId){
+		$query = $this->createQueryBuilder('f')
+			->select('f')
+		    ->where('f.elegido = :usuarioId')
+		    ->setParameter(':usuarioId', $usuarioId);
+	    
+	    return $query->getQuery()->getResult();
+	}
 }
