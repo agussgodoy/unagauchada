@@ -3,26 +3,6 @@
 {% block contenido %}
     <h1><span>Edición de reputación </span></h1>
 
-{% if app.session.flashbag.has('aviso_exito') %}
-<div class="alert alert-success alert-dismissible" role="alert">
-{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
-    <p>
-        {{ flashMessage }}
-    </p>
-{% endfor %}
-</div>
-{% endif %}
-
-{% if app.session.flashbag.has('aviso_error') %}
-<div class="alert alert-danger alert-dismissible" role="alert">
-{% for flashMessage in app.session.flashbag.get('aviso_error') %}
-    <p>
-        {{ flashMessage }}
-    </p>
-{% endfor %}
-</div>
-{% endif %}
-
             <div id="welcome">
                 <h1><span><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de reputación </span></h1>
             </div>

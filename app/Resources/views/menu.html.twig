@@ -12,6 +12,11 @@
   		<ul class="nav navbar-nav">
 		    
 		    <li><a href="{{path('favor_index')}}">Favores</a></li>
+        {% if app.getUser.getRol == 'ROLE_ADMIN' %}
+      		<li><a href="{{path('usuario_index')}}">Ranking de Usuarios</a></li>
+          	<li><a href="#">Ranking de Ganancias</a></li>
+
+        {% endif %}
 		    
 		    {# <li><a href="#">Favores</a></li>
 		    

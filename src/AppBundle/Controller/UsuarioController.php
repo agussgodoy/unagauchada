@@ -21,7 +21,7 @@ class UsuarioController extends Controller
     /**
      * Lists all usuario entities.
      *
-     * @Route("/", name="usuario_index")
+     * @Route("/rankingUsuarios", name="usuario_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -325,7 +325,5 @@ class UsuarioController extends Controller
                     'usuario' => $usuario,
                 ));
     }
-
-    
 
 }
