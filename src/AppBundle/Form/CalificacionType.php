@@ -22,7 +22,7 @@ class CalificacionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Calificacion'
+            'data_class' => 'AppBundle\Entity\Calificar'
         ));
     }
 
