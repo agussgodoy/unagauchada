@@ -1,16 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
-{% block body %}
-    <h1>Reputacion creation</h1>
+{% block contenido %}
+    <h1>Crear Reputación</h1>
 
     {{ form_start(form) }}
+    <div class="row">
+        <div class="col-sm-12">
+            {{form_row(form.descripcion, {'attr':{'class':'form-control'}} ) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            {{form_row(form.minimo, {'attr':{'class':'form-control'}} ) }}
+        </div>
+        <div class="col-sm-6">
+            {{form_row(form.maximo, {'attr':{'class':'form-control'}} ) }}
+        </div>
+    </div>
+    <br>
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Crear" class="btn btn-block btn-success" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('reputacion_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
