@@ -39,6 +39,7 @@ class ReputacionController extends Controller
      */
     public function newAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
         $reputacion = new Reputacion();
         $form = $this->createForm('AppBundle\Form\ReputacionType', $reputacion);
         $form->handleRequest($request);
@@ -48,7 +49,8 @@ class ReputacionController extends Controller
             $em->persist($reputacion);
             $em->flush();
 
-            return $this->redirectToRoute('reputacion_show', array('id' => $reputacion->getId()));
+            $session->getFlashBag()->add('aviso_exito', 'La reputación ha sido dada de alta correctamente.');
+            return $this->redirectToRoute('reputacion_index');
         }
 
         return $this->render('reputacion/new.html.twig', array(
