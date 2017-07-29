@@ -24,4 +24,16 @@ class UsuarioRepository extends EntityRepository
 	    
 	    return $query->getQuery()->getSingleScalarResult();
 	}
+
+	public function findAll(){
+
+		$query = $this->createQueryBuilder('u')
+			->select('u')
+			->where('u.rol != :rol')
+		    ->addOrderBy('u.puntaje', 'desc')
+		    ->setParameter('rol', 'ROLE_ADMIN');
+	    
+	    return $query->getQuery()->getResult();
+
+	}
 }

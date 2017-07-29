@@ -1,57 +1,50 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-    <h1>Usuarios list</h1>
+    <h1><i class="fa fa-user-o"></i> Ranking de Usuarios</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Isactive</th>
-                <th>Password</th>
-                <th>Rol</th>
-                <th>Createdat</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Telefono</th>
-                <th>Creditos</th>
-                <th>Puntaje</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td><a href="{{ path('usuario_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
-                <td>{{ usuario.email }}</td>
-                <td>{% if usuario.isActive %}Yes{% else %}No{% endif %}</td>
-                <td>{{ usuario.password }}</td>
-                <td>{{ usuario.rol }}</td>
-                <td>{% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellido }}</td>
-                <td>{{ usuario.telefono }}</td>
-                <td>{{ usuario.creditos }}</td>
-                <td>{{ usuario.puntaje }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usuario_show', { 'id': usuario.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('usuario_new') }}">Create a new usuario</a>
-        </li>
-    </ul>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    {# <th>Isactive</th> #}
+                    {# <th>Password</th> #}
+                    {# <th>Rol</th> #}
+                    {# <th>Createdat</th> #}
+                    <th>Telefono</th>
+                    {# <th>Creditos</th> #}
+                    <th>Puntaje</th>
+                    {# <th>Actions</th> #}
+                </tr>
+            </thead>
+            <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    {# <td><a href="{{ path('usuario_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td> #}
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.apellido }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.telefono }}</td>
+                    <td><center> {{ usuario.puntaje }}</center></td>
+                    {# <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('usuario_show', { 'id': usuario.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td> #}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
