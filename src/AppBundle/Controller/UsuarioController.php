@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Postulacion;
 use AppBundle\Entity\Favor;
+use AppBundle\Entity\Calificacion;
 
 /**
  * Usuario controller.
@@ -317,13 +318,28 @@ class UsuarioController extends Controller
     /**
      *
      * @Route("/{id}/showElegido", name="usuario_showElegido")
-     * @Method("GET")
+     * @Method("GET|POST")
      */
-    public function showElegidoAction(Usuario $usuario)
+    public function showElegidoAction(Request $request, Favor $favor)
     {
+        $usuario = $favor->getElegido();
+
+        $form = $this->createFormBuilder()
+            ->add('calificacion','entity', array(
+                'class' => 'AppBundle:Calificar',
+                'label'=>'Calificación',
+                'empty_value' => '-Seleccione-'
+                ))
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $usuario->setPuntaje($usuario->getPuntaje() + $form->getData()['calificacion']->getPuntos());
+        }
         return $this->render('usuario/showElegido.html.twig', array(
-                    'usuario' => $usuario,
-                ));
+                'usuario' => $usuario,
+                'form' => $form->createView(),
+            ));
     }
 
 }

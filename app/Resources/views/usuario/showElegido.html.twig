@@ -1,4 +1,4 @@
-    {% extends 'base_logueado.html.twig' %}
+{% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
 {# {% if app.session.flashbag.has('aviso_exito') %}
@@ -33,6 +33,16 @@
             <p>{{usuario.telefono}}</p>
         </div>
     </div>
+
+        {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-12 ">
+            {{ form_row(form.calificacion, {'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    {# {{ form_widget(form) }} #}
+        <input type="submit" class="btn btn-block btn-success" value="Calificar" />
+    {{ form_end(form) }}
 
     <a href="{{path('usuario_misFavores',{'id':app.user.id})}}" class="btn btn-default"> Volver</a>
 
