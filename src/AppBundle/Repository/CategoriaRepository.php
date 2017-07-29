@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoriaRepository extends EntityRepository
 {
+	public function findAll(){
+
+		$query = $this->createQueryBuilder('c')
+			->select('c')
+			->where('c.isActive = 1');
+
+		return $query->getQuery()->getResult();
+	}
 }

@@ -49,6 +49,7 @@ class CategoriaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Categoria')->findBy(array('descripcion'=>$categoria->getDescripcion()));
             if(!$entity){
+                $entity->setIsActive(true);
                 $em->persist($categoria);
                 $em->flush();
                 $session->getFlashBag()->add('aviso_exito', 'La categoría ha sido dada de alta correctamente.');
@@ -116,21 +117,19 @@ class CategoriaController extends Controller
     public function deleteAction(Request $request, Categoria $categorium)
     {
         $em = $this->getDoctrine()->getManager();
-        $existe=false;
-        $favores = $em->getRepository('AppBundle:Favor')->findAll();
-        foreach ($favores as $favor) {
-            if ($favor->getCategoria()->getId() == $categorium->getId() ){
-                $existe = true;
-            }
-        }
-
-        if(! $existe){
-            $em->remove($categorium);
+        
+        // tomo la cantidad de favores que tiene una categoria
+        $cantidad = $em->getRepository('AppBundle:Favor')->getCantFavoresDeCategoria($categorium);
+        
+        // si no hay favores asociados a esa categoria, se da de baja pero de forma logica
+        if($cantidad == 0){
+            $categorium->setIsActive(false);
+            $em->persist($categorium);
             $em->flush();
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado la categoría');
-        }
-        else{
+        }else{
+            // si tiene favores asociados, no se puede eliminar.
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('aviso_error', 'No puedes eliminar esta categoria por que tiene favores asociados');
         }

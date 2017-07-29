@@ -20,4 +20,14 @@ class FavorRepository extends EntityRepository
 	    
 	    return $query->getQuery()->getResult();
 	}
+
+	public function getCantFavoresDeCategoria($categoria){
+		$query = $this->createQueryBuilder('f')
+			->select('COUNT(f)')
+			->innerJoin('f.categoria', 'c')
+			->where('c.id = :categoria')
+			->setParameter('categoria', $categoria);
+
+			return $query->getQuery()->getSingleScalarResult();
+	}
 }

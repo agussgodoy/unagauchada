@@ -28,6 +28,13 @@ class Categoria
      */
     private $descripcion;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
 
     /**
      * Get id
@@ -65,5 +72,28 @@ class Categoria
     public function __toString()
     {
         return $this->getDescripcion();
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Categoria
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 }
