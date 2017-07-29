@@ -204,6 +204,12 @@ class FavorController extends Controller
      */
     public function editAction(Request $request, Favor $favor)
     {
+        if(count($favor->getCandidatos()) != 0){
+            $session = $this->getRequest()->getSession();
+            $session->getFlashBag()->add('aviso_error', 'No puedes editar por que ya tienes candidatos!');
+            return $this->redirectToRoute('usuario_misFavores', array('id' => $favor->getAutor()->getId()));
+        }
+
         $deleteForm = $this->createDeleteForm($favor);
         $editForm = $this->createForm('AppBundle\Form\FavorType', $favor);
         $editForm->handleRequest($request);
