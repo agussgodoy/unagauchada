@@ -37,13 +37,20 @@
             </div>
         <br>
         <hr>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+
+                <p>Usted no posee postulaciones.</p>
+
+            </div>
         {% endfor %}
+
 
 
 {% endblock %}
 
 
-{% block stylesheets %}
+{# {% block stylesheets %}
 
 <style>
     body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
@@ -71,4 +78,4 @@
         .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
     }
 </style>
-{% endblock %}
+{% endblock %} #}
