@@ -70,7 +70,7 @@ class Favor
     private $autor;
 
     /**
-     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor")
+     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor", cascade={"remove"})
      */
     private $candidatos;
 
@@ -89,12 +89,6 @@ class Favor
     
     private $foto;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
 
 
 
@@ -407,26 +401,4 @@ class Favor
         return $this->calificado;
     }
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return Favor
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-    
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
 }

@@ -293,29 +293,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Deletes a favor entity.
-     *
-     * @Route("/{id}", name="usuario_eliminarFavor")
-     * @Method("GET")
-     */
-    public function eliminarFavorAction(Favor $favor)
-    {
-        $session = $this->getRequest()->getSession();
-
-        if($favor->getElegido() == null){
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($favor);
-            $em->flush();
-            $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado el favor con éxito');
-        }
-        else{
-            $session->getFlashBag()->add('aviso_error', 'El favor ya tiene un elegido! No se puede eliminar.');
-        }
-
-        return $this->redirectToRoute('usuario_misFavores', array('id' => $this->getUser()->getId() ));
-    }
-
-    /**
      *
      * @Route("/{id}/showElegido", name="usuario_showElegido")
      * @Method("GET|POST")
