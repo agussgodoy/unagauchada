@@ -325,7 +325,6 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $favor->getElegido();
         $autor = $favor->getAutor();
-        $descripcion = 'Sin calificación';
         $form = $this->createFormBuilder()
             ->add('calificacion','entity', array(
                 'class' => 'AppBundle:Calificar',
@@ -341,9 +340,12 @@ class UsuarioController extends Controller
             $calificacion->setUsuarioAutor($autor);
             $calificacion->setUsuarioCalificado($usuario);
             $calificacion->setFavor($favor);
+
             $descripcion = $form->getData()['calificacion']->getDescripcion();
+            
+            $calificacion->setDescripcion($descripcion);
+            
             $favor->setCalificado('s');
-            // dump($favor);die;
             
             $usuario->addCalificacionesRecibidas($calificacion);
             $usuario->setPuntaje($usuario->getPuntaje() + $form->getData()['calificacion']->getPuntos());
@@ -360,12 +362,20 @@ class UsuarioController extends Controller
             $session->getFlashBag()->add('aviso_exito', 'Se ha calificado al usuario '.$usuario->getNombre().
                 ' con éxito');
         }
+        else{
+            if($calificacion = $em->getRepository('AppBundle:Calificacion')->findOneByFavor($favor)){
+                $descripcion = $calificacion->getDescripcion();
+            }
+            else{
+                $descripcion= 'Sin calificación';
+            }
+        }
 
         return $this->render('usuario/showElegido.html.twig', array(
                 'usuario' => $usuario,
                 'form' => $form->createView(),
                 'calificado' => $favor->getCalificado(),
-                'calificacion' => $descripcion
+                'descripcion' => $descripcion
             ));
     }
 

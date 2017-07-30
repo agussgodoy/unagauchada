@@ -52,6 +52,13 @@ class Calificacion
     private $favor;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", nullable=true)
+     */
+    private $descripcion;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -151,5 +158,32 @@ class Calificacion
     public function getFavor()
     {
         return $this->favor;
+    }
+
+    public function __toString(){
+        return $this->getDescripcion();
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Calificacion
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 }
