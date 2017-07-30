@@ -28,7 +28,7 @@ class FavorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $favors = $em->getRepository('AppBundle:Favor')->findBy(array('elegido'=>null));
+        $favors = $em->getRepository('AppBundle:Favor')->findBy(array('elegido'=>null, 'isActive'=>true));
 
         return $this->render('favor/index.html.twig', array(
             'favors' => $favors,
@@ -170,6 +170,8 @@ class FavorController extends Controller
             $em = $this->getDoctrine()->getManager();
             $favor->uploadFoto($this->container->getParameter('dir.favor.fotos'));
             $this->getUser()->setCreditos($this->getUser()->getCreditos()-1);
+            $favor->setIsActive(true);
+            $favor->setCalificado('n');
             $em->persist($this->getUser());
             $em->persist($favor);
             $em->flush();
