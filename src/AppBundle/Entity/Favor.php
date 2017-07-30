@@ -75,6 +75,13 @@ class Favor
     private $candidatos;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="calificado", type="string", length=1)
+     */
+    private $calificado;
+
+    /**
      * @ORM\Column(name="ruta_foto", type="string", length=255)
      */
     private $rutaFoto;
@@ -369,4 +376,27 @@ class Favor
         $this->setRutaFoto($photoFileName);
     }
     
+
+    /**
+     * Set calificado
+     *
+     * @param boolean $calificado
+     * @return Favor
+     */
+    public function setCalificado($calificado)
+    {
+        $this->calificado = $calificado;
+    
+        return $this;
+    }
+
+    /**
+     * Get calificado
+     *
+     * @return boolean 
+     */
+    public function getCalificado()
+    {
+        return $this->calificado;
+    }
 }

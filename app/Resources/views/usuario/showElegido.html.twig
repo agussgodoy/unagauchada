@@ -33,8 +33,17 @@
             <p>{{usuario.telefono}}</p>
         </div>
     </div>
-
+    
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Calificación</label>
+            <p>{{calificacion}}</p>
+        </div>
+    </div>
+    
+    {% if calificado != 's' %}
         {{ form_start(form) }}
+
     <div class="row">
         <div class="col-md-12 ">
             {{ form_row(form.calificacion, {'attr':{'class':'form-control'}}) }}
@@ -44,6 +53,7 @@
     {# {{ form_widget(form) }} #}
         <input type="submit" class="btn btn-block btn-success" value="Calificar" />
     {{ form_end(form) }}
+    {% endif %}
     <br>
     <a href="{{path('usuario_misFavores',{'id':app.user.id})}}" class="btn btn-default"> Volver</a>
 

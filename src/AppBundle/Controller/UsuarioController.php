@@ -322,8 +322,10 @@ class UsuarioController extends Controller
      */
     public function showElegidoAction(Request $request, Favor $favor)
     {
+        $em = $this->getDoctrine()->getManager();
         $usuario = $favor->getElegido();
-
+        $autor = $favor->getAutor();
+        $descripcion = 'Sin calificación';
         $form = $this->createFormBuilder()
             ->add('calificacion','entity', array(
                 'class' => 'AppBundle:Calificar',
@@ -333,12 +335,33 @@ class UsuarioController extends Controller
             ->getForm();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $favor->getCalificado() != 's') {
+            $calificacion = new Calificacion;
+            $calificacion->setPuntaje($form->getData()['calificacion']->getPuntos());
+            $calificacion->setUsuarioAutor($autor);
+            $calificacion->setUsuarioCalificado($usuario);
+            $calificacion->setFavor($favor);
+            $descripcion = $form->getData()['calificacion']->getDescripcion();
+            $em->persist($calificacion);
+            $em->flush();
+            
+            $usuario->addCalificacionesRecibidas($calificacion);
             $usuario->setPuntaje($usuario->getPuntaje() + $form->getData()['calificacion']->getPuntos());
+            
+            $autor->addCalificacionesDadas($calificacion);
+            $favor->setCalificado('s');
+            var_dump($favor->getCalificado());
+
+            $session = $this->getRequest()->getSession();
+            $session->getFlashBag()->add('aviso_exito', 'Se ha calificado al usuario '.$usuario->getNombre().
+                ' con éxito');
         }
+
         return $this->render('usuario/showElegido.html.twig', array(
                 'usuario' => $usuario,
                 'form' => $form->createView(),
+                'calificado' => $favor->getCalificado(),
+                'calificacion' => $descripcion
             ));
     }
 

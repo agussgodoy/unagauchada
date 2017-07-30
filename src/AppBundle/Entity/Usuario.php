@@ -402,7 +402,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      * @param \AppBundle\Entity\Calificacion $calificacionesDadas
      * @return Usuario
      */
-    public function addCalificacionesDada(\AppBundle\Entity\Calificacion $calificacionesDadas)
+    public function addCalificacionesDadas(\AppBundle\Entity\Calificacion $calificacionesDadas)
     {
         $this->calificacionesDadas[] = $calificacionesDadas;
 
@@ -414,7 +414,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @param \AppBundle\Entity\Calificacion $calificacionesDadas
      */
-    public function removeCalificacionesDada(\AppBundle\Entity\Calificacion $calificacionesDadas)
+    public function removeCalificacionesDadas(\AppBundle\Entity\Calificacion $calificacionesDadas)
     {
         $this->calificacionesDadas->removeElement($calificacionesDadas);
     }
@@ -435,7 +435,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      * @param \AppBundle\Entity\Calificacion $calificacionesRecibidas
      * @return Usuario
      */
-    public function addCalificacionesRecibida(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
+    public function addCalificacionesRecibidas(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
     {
         $this->calificacionesRecibidas[] = $calificacionesRecibidas;
 
@@ -447,7 +447,7 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @param \AppBundle\Entity\Calificacion $calificacionesRecibidas
      */
-    public function removeCalificacionesRecibida(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
+    public function removeCalificacionesRecibidas(\AppBundle\Entity\Calificacion $calificacionesRecibidas)
     {
         $this->calificacionesRecibidas->removeElement($calificacionesRecibidas);
     }
