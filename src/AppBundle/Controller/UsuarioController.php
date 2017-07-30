@@ -342,15 +342,19 @@ class UsuarioController extends Controller
             $calificacion->setUsuarioCalificado($usuario);
             $calificacion->setFavor($favor);
             $descripcion = $form->getData()['calificacion']->getDescripcion();
-            $em->persist($calificacion);
-            $em->flush();
+            $favor->setCalificado('s');
+            // dump($favor);die;
             
             $usuario->addCalificacionesRecibidas($calificacion);
             $usuario->setPuntaje($usuario->getPuntaje() + $form->getData()['calificacion']->getPuntos());
             
             $autor->addCalificacionesDadas($calificacion);
             $favor->setCalificado('s');
-            var_dump($favor->getCalificado());
+            $em->persist($calificacion);
+            $em->persist($favor);
+            $em->persist($usuario);
+            $em->flush();
+            // var_dump($favor->getCalificado());
 
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('aviso_exito', 'Se ha calificado al usuario '.$usuario->getNombre().
