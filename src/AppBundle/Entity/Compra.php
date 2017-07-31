@@ -37,7 +37,7 @@ class Compra
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fecha", type="date")
      */
     private $fecha;
 
@@ -120,5 +120,12 @@ class Compra
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    public function __construct($cantidad, $usuario)
+    {
+        $this->fecha = new \DateTime();
+        $this->cantidad = $cantidad;
+        $this->usuario = $usuario;
     }
 }

@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CompraRepository extends EntityRepository
 {
+
+	public function buscar($desde, $hasta)
+	{
+		$query = $this->createQueryBuilder('c')
+		->where('c.fecha between :f1 and :f2')
+		->setParameter('f1', $desde)
+		->setParameter('f2', $hasta);
+
+		return $query->getQuery()->getResult();
+	}
 }

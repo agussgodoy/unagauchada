@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Postulacion;
 use AppBundle\Entity\Favor;
 use AppBundle\Entity\Calificacion;
+use AppBundle\Entity\Compra;
 
 /**
  * Usuario controller.
@@ -99,6 +100,8 @@ class UsuarioController extends Controller
             $em = $this->getDoctrine()->getManager();
             
             $usuario->setCreditos($usuario->getCreditos() + $form->get('cantidad')->getData());
+            $compra = new Compra($form->get('cantidad')->getData(), $usuario);
+            $em->persist($compra);
             $em->persist($usuario);
             $em->flush();
 
