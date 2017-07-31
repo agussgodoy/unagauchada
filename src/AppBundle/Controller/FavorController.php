@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Favor;
 use AppBundle\Entity\Comentario;
+use AppBundle\Entity\Categotia;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -119,38 +120,34 @@ class FavorController extends Controller
     public function newBuscarAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $favor = new Favor();
-        $form = $this->createForm('AppBundle\Form\buscarFavorType', $favor);  
+        $form = $this->createFormBuilder()  
+            ->add('titulo','text', array(
+                'label'=>'Título',
+                'required' => false 
+                ))
+            ->add('localidad','text', array(
+                'label'=>'Localidad',
+                'required' => false
+                ))
+            ->add('categoria','entity', array(
+                'class' => 'AppBundle:Categoria',
+                'label'=>'Categoría',
+                'empty_value' => '-Seleccione-',
+                'required' => false
+                ))
+            ->getForm();
         $form->handleRequest($request);
+        $favores = array();
 
-        if($form->isValid()){
-            $favor = $em->getRepository('AppBundle:Favor')->find($favor->getId());
-            return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $favores = $em->getRepository('AppBundle:Favor')->findFavor($form->getData());
         }
 
         return $this->render('favor/newBuscar.html.twig', array(
-            'form' => $form,
-        ));
+                'form' => $form->createView(),
+                'favores' => $favores
+            ));
     }
-
-
-
-    /**
-     *
-     * @Route("/buscar/{id}", name="favor_buscar")
-     * @Method({"GET", "POST"})
-     */
-    public function buscarAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $favor = $em->getRepository('AppBundle:Favor')->findOneBy((array('id' => $id)));
-
-        return $this->render('favor/show.html.twig', array(
-            'favor' => $favor,
-        ));
-    }
-
 
     /**
      * Creates a new favor entity.

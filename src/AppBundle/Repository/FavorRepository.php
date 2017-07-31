@@ -30,4 +30,26 @@ class FavorRepository extends EntityRepository
 
 			return $query->getQuery()->getSingleScalarResult();
 	}
+
+	public function findFavor($datos){
+		$query = $this->createQueryBuilder('f')
+			->select('f');
+
+		    if($datos['titulo']){
+			    $query->where("UPPER(f.titulo) LIKE UPPER(:titulo)")
+			    	->setParameter(':titulo', "%".$datos['titulo']."%");
+			}
+			if($datos['localidad']){
+			    $query->where("UPPER(f.localidad) LIKE UPPER(:localidad)")
+			    	->setParameter(':localidad', "%".$datos['localidad']."%");
+			}
+			if($datos['categoria']){
+			    $query->where("f.categoria = :categoria")
+			    	->setParameter(':categoria', $datos['categoria']);
+			}
+
+	    return $query->getQuery()->getResult();
+	}
+
+	
 }

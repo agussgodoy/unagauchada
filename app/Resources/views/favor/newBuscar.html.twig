@@ -1,25 +1,74 @@
 {% extends 'base_logueado.html.twig' %}
 
-{% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Búsqueda de favores </span></h1>
-            </div>
+{% block contenido %}
+{% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
+
+<h1><span><i class="fa fa-file-o" aria-hidden="true"></i> Busqueda de favor </span></h1>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-12 ">
+            {{ form_row(form.titulo, {'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 ">
+            {{ form_row(form.localidad, {'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 ">
+            {{ form_row(form.categoria, {'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+    <br>
+    {# {{ form_widget(form) }} #}
+        <input type="submit" class="btn btn-block btn-success" value="Buscar" />
+    {{ form_end(form) }}
+
+    {% if app.request.method == "POST" %}
+        <br>
+        <h1><span>Resultado de la búsqueda </span></h1>
+        {% if favores != null %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th class="col-md-5">Titulo</th>
+                        <th class="col-md-4">Localidad</th>
+                        <th class="col-md-4">Categoría</th>
+                        <th class="col-md-3">Acciones</th>
+                    </tr>
+                    <tr>
+                        {% for favor in favores %}
+                            <td class="col-md-4">{{favor.titulo}}</td>
+                            <td class="col-md-4">{{favor.localidad}}</td>
+                            <td class="col-md-3">{{favor.categoria}}</td>
+                            <td class="btn btn-default">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <a style="color:#37b130" href="{{ path('favor_show', { 'id': favor.id }) }}">Ver</a>
+                            </td>
+                    </tr>
+                        {% endfor %}
+            </table>
+        {% else %} No se encontraron resultados
+        {% endif %}
+        <br>
 
 
-<form action="{{ path('favor_buscar',  { 'id':  1}) }}" method="POST" class="imput-group">
-
-
-
-
-
-
-
-
-
-
-</form>
+    {% endif %}
 
 
 {% endblock %}
