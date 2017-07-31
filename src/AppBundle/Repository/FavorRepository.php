@@ -49,9 +49,7 @@ class FavorRepository extends EntityRepository
 			if($datos['categoria']){
 			    $query->andWhere("f.categoria = :categoria")
 			    	->setParameter(':categoria', $datos['categoria']);
-
+	    	}
 	    return $query->getQuery()->getResult();
-	}
-
-	
+	}	
 }
