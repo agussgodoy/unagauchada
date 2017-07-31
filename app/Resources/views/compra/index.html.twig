@@ -1,0 +1,74 @@
+{% extends 'base_logueado.html.twig' %}
+
+{% block contenido %}
+    <h1>Reporte de Ganancias</h1>
+    <div class="row">
+            {{form_start(form)}}
+        <div class="col-md-6">
+            {{form_widget(form.desde, {'attr':{'class':'form-control fecha'}})}}
+        </div>
+        <div class="col-md-6">
+            {{form_widget(form.hasta, {'attr':{'class':'form-control fecha'}})}}
+        </div>
+        <br>
+        <br>
+        {{form_widget(form.submit,{'attr':{'class':'btn btn-success'}} )}}
+        {{form_end(form)}}
+    </div>
+    <br>
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+        {% for compra in compras %}
+            <tr>
+                <td>{{compra.usuario}}</td>
+                <td>{% if compra.fecha %}{{ compra.fecha|date('d/m/Y') }}{% endif %}</td>
+                <td>{{ compra.cantidad }}</td>
+                <td>$10</td>
+                <td>${{ compra.cantidad * 10}}</td>
+                {% set total = total + (compra.cantidad * 10) %}
+            </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="4" style="text-align:right;">
+                Total:
+            </th>
+            <th>${{total}}</th>
+        </tr>
+        </tbody>
+    </table>
+
+    
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+
+    <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.es.min.js')}}"></script>
+
+    <script type="text/javascript">
+    $(function(){
+        $('.fecha').datepicker({
+            format: "dd/mm/yyyy",
+            todayBtn: true,
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        })
+    })
+    </script>
+{% endblock %}
+{% block stylesheets  %}
+    {{parent()}}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.css')}}">
+{% endblock %}

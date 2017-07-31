@@ -86,11 +86,12 @@ class ReputacionController extends Controller
         $deleteForm = $this->createDeleteForm($reputacion);
         $editForm = $this->createForm('AppBundle\Form\ReputacionType', $reputacion);
         $editForm->handleRequest($request);
-
+        $session = $request->getSession();
+        
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('reputacion_edit', array('id' => $reputacion->getId()));
+            $session->getFlashBag()->add('aviso_exito', 'Reputación modificada con éxito');
+            return $this->redirectToRoute('reputacion_index');
         }
 
         return $this->render('reputacion/edit.html.twig', array(

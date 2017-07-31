@@ -37,7 +37,7 @@ class Comentario
 
     /**
      * Un comentario tiene muchas respuestas
-     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="respondeA")
+     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="respondeA",cascade={"remove"})
      */
     private $respuestas;
 

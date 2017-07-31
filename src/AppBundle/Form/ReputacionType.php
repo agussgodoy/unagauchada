@@ -13,7 +13,7 @@ class ReputacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion')->add('minimo')->add('maximo');
+        $builder->add('descripcion')->add('maximo');
     }
     
     /**

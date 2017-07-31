@@ -48,17 +48,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-4">
-            <label>Reputacion</label>
-            <p>{{usuario.puntaje ? usuario.puntaje : 'Todavía no tienes reputación'}}</p>
+        <div class="col-xs-3">
+            <label>Puntaje</label>
+            <p>
+                {{usuario.puntaje}}
+            </p>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
+            <label>Reputación</label>
+            <p>{{reputacion.descripcion|capitalize}}</p>
+        </div>
+        <div class="col-xs-3">
             <label>Comentarios</label>
             <a href="#" class="btn btn-primary"> Ver Comentarios</a>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <label>Calificaciones</label>
-            <a href="#" class="btn btn-primary">Ver Calificaciones</a>
+            <a href="{{path('usuario_calificacionesRecibidas', {'id': usuario.id})}}" class="btn btn-primary">Ver Calificaciones</a>
         </div>
     </div>
 

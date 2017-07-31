@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Reputacion
  *
  * @ORM\Table(name="reputacion")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReputacionRepository")
+ * @UniqueEntity("descripcion", message="La reputación que intenta ingresar ya existe.")
+ * @UniqueEntity("maximo", message="Ya existe una reputación con ese puntaje.")
  */
 class Reputacion
 {
@@ -24,21 +27,15 @@ class Reputacion
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="string", length=255, unique=true)
      */
     private $descripcion;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="minimo", type="integer")
-     */
-    private $minimo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="maximo", type="integer")
+     * @ORM\Column(name="maximo", type="integer", unique=true)
      */
     private $maximo;
 
@@ -74,29 +71,6 @@ class Reputacion
     public function getDescripcion()
     {
         return $this->descripcion;
-    }
-
-    /**
-     * Set minimo
-     *
-     * @param integer $minimo
-     * @return Reputacion
-     */
-    public function setMinimo($minimo)
-    {
-        $this->minimo = $minimo;
-    
-        return $this;
-    }
-
-    /**
-     * Get minimo
-     *
-     * @return integer 
-     */
-    public function getMinimo()
-    {
-        return $this->minimo;
     }
 
     /**

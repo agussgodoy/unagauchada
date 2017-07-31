@@ -38,7 +38,7 @@ class Favor
 
     /**
      * Un favor tiene muchos comentarios
-     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="favor",cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="favor")
      */
     private $comentarios;
 
@@ -70,7 +70,7 @@ class Favor
     private $autor;
 
     /**
-     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Postulacion", mappedBy="favor")
      */
     private $candidatos;
 
@@ -89,6 +89,12 @@ class Favor
     
     private $foto;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
 
 
 
@@ -400,5 +406,4 @@ class Favor
     {
         return $this->calificado;
     }
-
 }

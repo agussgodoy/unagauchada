@@ -7,10 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Postulacion;
 use AppBundle\Entity\Favor;
 use AppBundle\Entity\Calificacion;
+use AppBundle\Entity\Compra;
 
 /**
  * Usuario controller.
@@ -36,7 +38,20 @@ class UsuarioController extends Controller
         ));
     }
 
+    /**
+     * Lists all usuario entities.
+     *
+     * @Route("/{puntaje}/reputacion", name="reputacion")
+     * @Method("GET")
+     */
+    public function reputacionAction($puntaje){
 
+        $em = $this->getDoctrine()->getManager();
+
+        $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($puntaje);
+
+        return new Response($reputacion->getDescripcion());
+    }
 
     /**
      * Lists all usuario entities.
@@ -85,6 +100,8 @@ class UsuarioController extends Controller
             $em = $this->getDoctrine()->getManager();
             
             $usuario->setCreditos($usuario->getCreditos() + $form->get('cantidad')->getData());
+            $compra = new Compra($form->get('cantidad')->getData(), $usuario);
+            $em->persist($compra);
             $em->persist($usuario);
             $em->flush();
 
@@ -149,9 +166,15 @@ class UsuarioController extends Controller
     {
         $deleteForm = $this->createDeleteForm($usuario);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($usuario->getPuntaje());
+
+
         return $this->render('usuario/show.html.twig', array(
             'usuario' => $usuario,
             'delete_form' => $deleteForm->createView(),
+            'reputacion'=>$reputacion,
         ));
     }
 
@@ -293,29 +316,6 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Deletes a favor entity.
-     *
-     * @Route("/{id}", name="usuario_eliminarFavor")
-     * @Method("GET")
-     */
-    public function eliminarFavorAction(Favor $favor)
-    {
-        $session = $this->getRequest()->getSession();
-
-        if($favor->getElegido() == null){
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($favor);
-            $em->flush();
-            $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado el favor con éxito');
-        }
-        else{
-            $session->getFlashBag()->add('aviso_error', 'El favor ya tiene un elegido! No se puede eliminar.');
-        }
-
-        return $this->redirectToRoute('usuario_misFavores', array('id' => $this->getUser()->getId() ));
-    }
-
-    /**
      *
      * @Route("/{id}/showElegido", name="usuario_showElegido")
      * @Method("GET|POST")
@@ -379,4 +379,16 @@ class UsuarioController extends Controller
             ));
     }
 
+
+    /**
+     *
+     * @Route("/{id}/calificacionesRecibidas", name="usuario_calificacionesRecibidas")
+     * @Method("GET")
+     */
+    public function verCalificacionesRecibidasAction(Usuario $usuario)
+    {
+        return $this->render('usuario/verCalificacionesRecibidas.html.twig', array(
+                'usuario' => $usuario,
+            ));
+    }
 }

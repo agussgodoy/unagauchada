@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Compra</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ compra.id }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <td>{{ compra.cantidad }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if compra.fecha %}{{ compra.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('compra_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

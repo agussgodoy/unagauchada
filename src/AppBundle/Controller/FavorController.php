@@ -167,6 +167,7 @@ class FavorController extends Controller
             $em = $this->getDoctrine()->getManager();
             $favor->uploadFoto($this->container->getParameter('dir.favor.fotos'));
             $this->getUser()->setCreditos($this->getUser()->getCreditos()-1);
+            $favor->setCalificado('n');
             $em->persist($this->getUser());
             $em->persist($favor);
             $em->flush();
@@ -227,21 +228,34 @@ class FavorController extends Controller
     /**
      * Deletes a favor entity.
      *
-     * @Route("/{id}", name="favor_delete")
-     * @Method("DELETE")
+     * @Route("/{id}/delete", name="favor_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Favor $favor)
     {
-        $form = $this->createDeleteForm($favor);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $session = $this->getRequest()->getSession();
+        if ($favor->getElegido() == null ) {
             $em = $this->getDoctrine()->getManager();
+            // evaluo si tiene candidatos
+            $candidatos = $favor->getCandidatos()->isEmpty();
+            if($candidatos){
+                // si no tiene candidatos, el autor recupera el credito
+                $autor = $favor->getAutor();
+                $autor->setCreditos($autor->getCreditos() + 1);
+                $em->persist($autor);
+            }
             $em->remove($favor);
             $em->flush();
+            if(!$candidatos){
+                $session->getFlashBag()->add('aviso_exito', 'El favor ha sido eliminado exitosamente. Como tenía postulantes, usted perdió el crédito');
+            }else{
+                $session->getFlashBag()->add('aviso_exito', 'El favor ha sido eliminado exitosamente. Como no tenía postulantes, usted recuperó el crédito');
+            }
+        }else{
+            $session->getFlashBag()->add('aviso_error', 'El favor no se puede eliminar porque ya tiene un elegido.');
         }
 
-        return $this->redirectToRoute('favor_index');
+        return $this->redirectToRoute('usuario_misFavores',array('id' => $this->getUser()->getId() ));
     }
 
     /**

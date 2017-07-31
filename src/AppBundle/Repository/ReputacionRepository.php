@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReputacionRepository extends EntityRepository
 {
+
+	public function getReputacion($puntaje){
+
+		$query = $this->createQueryBuilder('r')
+			->where('r.maximo >= :puntaje')
+			->orderBy('r.maximo', 'asc')
+			->setParameter('puntaje', $puntaje)
+			->setMaxResults(1);
+
+		$res = $query->getQuery()->getOneOrNullResult();
+
+		if($res){
+			return $res;
+		}
+		
+		$query = $this->createQueryBuilder('r')
+			->orderBy('r.maximo', 'desc')
+			->setMaxResults(1);
+
+		return $query->getQuery()->getOneOrNullResult();
+	}
 }
