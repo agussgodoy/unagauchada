@@ -23,19 +23,38 @@ class FavorController extends Controller
      * Lists all favor entities.
      *
      * @Route("/", name="favor_index")
-     * @Method("GET")
+     * @Method("GET|POST")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()  
+            ->add('titulo','text', array(
+                'label'=>'Título',
+                'required' => false 
+                ))
+            ->add('localidad','text', array(
+                'label'=>'Localidad',
+                'required' => false
+                ))
+            ->add('categoria','entity', array(
+                'class' => 'AppBundle:Categoria',
+                'label'=>'Categoría',
+                'empty_value' => '-Seleccione-',
+                'required' => false
+                ))
+            ->getForm();
+        $form->handleRequest($request);
+        $favores = array();
 
-        $favors = $em->getRepository('AppBundle:Favor')->findBy(array('elegido'=>null));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $favores = $em->getRepository('AppBundle:Favor')->findFavor($form->getData());
+        }
 
-        return $this->render('favor/index.html.twig', array(
-            'favors' => $favors,
-            'user' => $this->getUser()
-
-        ));
+        return $this->render('favor/newBuscar.html.twig', array(
+                'form' => $form->createView(),
+                'favores' => $favores
+            ));
     }
 
 

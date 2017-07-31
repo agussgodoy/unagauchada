@@ -33,18 +33,21 @@ class FavorRepository extends EntityRepository
 
 	public function findFavor($datos){
 		$query = $this->createQueryBuilder('f')
-			->select('f');
+			->select('f')
+			->where('f.elegido is null');
 
 		    if($datos['titulo']){
-			    $query->where("UPPER(f.titulo) LIKE UPPER(:titulo)")
+			    $query->andWhere("UPPER(f.titulo) LIKE UPPER(:titulo)")
 			    	->setParameter(':titulo', "%".$datos['titulo']."%");
 			}
+
 			if($datos['localidad']){
-			    $query->where("UPPER(f.localidad) LIKE UPPER(:localidad)")
+			    $query->andWhere("UPPER(f.localidad) LIKE UPPER(:localidad)")
 			    	->setParameter(':localidad', "%".$datos['localidad']."%");
 			}
+
 			if($datos['categoria']){
-			    $query->where("f.categoria = :categoria")
+			    $query->andWhere("f.categoria = :categoria")
 			    	->setParameter(':categoria', $datos['categoria']);
 			}
 
