@@ -38,7 +38,7 @@ class Favor
 
     /**
      * Un favor tiene muchos comentarios
-     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="favor")
+     * @ORM\OneToMany(targetEntity="Comentario", mappedBy="favor",cascade={"remove"})
      */
     private $comentarios;
 
