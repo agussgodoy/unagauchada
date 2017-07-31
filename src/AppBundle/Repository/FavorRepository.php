@@ -35,19 +35,35 @@ class FavorRepository extends EntityRepository
 		$query = $this->createQueryBuilder('f')
 			->select('f');
 
-		    if($datos['titulo']){
+		    if($datos['titulo']!=null){
 			    $query->where("UPPER(f.titulo) LIKE UPPER(:titulo)")
-			    	->setParameter(':titulo', "%".$datos['titulo']."%");
-			}
-			if($datos['localidad']){
-			    $query->where("UPPER(f.localidad) LIKE UPPER(:localidad)")
-			    	->setParameter(':localidad', "%".$datos['localidad']."%");
-			}
-			if($datos['categoria']){
-			    $query->where("f.categoria = :categoria")
-			    	->setParameter(':categoria', $datos['categoria']);
-			}
+			    	->setParameter('titulo', "%".$datos['titulo']."%");
+		    	if($datos['localidad']!=null){
+			    	$query->andWhere("UPPER(f.localidad) LIKE UPPER(:localidad)")
+			    		  ->setParameter('localidad', "%".$datos['localidad']."%");
+			    	if($datos['categoria']!=null){
+				    	$query->andWhere("f.categoria = :categoria")
+				    		->setParameter('categoria', $datos['categoria']->getDescripcion());
+					}
+				}
+			}else{
 
+				if($datos['localidad']!=null){
+				    $query->where("UPPER(f.localidad) LIKE UPPER(:localidad)")
+				    	->setParameter('localidad', '%'.$datos['localidad'].'%');
+			    	if($datos['categoria']!=null){
+			   	 		$query->andWhere("f.categoria = :categoria")
+				    		  ->setParameter('categoria', $datos['categoria']);
+					}
+				}else{
+
+					if($datos['categoria']!=null){
+					    $query->where("f.categoria = :categoria")
+					    	  ->setParameter('categoria', $datos['categoria']);
+					}
+				}
+			}
+			
 	    return $query->getQuery()->getResult();
 	}
 
