@@ -50,7 +50,9 @@
     <div class="row">
         <div class="col-xs-3">
             <label>Puntaje</label>
-            <p>{{usuario.puntaje}}</p>
+            <p>
+                {{usuario.puntaje}}
+            </p>
         </div>
         <div class="col-xs-3">
             <label>Reputación</label>
@@ -62,7 +64,7 @@
         </div>
         <div class="col-xs-3">
             <label>Calificaciones</label>
-            <a href="#" class="btn btn-primary">Ver Calificaciones</a>
+            <a href="{{path('usuario_calificacionesRecibidas', {'id': usuario.id})}}" class="btn btn-primary">Ver Calificaciones</a>
         </div>
     </div>
 

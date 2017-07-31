@@ -19,6 +19,7 @@
                     <th>Telefono</th>
                     {# <th>Creditos</th> #}
                     <th>Puntaje</th>
+                    <th>Reputación</th>
                     {# <th>Actions</th> #}
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <td>{{ usuario.email }}</td>
                     <td>{{ usuario.telefono }}</td>
                     <td><center> {{ usuario.puntaje }}</center></td>
+                    <td><center> {{render(controller('AppBundle:Usuario:reputacion',{'puntaje':usuario.puntaje}))}} </center></td>
                     {# <td>
                         <ul>
                             <li>

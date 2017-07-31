@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Postulacion;
 use AppBundle\Entity\Favor;
@@ -36,7 +37,20 @@ class UsuarioController extends Controller
         ));
     }
 
+    /**
+     * Lists all usuario entities.
+     *
+     * @Route("/{puntaje}/reputacion", name="reputacion")
+     * @Method("GET")
+     */
+    public function reputacionAction($puntaje){
 
+        $em = $this->getDoctrine()->getManager();
+
+        $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($puntaje);
+
+        return new Response($reputacion->getDescripcion());
+    }
 
     /**
      * Lists all usuario entities.
@@ -153,7 +167,6 @@ class UsuarioController extends Controller
 
         $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($usuario->getPuntaje());
 
-        // dump($reputacion);die;
 
         return $this->render('usuario/show.html.twig', array(
             'usuario' => $usuario,
@@ -363,4 +376,16 @@ class UsuarioController extends Controller
             ));
     }
 
+
+    /**
+     *
+     * @Route("/{id}/calificacionesRecibidas", name="usuario_calificacionesRecibidas")
+     * @Method("GET")
+     */
+    public function verCalificacionesRecibidasAction(Usuario $usuario)
+    {
+        return $this->render('usuario/verCalificacionesRecibidas.html.twig', array(
+                'usuario' => $usuario,
+            ));
+    }
 }
