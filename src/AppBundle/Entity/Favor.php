@@ -99,6 +99,7 @@ class Favor
     {
         $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->candidatos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calificado = 'n';
     }
 
     /**

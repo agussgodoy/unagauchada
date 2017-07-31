@@ -16,6 +16,7 @@
         {{form_end(form)}}
     </div>
     <br>
+    {% if compras is not empty %}
     <table class="table table-responsive table-hover">
         <thead>
             <tr>
@@ -46,7 +47,7 @@
         </tr>
         </tbody>
     </table>
-
+    {% endif %}
     
 {% endblock %}
 {% block javascripts %}

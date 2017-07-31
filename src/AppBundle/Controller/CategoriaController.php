@@ -49,7 +49,7 @@ class CategoriaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Categoria')->findBy(array('descripcion'=>$categoria->getDescripcion()));
             if(!$entity){
-                $entity->setIsActive(true);
+                $categoria->setIsActive(true);
                 $em->persist($categoria);
                 $em->flush();
                 $session->getFlashBag()->add('aviso_exito', 'La categoría ha sido dada de alta correctamente.');
