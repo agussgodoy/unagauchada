@@ -43,7 +43,7 @@ class FavorRepository extends EntityRepository
 			    		  ->setParameter('localidad', "%".$datos['localidad']."%");
 			    	if($datos['categoria']!=null){
 				    	$query->andWhere("f.categoria = :categoria")
-				    		->setParameter('categoria', $datos['categoria']->getDescripcion());
+				    		->setParameter('categoria', $datos['categoria']);
 					}
 				}
 			}else{
@@ -63,7 +63,8 @@ class FavorRepository extends EntityRepository
 					}
 				}
 			}
-			
+
+		// dump($query->getQuery());die;
 	    return $query->getQuery()->getResult();
 	}
 
