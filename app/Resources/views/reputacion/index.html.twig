@@ -16,7 +16,6 @@
                 <thead>
                     <tr>
                         <th><center>Descripcion</center></th>
-                        <th><center>Mínimo</center></th>
                         <th><center>Máximo</center></th>
                         <th><center>Acciones</center></th>
                     </tr>
@@ -25,18 +24,19 @@
                 {% for reputacion in reputaciones %}
                     <tr>
                         <td><center> {{reputacion.descripcion}}</center></td>
-                        <td><center> {{ reputacion.minimo }}</center></td>
                         <td><center> {{reputacion.maximo}}</center></td>
                         <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {# <div class="btn-group"> #}
+                               {#  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  Acciones<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('reputacion_edit', { 'id': reputacion.id }) }}">Editar</a></li>
-                                    <li> <a  href="{{ path('reputacion_delete', { 'id': reputacion.id }) }}">Eliminar</a></li>
-                                </ul>
-                                </div>
+                                </button> #}
+                                {# <ul class="dropdown-menu"> #}
+                                    {# <li><a href="{{ path('reputacion_show', { 'id': reputacion.id }) }}">Editar</a></li> #}
+                                    <center>
+                                    <a  href="{{ path('reputacion_delete', { 'id': reputacion.id }) }}" class="btn btn-default">Ver</a>
+                                    </center>
+                                {# </ul> #}
+                                {# </div> #}
                         </td>
                     </tr>
                 {% endfor %}

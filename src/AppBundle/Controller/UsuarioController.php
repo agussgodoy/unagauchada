@@ -149,9 +149,16 @@ class UsuarioController extends Controller
     {
         $deleteForm = $this->createDeleteForm($usuario);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($usuario->getPuntaje());
+
+        // dump($reputacion);die;
+
         return $this->render('usuario/show.html.twig', array(
             'usuario' => $usuario,
             'delete_form' => $deleteForm->createView(),
+            'reputacion'=>$reputacion,
         ));
     }
 
