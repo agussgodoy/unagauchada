@@ -22,7 +22,8 @@ class FavorType extends AbstractType
         ->add('categoria', null, array(
             'label'=>'Categoría',
             'empty_value'=>'Seleccione'))
-        ->add('foto', FileType::class)
+        ->add('foto', FileType::class, array(
+            'required'=>false))
         ->add('localidad', 'text', array(
             'label'=>'Localidad'));
         //->add('elegido')
