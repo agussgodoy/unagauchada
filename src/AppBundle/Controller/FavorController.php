@@ -236,7 +236,7 @@ class FavorController extends Controller
         $deleteForm = $this->createDeleteForm($favor);
         $editForm = $this->createForm('AppBundle\Form\FavorType', $favor);
         $editForm->handleRequest($request);
-
+        // $editForm()->get("foto")->setData($favor->getRutaFoto());
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -327,7 +327,7 @@ class FavorController extends Controller
 
         $session->getFlashBag()->add('aviso_exito', 'Se ha seleccionado al elegido con éxito.');
         // return $this->redirectToRoute('favor_index');
-        return $this->redirectToRoute('usuario_showElegido', array('id' => $favor->getElegido()->getId()));
+        return $this->redirectToRoute('usuario_showElegido', array('id' => $favor->getId()));
 
     }
 
