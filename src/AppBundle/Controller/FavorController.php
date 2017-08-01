@@ -98,7 +98,7 @@ class FavorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $postulacion = new Postulacion();
-        $form = $this->createForm('AppBundle\Form\PostulacionType', $postulacion);  
+        $form = $this->createForm('AppBundle\Form\PostulacionType', $postulacion);
     
         return $this->render('favor/postularse.html.twig', array(
             'favor' => $favor,
