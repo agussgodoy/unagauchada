@@ -226,9 +226,10 @@ class FavorController extends Controller
      */
     public function editAction(Request $request, Favor $favor)
     {
-        if(count($favor->getCandidatos()) != 0 and $favor->getElegido() == null){
+
+        if(count($favor->getCandidatos()) != 0 || $favor->getElegido() != null){
             $session = $this->getRequest()->getSession();
-            $session->getFlashBag()->add('aviso_error', 'No puedes editar por que ya tienes candidatos o un elegido!');
+            $session->getFlashBag()->add('aviso_error', 'No puedes editar por que ya tienes candidatos o un elegido');
             return $this->redirectToRoute('usuario_misFavores', array('id' => $favor->getAutor()->getId()));
         }
 
