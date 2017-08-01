@@ -236,8 +236,11 @@ class FavorController extends Controller
         $deleteForm = $this->createDeleteForm($favor);
         $editForm = $this->createForm('AppBundle\Form\FavorType', $favor);
         $editForm->handleRequest($request);
-        // $editForm()->get("foto")->setData($favor->getRutaFoto());
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if($editForm->get("foto")->getData() != null){
+                $favor->uploadFoto($this->container->getParameter('dir.favor.fotos'));
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));

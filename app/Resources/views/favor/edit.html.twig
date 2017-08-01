@@ -24,6 +24,22 @@
             {{form_row(edit_form.localidad, {'attr':{'class':'form-control'}})}}
         </div>
     </div>
+    <br>
+    
+    <div class="row">
+        <div class="col-xs-6">
+             {{form_label(edit_form.foto)}}
+             <br>
+             <br>
+             {% if favor.rutaFoto %}
+                <img src="{{ asset('uploads/favor-fotos/' ~ favor.rutaFoto) }}" alt="" width="100">
+                <br>
+                <br>
+            {% endif %}
+            {{form_widget(edit_form.foto, {'attr':{'class':'form-control'}})}}
+            {{form_errors(edit_form.foto)}}
+        </div>
+    </div>
         {# {{ form_widget(edit_form) }} #}
         <br>
         <input type="submit" value="Guardar" class="btn btn-block btn-success" />
