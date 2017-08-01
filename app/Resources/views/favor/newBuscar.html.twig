@@ -1,30 +1,36 @@
 {% extends 'base_logueado.html.twig' %}
 
 {% block contenido %}
-
-<h1><span><i class="fa fa-search" aria-hidden="true"></i> Busqueda de favor </span></h1>
-
-    {{ form_start(form) }}
-
     <div class="row">
-        <div class="col-md-4 ">
-            {{ form_row(form.titulo, {'attr':{'class':'form-control'}}) }}
-        </div>
-    {# </div> #}
-    {# <div class="row"> #}
-        <div class="col-md-4 ">
-            {{ form_row(form.localidad, {'attr':{'class':'form-control'}}) }}
-        </div>
-    {# </div> #}
-    {# <div class="row"> #}
-        <div class="col-md-4">
-            {{ form_row(form.categoria, {'attr':{'class':'form-control'}}) }}
-        </div>
+        <a href="{{ path('favor_new') }}" class="btn  btn-primary"> Crear Favor</a>
     </div>
-    <br>
-    <input type="submit" class="btn btn-success" value="Buscar" />
-    {# {{ form_widget(form) }} #}
-    {{ form_end(form) }}
+    <div class="row">
+        <h1><span><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de favor </span></h1>
+
+
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-md-4 ">
+                    {{ form_row(form.titulo, {'attr':{'class':'form-control'}}) }}
+                </div>
+            {# </div> #}
+            {# <div class="row"> #}
+                <div class="col-md-4 ">
+                    {{ form_row(form.localidad, {'attr':{'class':'form-control'}}) }}
+                </div>
+            {# </div> #}
+            {# <div class="row"> #}
+                <div class="col-md-4">
+                    {{ form_row(form.categoria, {'attr':{'class':'form-control'}}) }}
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-success" value="Buscar" />
+            {# {{ form_widget(form) }} #}
+            {{ form_end(form) }}
+
+    </div>
 
     {% if app.request.method == "POST" %}
         <br>

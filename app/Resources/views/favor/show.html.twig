@@ -67,8 +67,9 @@
                         <i class="fa fa-comment-o" aria-hidden="true"></i> {{postulacion.comentario}}
                     </p>
                 </div>
+                {% if favor.elegido == null %}
                 <a href="{{path('favor_elegir',{'id': favor.id, 'idusuario': postulacion.autor.id})}}" class="btn btn-xs btn-success">Elegir</a>
-
+                {% endif %}
             </div>
         {% endfor %}
         <hr>
