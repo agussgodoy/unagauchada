@@ -31,7 +31,7 @@
         <h3><span>Resultado de la búsqueda </span></h3>
         {% if favores != null %}
             <table class="table table-responsive table-hover">
-                <tbody>
+                <thead>
                     <tr>
                         <th><center>Titulo</center></th>
                         <th><center>Autor</center></th>
@@ -41,6 +41,8 @@
                         <th><center>Estado</center></th>
                         <th><center>Acciones</center></th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         {% for favor in favores %}
                             <td><center> {{ favor.titulo }}</center></td>
@@ -59,6 +61,7 @@
                                 <a class="btn-link" href="{{ path('favor_show', { 'id': favor.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i> Ver</a></center> 
                             </td>
                     </tr>
+                </tbody>
                         {% endfor %}
             </table>
         {% else %} 
