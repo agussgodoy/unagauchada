@@ -208,8 +208,13 @@ class FavorController extends Controller
      */
     public function showAction(Favor $favor)
     {
+        $em = $this->getDoctrine()->getManager();   
+        $postulado = $em->getRepository('AppBundle:Usuario')->isPostulado($favor, $this->getUser()->getId());
+        $postulado = $postulado > 0;
+
         return $this->render('favor/show.html.twig', array(
             'favor' => $favor,
+            'postulado' => $postulado,
         ));
     }
 
