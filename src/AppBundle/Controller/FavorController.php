@@ -238,6 +238,9 @@ class FavorController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if($editForm->get("foto")->getData() != null){
+                $favor->uploadFoto($this->container->getParameter('dir.favor.fotos'));
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('favor_show', array('id' => $favor->getId()));
