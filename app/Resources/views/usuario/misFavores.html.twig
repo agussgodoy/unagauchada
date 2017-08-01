@@ -48,6 +48,7 @@
                     {% if app.user == favor.autor and favor.elegido %}
                     <a href="{{ path('usuario_showElegido', { 'id': favor.id }) }}" class="btn btn-primary">Ver Elegido</a>
                     {% endif %}
+                    <a href="{{path('favor_show', {'id':favor.id})}}" class="btn btn-success"> Ver</a>
                     <a href="{{path('favor_edit',{ 'id': favor.id})}}" class="btn btn-warning">Editar</a>
                     <a href="{{path('favor_delete',{ 'id': favor.id})}}" class="btn  btn-danger">Eliminar</a>
                 </div>

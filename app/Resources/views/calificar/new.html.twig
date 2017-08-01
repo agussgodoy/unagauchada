@@ -6,10 +6,18 @@
     {{ form_start(form) }}
     <div class="row">
         <div class="col-sm-12">
-            {{form_row(form.descripcion, {'attr':{'class':'form-control'}})}}
+            {{form_label(form.descripcion)}}
+            {{form_widget(form.descripcion, {'attr':{'class':'form-control'}})}}
+            <div class="text-danger">
+                {{form_errors(form.descripcion)}}
+            </div>
         </div>
         <div class="col-sm-12">
-            {{form_row(form.puntos, {'attr':{'class':'form-control'}})}}
+            {{form_label(form.puntos)}}
+            {{form_widget(form.puntos, {'attr':{'class':'form-control'}})}}
+            <div class="text-danger">
+                {{form_errors(form.puntos)}}
+            </div>
         </div>
     </div>
 
@@ -17,4 +25,16 @@
     <input type="submit" value="Crear" class="btn btn-block btn-success" />
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <style type="text/css">
+        .text-danger li {
+            list-style:none;
+        }
+        .text-danger ul{
+            padding: 0;
+        }
+    </style>
 {% endblock %}

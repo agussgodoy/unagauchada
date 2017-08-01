@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Calificar
  *
  * @ORM\Table(name="calificar")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CalificarRepository")
+ * @UniqueEntity("descripcion", message="Ya existe una calificación con ese nombre.")
+ * @UniqueEntity("puntos", message="Ya existe una calificación con ese puntaje.")
  */
 class Calificar
 {

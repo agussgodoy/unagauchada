@@ -53,6 +53,4 @@ class FavorRepository extends EntityRepository
 
 	    return $query->getQuery()->getResult();
 	}
-
-	
 }

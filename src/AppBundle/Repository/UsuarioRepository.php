@@ -36,4 +36,17 @@ class UsuarioRepository extends EntityRepository
 	    return $query->getQuery()->getResult();
 
 	}
+
+	public function isPostulado($favor, $id_usuario)
+	{
+		$query = $this->createQueryBuilder('u')
+			->select('COUNT(p)')
+			->innerJoin('u.postulaciones', 'p')
+			->where('u.id = :id_usuario')
+			->andWhere('p.favor = :favor')
+			->setParameter('id_usuario', $id_usuario)
+			->setParameter('favor', $favor);
+
+		return $query->getQuery()->getSingleScalarResult();
+	}
 }

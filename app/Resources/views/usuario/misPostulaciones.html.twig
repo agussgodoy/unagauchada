@@ -24,9 +24,10 @@
         {% for postulacion in postulaciones %}
             <div class="row">
                 Favor:
-                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{postulacion.favor.titulo}}</label>
+                <label> {{postulacion.favor.titulo}}</label>
+                <br>
                 Tu postulacion:
-                <label><i class="fa fa-user-o" aria-hidden="true"></i> {{postulacion.comentario}}</label>
+                <label> {{postulacion.comentario}}</label>
                 <div class="col-md-12">
                     <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success" >Despostularme</a>
             </div>

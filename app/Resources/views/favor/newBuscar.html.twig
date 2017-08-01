@@ -20,50 +20,76 @@
     {{ form_start(form) }}
 
     <div class="row">
-        <div class="col-md-12 ">
-            {{ form_row(form.titulo, {'attr':{'class':'form-control'}}) }}
-        </div>
+        <a href="{{ path('favor_new') }}" class="btn  btn-primary"> Crear Favor</a>
     </div>
     <div class="row">
-        <div class="col-md-12 ">
-            {{ form_row(form.localidad, {'attr':{'class':'form-control'}}) }}
-        </div>
+        <h1><span><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de favor </span></h1>
+
+
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-md-4 ">
+                    {{ form_row(form.titulo, {'attr':{'class':'form-control'}}) }}
+                </div>
+            {# </div> #}
+            {# <div class="row"> #}
+                <div class="col-md-4 ">
+                    {{ form_row(form.localidad, {'attr':{'class':'form-control'}}) }}
+                </div>
+            {# </div> #}
+            {# <div class="row"> #}
+                <div class="col-md-4">
+                    {{ form_row(form.categoria, {'attr':{'class':'form-control'}}) }}
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-success" value="Buscar" />
+            {# {{ form_widget(form) }} #}
+            {{ form_end(form) }}
+
     </div>
-    <div class="row">
-        <div class="col-md-12 ">
-            {{ form_row(form.categoria, {'attr':{'class':'form-control'}}) }}
-        </div>
-    </div>
-    <br>
-    {# {{ form_widget(form) }} #}
-        <input type="submit" class="btn btn-block btn-success" value="Buscar" />
-    {{ form_end(form) }}
 
     {% if app.request.method == "POST" %}
         <br>
-        <h1><span>Resultado de la búsqueda </span></h1>
+        <h3><span>Resultado de la búsqueda </span></h3>
         {% if favores != null %}
-            <table>
+            <table class="table table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th><center>Titulo</center></th>
+                        <th><center>Autor</center></th>
+                        <th><center>Categoria</center></th>
+                        <th><center>Localidad</center></th>
+                        <th><center>Cant. Postulantes</center></th>
+                        <th><center>Estado</center></th>
+                        <th><center>Acciones</center></th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <th class="col-md-5">Titulo</th>
-                        <th class="col-md-4">Localidad</th>
-                        <th class="col-md-4">Categoría</th>
-                        <th class="col-md-3">Acciones</th>
-                    </tr>
-                    <tr>
                         {% for favor in favores %}
-                            <td class="col-md-4">{{favor.titulo}}</td>
-                            <td class="col-md-4">{{favor.localidad}}</td>
-                            <td class="col-md-3">{{favor.categoria}}</td>
-                            <td class="btn btn-default">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                <a style="color:#37b130" href="{{ path('favor_show', { 'id': favor.id }) }}">Ver</a>
+                            <td><center> {{ favor.titulo }}</center></td>
+                            <td><center> {{favor.autor.apellido}}, {{favor.autor.nombre}}</center></td>
+                            <td><center>{{favor.categoria.descripcion}}</center></td>
+                            <td><center>{{favor.localidad}}</center></td>
+                            <td><center>{{favor.candidatos|length}}</center></td>
+                            <td>
+                            {% if favor.elegido is empty %}
+                               <label class="btn btn-xs btn-success"><center> Abierto</center></label>
+                            {% else %}
+                                <label class="btn btn-xs btn-warning"><center> Con candidato</center></label>
+                            {% endif %}
+                            </td>
+                            <td><center>
+                                <a class="btn-link" href="{{ path('favor_show', { 'id': favor.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i> Ver</a></center> 
                             </td>
                     </tr>
+                </tbody>
                         {% endfor %}
             </table>
-        {% else %} No se encontraron resultados
+        {% else %} 
+            No se encontraron resultados
         {% endif %}
         <br>
 
@@ -72,33 +98,3 @@
 
 
 {% endblock %}
-
-
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
-
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
-
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
-{% endblock %}  
