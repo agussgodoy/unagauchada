@@ -34,7 +34,9 @@ class FavorRepository extends EntityRepository
 	public function findFavor($datos){
 		$query = $this->createQueryBuilder('f')
 			->select('f')
-			->where('f.elegido is null');
+			->innerJoin('f.categoria', 'c')
+			->where('f.elegido is null')
+			->andWhere('c.isActive = 1');
 
 		    if($datos['titulo']){
 			    $query->andWhere("UPPER(f.titulo) LIKE UPPER(:titulo)")

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Postulacion;
+use Doctrine\ORM\EntityRepository;
 
 
 /**
@@ -41,8 +42,13 @@ class FavorController extends Controller
                 'class' => 'AppBundle:Categoria',
                 'label'=>'Categoría',
                 'empty_value' => '-Seleccione-',
-                'required' => false
+                'required' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                            ->where('c.isActive = 1');
+                },
                 ))
+
             ->getForm();
         $form->handleRequest($request);
         $favores = array();
@@ -152,7 +158,11 @@ class FavorController extends Controller
                 'class' => 'AppBundle:Categoria',
                 'label'=>'Categoría',
                 'empty_value' => '-Seleccione-',
-                'required' => false
+                'required' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                            ->where('c.isActive = 1');
+                },
                 ))
             ->getForm();
         $form->handleRequest($request);

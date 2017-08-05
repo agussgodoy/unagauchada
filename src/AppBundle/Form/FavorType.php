@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Doctrine\ORM\EntityRepository;
 
 
 class FavorType extends AbstractType
@@ -19,9 +20,16 @@ class FavorType extends AbstractType
             'label'=>'Título'))
         ->add('detalle', 'textarea', array(
             'label'=>'Descripción'))
-        ->add('categoria', null, array(
+        ->add('categoria', 'entity', array(
+            'class'=>'AppBundle:Categoria',
             'label'=>'Categoría',
-            'empty_value'=>'Seleccione'))
+            'empty_value'=>'Seleccione',
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('c')
+                        ->where('c.isActive = 1');
+            },
+
+            ))
         ->add('foto', FileType::class, array(
             'required'=>false))
         ->add('localidad', 'text', array(

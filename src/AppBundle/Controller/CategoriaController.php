@@ -115,20 +115,19 @@ class CategoriaController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         // tomo la cantidad de favores que tiene una categoria
-        $cantidad = $em->getRepository('AppBundle:Favor')->getCantFavoresDeCategoria($categorium);
+        // $cantidad = $em->getRepository('AppBundle:Favor')->getCantFavoresDeCategoria($categorium);
         
         // si no hay favores asociados a esa categoria, se da de baja pero de forma logica
-        if($cantidad == 0){
-            $categorium->setIsActive(false);
-            $em->persist($categorium);
-            $em->flush();
-            $session = $this->getRequest()->getSession();
-            $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado la categoría');
-        }else{
-            // si tiene favores asociados, no se puede eliminar.
+        // if($cantidad == 0){
+        $categorium->setIsActive(false);
+        $em->persist($categorium);
+        $em->flush();
+        $session = $this->getRequest()->getSession();
+        $session->getFlashBag()->add('aviso_exito', 'Se ha eliminado la categoría');
+       /* }else{
             $session = $this->getRequest()->getSession();
             $session->getFlashBag()->add('aviso_error', 'No puedes eliminar esta categoria por que tiene favores asociados');
-        }
+        }*/
         return $this->redirectToRoute('categoria_index');
     }
 

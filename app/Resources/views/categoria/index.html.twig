@@ -27,13 +27,17 @@
                         <td>
                             <center>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                     Acciones<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{ path('categoria_edit', { 'id': categoria.id }) }}">Editar</a></li>
-                                        <li> <a  href="{{ path('categoria_delete', { 'id': categoria.id }) }}">Eliminar</a></li>
-                                    </ul>
+                                    {% if categoria.isActive %}
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         Acciones<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('categoria_edit', { 'id': categoria.id }) }}">Editar</a></li>
+                                            <li> <a  href="{{ path('categoria_delete', { 'id': categoria.id }) }}">Eliminar</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <span class="text-danger">Deshabilitada</span>
+                                    {% endif %}
                                     </div>
                             </center>
                         </td>
