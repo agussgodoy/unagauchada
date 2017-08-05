@@ -3,7 +3,7 @@
 {% block contenido %}
     <div class="row">
         <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis postulaciones</h1>
-        <p class="info">Se listan los favores en los que has sido elegido como candidato.</p>    
+        <p class="info">Se listan los favores en los que has sido elegido y en los que permaneces como candidato.</p>    
     </div>
 
 
@@ -13,6 +13,18 @@
                     <label>Favor:</label>
                     {{postulacion.favor.titulo}}
                 </div>
+                <div class="col-md-6">
+                    <label>Estado</label>
+                    {% if postulacion.favor.elegido == app.user %}
+                        <span class="alert-success">Elegido</span>
+                    {% else %}
+                        <span class="alert-warning">Candidato</span>
+                        {# <br> #}
+                        <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-danger">Despostularme</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <label>Comentario:</label>
                     {{postulacion.comentario}}

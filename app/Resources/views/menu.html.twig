@@ -43,7 +43,7 @@
             <li><a href="{{path('usuario_show', {'id':app.getUser.getId})}}">Ver Perfil</a></li>
             <li><a href="{{path('usuario_misPostulaciones', {'id':app.getUser.getId})}}">Mis postulaciones</a></li>
             <li><a href="{{path('usuario_misFavores', {'id':app.getUser.getId})}}">Mis favores</a></li>
-            <li><a href="{{path('usuario_misCandidaturas', {'id':app.getUser.getId})}}">Mis candidaturas</a></li>
+            {# <li><a href="{{path('usuario_misCandidaturas', {'id':app.getUser.getId})}}">Mis candidaturas</a></li> #}
 
             
             {% if app.getUser.getRol == 'ROLE_ADMIN' %}

@@ -288,6 +288,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $candidaturas = $em->getRepository('AppBundle:Favor')->findCandidaturas($usuario->getId());
+        // $candidaturas = $usuario->getCandidaturas();
 
         return $this->render('usuario/misCandidaturas.html.twig', array(
             'usuario' => $usuario,
