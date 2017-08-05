@@ -47,16 +47,12 @@ class CategoriaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Categoria')->findBy(array('descripcion'=>$categoria->getDescripcion()));
-            if(!$entity){
-                $categoria->setIsActive(true);
-                $em->persist($categoria);
-                $em->flush();
-                $session->getFlashBag()->add('aviso_exito', 'La categoría ha sido dada de alta correctamente.');
-                return $this->redirectToRoute('categoria_index');
-            }else{
-                $session->getFlashBag()->add('aviso_error', 'La categoría que intenta dar de alta ya existe.');
-            }
+
+            $categoria->setIsActive(true);
+            $em->persist($categoria);
+            $em->flush();
+            $session->getFlashBag()->add('aviso_exito', 'La categoría ha sido dada de alta correctamente.');
+            return $this->redirectToRoute('categoria_index');
 
 
         }
