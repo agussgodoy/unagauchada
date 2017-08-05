@@ -15,15 +15,16 @@
 </div>
 {% endif %}
 
-<h1><span><i class="fa fa-file-o" aria-hidden="true"></i> Búsqueda de favor </span></h1>
+<h1><span><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de favor </span></h1>
 
     {{ form_start(form) }}
 
     <div class="row">
         <a href="{{ path('favor_new') }}" class="btn  btn-primary"> Crear Favor</a>
     </div>
+    <br>
     <div class="row">
-        <h1><span><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de favor </span></h1>
+        {# <h1><span><i class="fa fa-search" aria-hidden="true"></i> Búsqueda de favor </span></h1> #}
 
 
             {{ form_start(form) }}
@@ -57,6 +58,7 @@
             <table class="table table-responsive table-hover">
                 <thead>
                     <tr>
+                        <th><center></center></th>
                         <th><center>Titulo</center></th>
                         <th><center>Autor</center></th>
                         <th><center>Categoria</center></th>
@@ -69,6 +71,9 @@
                 <tbody>
                     <tr>
                         {% for favor in favores %}
+                            <td class="row">
+                                <img src="{{ asset('uploads/favor-fotos/' ~ favor.rutaFoto) }}" alt="" width="100">
+                            </td>
                             <td><center> {{ favor.titulo }}</center></td>
                             <td><center> {{favor.autor.apellido}}, {{favor.autor.nombre}}</center></td>
                             <td><center>{{favor.categoria.descripcion}}</center></td>
