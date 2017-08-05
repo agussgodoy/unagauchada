@@ -1,0 +1,46 @@
+{% extends 'base_logueado.html.twig' %}
+
+{% block contenido %}
+{% if app.session.flashbag.has('aviso_exito') %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+{% for flashMessage in app.session.flashbag.get('aviso_exito') %}
+    <p>
+        {{ flashMessage }}
+    </p>
+{% endfor %}
+</div>
+{% endif %}
+
+    <h1><span><i class="fa fa-user-o" aria-hidden="true"></i> Autor </span></h1>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Apellido y Nombre</label>
+            <p> {{usuario.apellido}}, {{usuario.nombre}}</p>
+        </div>
+        <div class="col-xs-6">
+            <label>Mail</label>
+            <p> {{usuario.email}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Telefono</label>
+            <p>{{usuario.telefono}}</p>
+        </div>
+    </div>
+    
+{#     <div class="row">
+        <div class="col-xs-6">
+            <label>Calificación</label>
+            <p>{{descripcion}}</p>
+        </div>
+    </div> #}
+
+    <a href="{{path('usuario_misPostulaciones',{'id':app.user.id})}}" class="btn btn-default"> Volver</a>
+
+{% endblock %}

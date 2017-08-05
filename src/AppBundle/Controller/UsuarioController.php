@@ -178,6 +178,26 @@ class UsuarioController extends Controller
         ));
     }
 
+        /**
+     * Finds and displays a usuario entity.
+     *
+     * @Route("/{id}/showAutor", name="usuario_showAutor")
+     * @Method("GET")
+     */
+    public function showAutorAction(Usuario $usuario)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $reputacion = $em->getRepository('AppBundle:Reputacion')->getReputacion($usuario->getPuntaje());
+
+
+        return $this->render('usuario/showAutor.html.twig', array(
+            'usuario' => $usuario,
+            'reputacion'=>$reputacion,
+        ));
+    }
+
     /**
      * Displays a form to edit an existing usuario entity.
      *

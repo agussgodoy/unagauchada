@@ -17,29 +17,46 @@
     
 
     <div class="row">
-        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis postulaciones</h1>    
+        <h1><i class="fa fa-user-o" aria-hidden="true"></i> Mis postulaciones</h1>
+        <p class="info">Se listan los favores en los que has sido elegido como candidato.</p>    
     </div>
 
 
         {% for postulacion in postulaciones %}
             <div class="row">
-                Favor:
-                <label> {{postulacion.favor.titulo}}</label>
-                <br>
-                Tu postulacion:
-                <label> {{postulacion.comentario}}</label>
-                <div class="col-md-12">
-                    <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success" >Despostularme</a>
+                <div class="col-md-6">
+                    <label>Favor:</label>
+                    {{postulacion.favor.titulo}}
+                </div>
+                <div class="col-md-6">
+                    <label>Comentario:</label>
+                    {{postulacion.comentario}}
+                </div>
+                {# <div class="col-md-6">
+                    <label>Estado: </label>
+                    {% if postulacion.favor.elegido == app.user %}
+                        <span class="alert-success">Elegido</span>
+                    {% else %}
+                        <span>Candidato</span>
+                        <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success" >Despostularme</a>
+                    {% endif %}
+                </div> #}
+            </div>
+            {# <div class="row">
+            </div> #}
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{path('usuario_showAutor', {'id':postulacion.favor.autor.id})}}" class="btn btn-primary">Ver Datos del Autor</a>
+                </div>
             </div>
         <br>
-        </div>
         <hr>
         {% endfor %}
 
 
 {% endblock %}
 
-
+{# 
 {% block stylesheets %}
 
 <style>
@@ -68,4 +85,4 @@
         .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
     }
 </style>
-{% endblock %}
+{% endblock %} #}
