@@ -32,21 +32,12 @@
                     <label>Comentario:</label>
                     {{postulacion.comentario}}
                 </div>
-                {# <div class="col-md-6">
-                    <label>Estado: </label>
-                    {% if postulacion.favor.elegido == app.user %}
-                        <span class="alert-success">Elegido</span>
-                    {% else %}
-                        <span>Candidato</span>
-                        <a href="{{path('usuario_eliminarPostulacion',{ 'id': postulacion.id})}}" class="btn btn-xs btn-success" >Despostularme</a>
-                    {% endif %}
-                </div> #}
             </div>
-            {# <div class="row">
-            </div> #}
+
             <div class="row">
                 <div class="col-md-6">
                     <a href="{{path('usuario_showAutor', {'id':postulacion.favor.autor.id})}}" class="btn btn-primary">Ver Datos del Autor</a>
+                    <a href="{{path('favor_show', {'id':postulacion.favor.id})}}" class="btn btn-warning">Ver Favor</a>
                 </div>
             </div>
         <br>
