@@ -1,14 +1,27 @@
 {% extends 'base_logueado.html.twig' %}
 
-{% block body %}
-    <h1>Edicion de categoría</h1>
+{% block contenido %}
+    <h1>Edición de categoría</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" />
+    <div class="row desc">
+    	{{ form_row(edit_form.descripcion, {'attr':{'class':'form-control desc'}})}}
+    </div>
+    <br>
+    <input type="submit" value="Guardar" class="btn btn-block btn-success" />
     {{ form_end(edit_form) }}
 
-    <ul>
-            <a href="{{ path('categoria_index') }}">Volver</a>
-    </ul>
+    <a href="{{ path('categoria_index') }}" class="btn btn-block btn-default">Volver</a>
+
+{% endblock %}
+{% block stylesheets %}
+	{{parent()}}
+	<style type="text/css">
+		.desc ul{
+			list-style: none;
+			color:#a94442;
+		}
+
+	</style>
+
 {% endblock %}

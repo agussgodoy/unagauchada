@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Categoria
  *
  * @ORM\Table(name="categoria")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoriaRepository")
+ * @UniqueEntity("descripcion", message="Error. La categoría que intenta ingresar ya existe.")
  */
 class Categoria
 {

@@ -5,7 +5,7 @@
 
     {{ form_start(form) }}
     <div class="row">
-    	<div class="col-sm-12">
+    	<div class="col-sm-12 desc">
 			{{form_row(form.descripcion, {'attr':{'class':'form-control'}})}}
     	</div>
     </div>
@@ -13,5 +13,16 @@
     <br>
     <input type="submit" value="Crear" class="btn btn-block btn-success" />
     {{ form_end(form) }}
+
+{% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <style type="text/css">
+        .desc ul{
+            list-style: none;
+            color:#a94442;
+        }
+
+    </style>
 
 {% endblock %}
