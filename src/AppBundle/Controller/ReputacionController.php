@@ -24,7 +24,7 @@ class ReputacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $reputaciones = $em->getRepository('AppBundle:Reputacion')->findAll();
+        $reputaciones = $em->getRepository('AppBundle:Reputacion')->findBy(array(),array('maximo'=>'desc'));
 
         return $this->render('reputacion/index.html.twig', array(
             'reputaciones' => $reputaciones,
