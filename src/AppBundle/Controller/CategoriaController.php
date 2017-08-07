@@ -147,4 +147,23 @@ class CategoriaController extends Controller
         ;
     }
 
+    /**
+     * Lists all categorium entities.
+     *
+     * @Route("/{id}/habilitar", name="categoria_habilitar")
+     * @Method("GET")
+     */
+    public function habilitarAction(Categoria $categoria)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $categoria->setIsActive(true);
+        $em->persist($categoria);
+        $em->flush();
+        $session = $this->getRequest()->getSession();
+        $session->getFlashBag()->add('aviso_exito', 'Se ha habilitado la categoría con éxito.');
+
+        return $this->redirectToRoute('categoria_index');
+    }
+
 }

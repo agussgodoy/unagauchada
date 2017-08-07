@@ -23,7 +23,12 @@
                 {% for categoria in categorias %}
                     <tr>
                         <td><center> {{ categoria.id }}</center></td>
-                        <td><center> {{categoria.descripcion}}</center></td>
+                        <td><center> 
+                            {{categoria.descripcion}}
+                            {% if not categoria.isActive %}
+                             <span class="text-danger">(deshabilitada)</span>
+                            {% endif %}
+                        </center></td>
                         <td>
                             <center>
                                 <div class="btn-group">
@@ -36,7 +41,7 @@
                                             <li> <a  href="{{ path('categoria_delete', { 'id': categoria.id }) }}">Eliminar</a></li>
                                         </ul>
                                     {% else %}
-                                        <span class="text-danger">Deshabilitada</span>
+                                        <a href="{{path('categoria_habilitar', { 'id': categoria.id })}}" class="btn btn-success">Habilitar</a>
                                     {% endif %}
                                     </div>
                             </center>
