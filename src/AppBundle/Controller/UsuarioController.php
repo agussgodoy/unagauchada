@@ -206,16 +206,22 @@ class UsuarioController extends Controller
      */
     public function editAction(Request $request, Usuario $usuario)
     {
+        $pswAnterior = $usuario->getPassword();
         $deleteForm = $this->createDeleteForm($usuario);
         $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
         $editForm->handleRequest($request);
+        $session = $this->getRequest()->getSession();
         
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $session = $this->getRequest()->getSession();
-            $session->getFlashBag()->add('aviso_exito', 'Se han modificado tus datos.');
+            if($request->request->get('passwordConfirmacion') == $pswAnterior){
 
-            return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+                $this->getDoctrine()->getManager()->flush();
+                $session->getFlashBag()->add('aviso_exito', 'Se han modificado tus datos.');
+
+                return $this->redirectToRoute('usuario_show', array('id' => $usuario->getId()));
+            }else{  
+                $session->getFlashBag()->add('aviso_error', 'Contraseña incorrecta.');                
+            }
         }
 
         return $this->render('usuario/edit.html.twig', array(
